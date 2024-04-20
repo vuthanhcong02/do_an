@@ -1,0 +1,114 @@
+version: "3.8"
+
+volumes:
+  db-store:
+networks:
+  network-app:
+    driver: bridge
+
+services:
+  database:
+    container_name: db-doan-app
+    image: mariadb
+    restart: unless-stopped
+    # ports:
+    #   - 3306:3306
+    environment:
+      MARIADB_ROOT_PASSWORD: app
+      MARIADB_DATABASE: doan
+      MARIADB_USER: root
+      MARIADB_PASSWORD: app
+    volumes:
+      - ./be-app/docker/mysql/conf.d:/etc/mysql/conf.d
+      - db-store:/var/lib/mysql
+    networks:
+      - network-app
+  ###################################
+  backend:
+    container_name: php-laravel
+    restart: unless-stopped
+    build:
+      context: ./be-app
+      dockerfile: Dockerfile
+    volumes:
+      - ./be-app/:/var/www
+      - ./be-app/docker/php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      - network-app
+    ports:
+      - 9000:9000
+    environment:
+      MARIADB_HOST: database
+      MARIADB_PORT: 3306
+      MARIADB_DATABASE: doan
+      MARIADB_USER: root
+      MARIADB_PASSWORD: app
+      APP_URL: http://api.ngoaingu-tinhoc.tech
+    depends_on:
+      - database
+      - redis
+  ###################################
+  frontend:
+    container_name: react-app
+    build:
+      context: ./fe-app
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./fe-app/:/app
+      - ./fe-app/node_modules/:/app/node_modules
+    tty: true
+    ports:
+      - 3000:3000
+    networks:
+      - network-app
+    depends_on:
+      - backend
+  ####################################
+  nginx:
+    container_name: nginx-service
+    restart: unless-stopped
+    image: nginx:latest
+    volumes:
+      - ./be-app/docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./be-app/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    networks:
+      - network-app
+    depends_on:
+      - backend
+      - database
+  #####################################
+  phpmyadmin:
+    platform: linux/x86_64
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - database
+    ports:
+      - 91:80
+    environment:
+      PMA_PORT: 3306
+      PMA_HOST: database
+    networks:
+      - network-app
+  #######################################
+  redis:
+    image: redis:latest
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - network-app
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: "none" # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+    networks:
+      - network-app
