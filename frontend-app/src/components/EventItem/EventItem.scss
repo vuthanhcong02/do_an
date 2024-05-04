@@ -1,0 +1,34 @@
+.EventItem-container{
+    display: flex;
+    padding: 15px 0px;
+    border-bottom: 1px solid #d9d9d9;
+    .EventItem-image{
+        img{
+            width: 120px;
+            height: 90px;
+        }
+    }
+    .EventItem-content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 20px;
+        .EventItem-dot{
+            width:6px;
+            height: 6px;
+            background-color: #273272;
+            margin: 10px 10px 8px 0;
+        }
+        .EventItem-title{
+            span{
+                font-size: 14px;
+                &:hover{
+                    cursor: pointer;
+                    color: #273272;
+                    text-decoration: underline;
+                }
+            }
+            
+        }
+    }
+}

@@ -1,0 +1,119 @@
+.Home-container{
+    margin-top: 30px;
+    .Home-slider{
+        height:350px;
+        background-color: red;
+        img{
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            object-position: 50% 50%;
+        }
+    }
+    .Home-content{
+        margin-top: 30px;
+        padding: 20px 100px;
+        display: flex;
+        flex-direction: column;
+        height:100%;
+        .Home-content-courses-and-news{
+            display: flex;
+            height: 100%;
+            .Home-content-courses{
+                padding :10px 10px 30px 10px;
+                height: 100%;
+                background-color: white;
+                border-right: 1px solid #d9d9d9;
+                .Home-content-courses-title
+                {   
+                    background-color: #f4f4f4;
+                    color: #273272;
+                    width: 100%;
+                    padding: 10px;
+                }
+                .Home-content-courses-list{
+                    .Home-content-courses-more{
+                       display: flex;
+                       justify-content: end;
+                       align-items: center;
+                       span{
+                        text-align: end;
+                        margin-top: 10px;
+                        font-size: 14px;
+                        cursor: pointer;
+                        font-style: italic;
+                        text-decoration: underline;
+    
+                        &:hover{
+                            color: #273272;
+                        }
+                       }
+                    }
+                }
+            }
+            .Home-content-news{
+                padding :10px 10px 30px 10px;
+    
+                height: 477px;
+                background-color: white;
+                .Home-content-news-title{
+                    display: flex;
+                    align-items: center;
+                    background-color: #f4f4f4;
+                    color: #273272;
+                    width: 100%;
+                    padding: 10px;
+                }
+                .Home-content-news-list{
+                    
+                    .Home-content-news-more{
+                        display: flex;
+                        justify-content: end;
+                        align-items: center;
+                        text-align: end;
+                        margin-top: 10px;
+                        font-size: 14px;
+                        cursor: pointer;
+                        font-style: italic;
+                        text-decoration: underline;
+    
+                        &:hover{
+                            color: #273272;
+                        }
+                    }
+                }
+            }
+        }
+        .Home-content-events{
+            padding :10px 10px 30px 10px;
+            height: 100%;
+            background-color: white;
+            .Home-content-events-title{
+                display: flex;
+                align-items: center;
+                background-color: #f4f4f4;
+                color: #273272;
+                width: 100%;
+                padding: 10px;
+            }
+            .Home-content-events-list{
+                    
+                .Home-content-events-more{
+                    display: flex;
+                    justify-content: end;
+                    align-items: center;
+                    text-align: end;
+                    margin-top: 10px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    font-style: italic;
+                    text-decoration: underline;
+
+                    &:hover{
+                        color: #273272;
+                    }
+                }
+            }
+        }
+    }
+}

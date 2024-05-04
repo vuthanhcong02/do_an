@@ -1,9 +1,12 @@
 .App-container{
     display: flex;
     flex-direction: column;
+    height: 100vh;
     .App-header{
         height: 120px;
         // border: 1px solid #d9d9d9;
+        background-color: #ECF0F7;
+
         .App-header-contact{
             height: 50px;
             padding: 0 100px;
@@ -20,7 +23,8 @@
         .App-header-menu{
             margin: 20px 100px;
             .bg-body-tertiary{
-                background-color: white !important;
+                background-color: #ECF0F7 !important;
+
                 display: flex;
                 align-items: center;
                 .nav-link{
@@ -53,9 +57,12 @@
         }
     }
     .App-content{
+        height:2000px;
+        background-color: #ECF0F7;
 
     }
     .App-footer{
+       
         .App-footer-contact-container{
             display: flex;
             justify-content: space-between;
