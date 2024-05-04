@@ -1,0 +1,62 @@
+.App-container{
+    display: flex;
+    flex-direction: column;
+    .App-header{
+        height: 120px;
+        // border: 1px solid #d9d9d9;
+        .App-header-contact{
+            height: 50px;
+            padding: 0 100px;
+            background-color: #273272;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color : white;
+            font-size: 13px;
+            .App-header-contact-phone{
+                margin-right: 20px;
+            }
+        }
+        .App-header-menu{
+            margin: 20px 100px;
+            .bg-body-tertiary{
+                background-color: white !important;
+                display: flex;
+                align-items: center;
+                .nav-link{
+                    font-size: 16px;
+                    font-weight: 500;
+                    margin-right: 25px;
+                    color:#273272 !important;
+                }
+            }
+            .App-header-search-input{
+                input{
+                    border: 1px solid #d9d9d9;
+                    height: 30px;
+                    border-bottom-left-radius: 5px;
+                    outline: none;
+                    box-shadow: none;
+                    padding-left: 10px;
+                    width: 200px;
+                }
+                button{
+                    border: 1px solid #273272;
+                    height: 30px;
+                    border-bottom-right-radius: 5px;
+                    cursor: pointer;
+                    background-color: #273272;
+                    color: white;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+    .App-content{
+
+    }
+    .App-footer{
+        height: 200px;
+        border: 1px solid #d9d9d9;
+    }   
+}
