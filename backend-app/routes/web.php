@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::prefix('/admin')->group(function () {
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index']);
+});
+Route::fallback(function () {
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact info@website.com'
+    ], 404);
+});
