@@ -44,6 +44,12 @@ Route::prefix('/admin')->group(function () {
         Route::get('/show', [App\Http\Controllers\RegisterCourseController::class, 'show']);
         Route::get('/edit', [App\Http\Controllers\RegisterCourseController::class, 'edit']);
     });
+
+    Route::group(['prefix' => 'classes',], function () {
+        Route::get('/', [App\Http\Controllers\ClassController::class, 'index']);
+        Route::get('/create', [App\Http\Controllers\ClassController::class, 'create']);
+        Route::get('/edit', [App\Http\Controllers\ClassController::class, 'edit']);
+    });
 });
 Route::fallback(function () {
     return response()->json([

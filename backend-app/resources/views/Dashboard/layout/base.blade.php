@@ -452,9 +452,21 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="admin/categories"
-                                            class="{{ request()->segment(2) == 'categories' ? 'mm-active' : '' }}">
-                                            <i class="metismenu-icon"></i>Lớp học và lịch thi
+                                        <a href="admin/classes"
+                                            class="{{ request()->segment(2) == 'classes' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon"></i>Lớp học
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="admin/exam-schedules"
+                                            class="{{ request()->segment(2) == 'exam-schedules' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon"></i>Lịch thi
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="admin/results"
+                                            class="{{ request()->segment(2) == 'results' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon"></i>Kết quả thi
                                         </a>
                                     </li>
                                     <li>
