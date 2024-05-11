@@ -434,8 +434,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="admin/posts"
-                                            class="{{ request()->segment(2) == 'posts' ? 'mm-active' : '' }}">
+                                        <a href="admin/courses"
+                                            class="{{ request()->segment(2) == 'courses' ? 'mm-active' : '' }}">
                                             <i class="metismenu-icon"></i>Khóa học
                                         </a>
                                     </li>

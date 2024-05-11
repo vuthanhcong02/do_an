@@ -23,6 +23,13 @@ Route::prefix('/admin')->group(function () {
         Route::get('/create', [App\Http\Controllers\NewsController::class, 'create']);
         Route::get('/edit', [App\Http\Controllers\NewsController::class, 'edit']);
     });
+
+    Route::group(['prefix' => 'courses',], function () {
+        Route::get('/', [App\Http\Controllers\CourseController::class, 'index']);
+        Route::get('/create', [App\Http\Controllers\CourseController::class, 'create']);
+        Route::get('/show', [App\Http\Controllers\CourseController::class, 'show']);
+        Route::get('/edit', [App\Http\Controllers\CourseController::class, 'edit']);
+    });
 });
 Route::fallback(function () {
     return response()->json([

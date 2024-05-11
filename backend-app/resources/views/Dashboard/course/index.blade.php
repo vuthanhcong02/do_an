@@ -10,7 +10,7 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        News
+                        Course
                         <div class="page-title-subheading">
                             View, create, update, delete and manage.
                         </div>
@@ -59,9 +59,8 @@
                                 <tr>
                                     <th class="text-center">ID</th>
                                     <th class="text-center">Hỉnh ảnh</th>
-                                    <th class="text-center">Tiêu đề</th>
+                                    <th class="text-center">Mô tả</th>
                                     <th class="text-center">Nội dung</th>
-                                    <th class="text-center">Tác giả</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -72,15 +71,14 @@
                                         <img src="assets/images/avatars/7.png" width="50" height="50"
                                             alt="" />
                                     </td>
-                                    <td class="text-center">Image</td>
-                                    <td class="text-center">Image</td>
-                                    <td class="text-center">Image</td>
+                                    <td class="text-center">Mô tả</td>
+                                    <td class="text-center">Nội dụng</td>
                                     <td class="text-center">
-                                        <a href="./user-show.html"
+                                        <a href="admin/courses/show"
                                             class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
                                             Details
                                         </a>
-                                        <a href="admin/news/edit" data-toggle="tooltip" title="Edit"
+                                        <a href="admin/courses/edit" data-toggle="tooltip" title="Edit"
                                             data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
                                             <span class="btn-icon-wrapper opacity-8">
                                                 <i class="fa fa-edit fa-w-20"></i>
