@@ -56,6 +56,12 @@ Route::prefix('/admin')->group(function () {
         Route::get('/create', [App\Http\Controllers\ExamScheduleController::class, 'create']);
         Route::get('/edit', [App\Http\Controllers\ExamScheduleController::class, 'edit']);
     });
+
+    Route::group(['prefix' => 'notifications/exam-results',], function () {
+        Route::get('/', [App\Http\Controllers\ExamResultController::class, 'index']);
+        Route::get('/create', [App\Http\Controllers\ExamResultController::class, 'create']);
+        Route::get('/edit', [App\Http\Controllers\ExamResultController::class, 'edit']);
+    });
 });
 Route::fallback(function () {
     return response()->json([

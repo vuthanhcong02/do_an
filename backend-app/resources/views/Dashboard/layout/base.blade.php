@@ -417,7 +417,7 @@
 
                             <li class="mm-active">
                                 <a href="#">
-                                    <i class="metismenu-icon pe-7s-plugin"></i>Managers
+                                    <i class="metismenu-icon pe-7s-plugin"></i>Danh sách quản lí
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
@@ -471,8 +471,8 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="admin/results"
-                                                    class="{{ request()->segment(2) == 'results' ? 'mm-active' : '' }}">
+                                                <a href="admin/notifications/exam-results"
+                                                    class="{{ request()->segment(3) == 'exam-results' ? 'mm-active' : '' }}">
                                                     <i class="metismenu-icon"></i>Kết quả thi
                                                 </a>
                                             </li>
