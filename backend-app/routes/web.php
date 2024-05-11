@@ -30,6 +30,13 @@ Route::prefix('/admin')->group(function () {
         Route::get('/show', [App\Http\Controllers\CourseController::class, 'show']);
         Route::get('/edit', [App\Http\Controllers\CourseController::class, 'edit']);
     });
+
+    Route::group(['prefix' => 'users',], function () {
+        Route::get('/', [App\Http\Controllers\UserController::class, 'index']);
+        Route::get('/create', [App\Http\Controllers\UserController::class, 'create']);
+        Route::get('/show', [App\Http\Controllers\UserController::class, 'show']);
+        Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit']);
+    });
 });
 Route::fallback(function () {
     return response()->json([

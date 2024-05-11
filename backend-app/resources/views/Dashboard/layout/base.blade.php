@@ -440,15 +440,15 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="admin/tags"
-                                            class="{{ request()->segment(2) == 'tags' ? 'mm-active' : '' }}">
-                                            <i class="metismenu-icon"></i>Học viên
+                                        <a href="admin/users"
+                                            class="{{ request()->segment(2) == 'users' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon"></i>Người dùng
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="admin/post-tags"
+                                        <a href="admin/"
                                             class="{{ request()->segment(2) == 'post-tags' ? 'mm-active' : '' }}">
-                                            <i class="metismenu-icon"></i>Giảng viên
+                                            <i class="metismenu-icon"></i>Đăng kí học
                                         </a>
                                     </li>
                                     <li>
