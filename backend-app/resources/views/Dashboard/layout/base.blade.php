@@ -457,23 +457,26 @@
                                             <i class="metismenu-icon"></i>Lớp học
                                         </a>
                                     </li>
+
+
                                     <li>
-                                        <a href="admin/exam-schedules"
-                                            class="{{ request()->segment(2) == 'exam-schedules' ? 'mm-active' : '' }}">
-                                            <i class="metismenu-icon"></i>Lịch thi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="admin/results"
-                                            class="{{ request()->segment(2) == 'results' ? 'mm-active' : '' }}">
-                                            <i class="metismenu-icon"></i>Kết quả thi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="admin/comments"
-                                            class="{{ request()->segment(2) == 'comments' ? 'mm-active' : '' }}">
+                                        <a class="{{ request()->segment(2) == 'notifications' ? 'mm-active' : '' }}">
                                             <i class="metismenu-icon"></i>Thông báo
                                         </a>
+                                        <ul>
+                                            <li>
+                                                <a href="admin/notifications/exam-schedules"
+                                                    class="{{ request()->segment(3) == 'exam-schedules' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon"></i>Lịch thi
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="admin/results"
+                                                    class="{{ request()->segment(2) == 'results' ? 'mm-active' : '' }}">
+                                                    <i class="metismenu-icon"></i>Kết quả thi
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </li>
