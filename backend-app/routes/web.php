@@ -18,6 +18,11 @@ Route::get('/', function () {
 });
 Route::prefix('/admin')->group(function () {
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index']);
+    Route::group(['prefix' => 'news',], function () {
+        Route::get('/', [App\Http\Controllers\NewsController::class, 'index']);
+        Route::get('/create', [App\Http\Controllers\NewsController::class, 'create']);
+        Route::get('/edit', [App\Http\Controllers\NewsController::class, 'edit']);
+    });
 });
 Route::fallback(function () {
     return response()->json([

@@ -428,8 +428,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="admin/users"
-                                            class="{{ request()->segment(2) == 'users' ? 'mm-active' : '' }}">
+                                        <a href="admin/news"
+                                            class="{{ request()->segment(2) == 'news' ? 'mm-active' : '' }}">
                                             <i class="metismenu-icon"></i>Bài đăng - tin tức
                                         </a>
                                     </li>
