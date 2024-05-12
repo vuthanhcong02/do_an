@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
@@ -14,7 +13,7 @@ import {
   faYoutube,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
-
+import { NavLink } from "react-router-dom";
 export default function Header() {
   return (
     <>
@@ -62,10 +61,12 @@ export default function Header() {
                 </Offcanvas.Header>
                 <Offcanvas.Body className="align-items-center">
                   <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <Nav.Link href="#action1" active>
+                    <NavLink to="/" className="nav-link">
                       Trang chủ
-                    </Nav.Link>
-                    <Nav.Link href="#action2">Tin tức</Nav.Link>
+                    </NavLink>
+                    <NavLink to="/news" className="nav-link">
+                      Tin tức
+                    </NavLink>
 
                     <NavDropdown
                       href="#action2"

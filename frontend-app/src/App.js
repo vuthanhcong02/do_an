@@ -1,20 +1,18 @@
 import "./App.scss";
-import Footer from "./components/Layouts/Footer/Footer";
-import Header from "./components/Layouts/Header/Header";
+import MainLayout from "./components/Layouts/MainLayout";
 import Home from "./components/pages/Home/Home";
-
+import { Routes, Route } from "react-router-dom";
+import News from "./components/pages/News/News";
 function App() {
   return (
     <div className="App-container">
-      <div className="App-header">
-        <Header />
-      </div>
-      <div className="App-content">
-        <Home />
-      </div>
-      <div className="App-footer">
-        <Footer />
-      </div>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/news" element={<News />} />
+          {/* <Route path="tasks" element={<DashboardTasks />} /> */}
+        </Route>
+      </Routes>
     </div>
   );
 }
