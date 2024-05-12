@@ -4,7 +4,6 @@ import NewsItem from "../../NewsItem/NewsItem";
 import EventItem from "../../EventItem/EventItem";
 import { Link } from "react-router-dom";
 export default function News() {
-  const news = [1, 2, 3, 4, 5, 6];
   return (
     <div className="News-container row">
       <div className="News-content col-md-9">

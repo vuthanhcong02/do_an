@@ -1,0 +1,33 @@
+.Notification-container{
+    display: flex;
+    padding: 20px 100px;
+    min-height: 1000px;
+    .Notification-content{
+        width: 100%;
+        background-color: white;
+        padding: 0 10px;
+        .Notification-content-title{
+            margin-top: 10px;
+            background-color: #273272;
+            color: white;
+            padding: 10px;
+        }
+        .Notification-content-item{
+
+            .Notification-content-item-title{
+                padding: 10px;
+                cursor: pointer;
+                span{
+                    font-size: 14px;
+                    font-weight: 600;
+                    border:1px solid #273272;
+                    padding: 5px 10px;
+                }
+            }
+            .Notification-content-item-content{
+                padding: 10px 0;
+            }
+        }
+    }
+    
+}

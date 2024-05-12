@@ -1,0 +1,35 @@
+.Notification-item-container{
+    .Notification-item-title{
+        display: flex;  
+        align-items: start;
+        .Notification-item-title-dot{
+            width: 10px;
+            height: 5px;
+            background-color: #273272;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        .Notification-item-title-text{
+            font-size: 14px;
+            font-weight: 600;
+            color:black;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+    .Notification-item-content{
+
+        .Notification-item-content-dot{
+            width: 3px;
+            margin: 0 6px;
+            height:20px;
+            background-color: #273272;
+        }
+        span{
+            font-size: 12px !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+    }
+}
