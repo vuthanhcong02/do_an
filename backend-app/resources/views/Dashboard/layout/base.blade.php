@@ -428,6 +428,12 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="admin/banners"
+                                            class="{{ request()->segment(2) == 'banners' ? 'mm-active' : '' }}">
+                                            <i class="metismenu-icon"></i>Banner
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="admin/news"
                                             class="{{ request()->segment(2) == 'news' ? 'mm-active' : '' }}">
                                             <i class="metismenu-icon"></i>Bài đăng - tin tức

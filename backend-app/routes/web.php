@@ -18,6 +18,13 @@ Route::get('/', function () {
 });
 Route::prefix('/admin')->group(function () {
     Route::get('/', [App\Http\Controllers\DashboardController::class, 'index']);
+
+    Route::group(['prefix' => 'banners',], function () {
+        Route::get('/', [App\Http\Controllers\BannerController::class, 'index']);
+        Route::get('/create', [App\Http\Controllers\BannerController::class, 'create']);
+        Route::get('/edit', [App\Http\Controllers\BannerController::class, 'edit']);
+    });
+
     Route::group(['prefix' => 'news',], function () {
         Route::get('/', [App\Http\Controllers\NewsController::class, 'index']);
         Route::get('/create', [App\Http\Controllers\NewsController::class, 'create']);

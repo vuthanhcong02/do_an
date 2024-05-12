@@ -10,7 +10,7 @@
                         <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                     </div>
                     <div>
-                        Course
+                        Banner
                         <div class="page-title-subheading">
                             View, create, update, delete and manage.
                         </div>
@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="page-title-actions">
-                    <a href="admin/courses/create" class="btn-shadow btn-hover-shine mr-3 btn btn-primary">
+                    <a href="admin/banners/create" class="btn-shadow btn-hover-shine mr-3 btn btn-primary">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fa fa-plus fa-w-20"></i>
                         </span>
@@ -59,8 +59,9 @@
                                 <tr>
                                     <th class="text-center">ID</th>
                                     <th class="text-center">Hỉnh ảnh</th>
-                                    <th class="text-center">Mô tả</th>
-                                    <th class="text-center">Nội dung</th>
+                                    <th class="text-center">Title</th>
+                                    <th class="text-center">Số thứ xuất hiện</th>
+                                    <th class="text-center">Trạng thái</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -72,13 +73,11 @@
                                             alt="" />
                                     </td>
                                     <td class="text-center">Mô tả</td>
-                                    <td class="text-center">Nội dụng</td>
+                                    <td class="text-center">1</td>
+                                    <td class="text-center"><span class="badge badge-success">Active</span></td>
                                     <td class="text-center">
-                                        <a href="admin/courses/show"
-                                            class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
-                                            Details
-                                        </a>
-                                        <a href="admin/courses/edit" data-toggle="tooltip" title="Edit"
+
+                                        <a href="admin/banners/edit" data-toggle="tooltip" title="Edit"
                                             data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
                                             <span class="btn-icon-wrapper opacity-8">
                                                 <i class="fa fa-edit fa-w-20"></i>
