@@ -80,8 +80,12 @@ export default function Header() {
                         Tin tức
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link href="#action2">Thông báo</Nav.Link>
-                    <Nav.Link href="#action2">Liên hệ</Nav.Link>
+                    <NavLink to="/notifications" className="nav-link">
+                      Thông báo
+                    </NavLink>
+                    <NavLink to="/contacts" className="nav-link">
+                      Liên hệ
+                    </NavLink>
                   </Nav>
                   <Form className="d-flex App-header-search-input">
                     <input

@@ -19,6 +19,13 @@ export default function News() {
           <EventItem />
           <EventItem />
           <EventItem />
+          <EventItem />
+
+          <EventItem />
+          <EventItem />
+
+          <EventItem />
+
           <div className="News-content-pagination mt-3">
             <ul class="pagination justify-content-end">
               <li class="page-item disabled">

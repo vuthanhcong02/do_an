@@ -1,10 +1,9 @@
 .News-container{
     display: flex;
     width: 100%;
-    height: 1000px;
+    min-height: 1000px;
     margin-top: 30px;
-    padding: 0px 100px;
-    border-top: 1px solid #d9d9d9;
+    padding: 20px 100px;
     .News-content{
         .News-content-title{
             background-color: #273272;
