@@ -10,11 +10,11 @@
     }
     .EventItem-content{
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: space-between;
+        align-items: start;
         margin-left: 20px;
         .EventItem-dot{
-            width:6px;
+            width:6px !important;
             height: 6px;
             background-color: #273272;
             margin: 10px 10px 8px 0;

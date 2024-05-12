@@ -7,7 +7,8 @@ import CourseItem from "../../CourseItem/CourseItem";
 import EventItem from "../../EventItem/EventItem";
 export default function Home() {
   const [index, setIndex] = useState(0);
-
+  const description =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, ";
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
@@ -65,9 +66,9 @@ export default function Home() {
                 <span>Tuyển sinh khóa học</span>
               </div>
               <div className="Home-content-courses-list">
-                <CourseItem />
-                <CourseItem />
-                <CourseItem />
+                <CourseItem description={description} />
+                <CourseItem description={description} />
+                <CourseItem description={description} />
                 <div className="Home-content-courses-more">
                   <span>Xem thêm </span>
                 </div>

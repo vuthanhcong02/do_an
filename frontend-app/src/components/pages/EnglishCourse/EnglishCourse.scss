@@ -1,0 +1,24 @@
+.EnglishCourse-container{
+    padding: 20px 100px;
+    display: flex;
+    min-height: 1000px;
+    .EnglishCourse-content{
+        width: 100%;
+        background-color: white;
+        padding: 0 10px;
+        .EnglishCourse-content-title{
+            margin-top: 10px;
+            background-color: #273272;
+            color: white;
+            padding: 10px;
+            
+        }
+        .EnglishCourse-content-item{
+            .active>.page-link, .page-link.active {
+                background-color: #273272;
+                color: white;
+                border-color: #273272;
+            }
+        }
+    }
+}

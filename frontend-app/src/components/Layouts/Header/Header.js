@@ -73,12 +73,15 @@ export default function Header() {
                       title="Đào tạo"
                       id="offcanvasNavbarDropdown-expand-${expand}"
                     >
-                      <NavDropdown.Item href="#action3">
+                      <NavLink className="dropdown-item" to="/english-courses">
                         Ngoại ngữ
-                      </NavDropdown.Item>
-                      <NavDropdown.Item href="#action4">
-                        Tin tức
-                      </NavDropdown.Item>
+                      </NavLink>
+                      <NavLink
+                        className="dropdown-item"
+                        to="/information-courses"
+                      >
+                        Tin học
+                      </NavLink>
                     </NavDropdown>
                     <NavLink to="/notifications" className="nav-link">
                       Thông báo

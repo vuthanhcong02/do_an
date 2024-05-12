@@ -10,11 +10,11 @@
     }
     .CourseItem-content{
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: space-between;
+        align-items: start;
         margin-left: 20px;
         .CourseItem-dot{
-            width:6px;
+            width:8px;
             height: 6px;
             background-color: #273272;
             margin: 10px 10px 8px 0;
@@ -28,7 +28,15 @@
                     text-decoration: underline;
                 }
             }
+            .CourseItem-title-text{
+                font-size: 14px;
+                font-weight: 600;
+                color: black;
+            }
             
+        }
+        .CourseItem-description{
+            font-size: 13px;
         }
     }
 }

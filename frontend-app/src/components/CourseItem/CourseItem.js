@@ -1,6 +1,6 @@
 import React from "react";
 import "./CourseItem.scss";
-export default function CourseItem() {
+export default function CourseItem({ title, image, description }) {
   return (
     <div className="CourseItem-container">
       <div className="CourseItem-image">
@@ -9,9 +9,10 @@ export default function CourseItem() {
       <div className="CourseItem-content">
         <div className="CourseItem-dot"></div>
         <div className="CourseItem-title">
-          <span>
+          <span className="CourseItem-title-text">
             Kế hoạch tổ chức các lớp bồi dưỡng, ôn tập tiếng Anh theo...
           </span>
+          <p className="CourseItem-description">{description}</p>
         </div>
       </div>
     </div>
