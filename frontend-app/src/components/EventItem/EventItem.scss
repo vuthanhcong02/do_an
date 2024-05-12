@@ -22,13 +22,17 @@
         .EventItem-title{
             span{
                 font-size: 14px;
+                font-weight: 600;
+                color: black;
                 &:hover{
                     cursor: pointer;
                     color: #273272;
                     text-decoration: underline;
                 }
             }
-            
+            .EventItem-description{
+                font-size: 14px;
+            }
         }
     }
 }

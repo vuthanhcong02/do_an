@@ -95,7 +95,8 @@ export default function Home() {
             <div className="Home-content-events-list">
               <EventItem />
               <EventItem />
-
+              <EventItem />
+              <EventItem />
               <div className="Home-content-events-more">
                 <span>Xem thêm </span>
               </div>
