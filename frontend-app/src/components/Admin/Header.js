@@ -2,208 +2,397 @@ import React from "react";
 
 export default function Header() {
   return (
-    <div>
-      {/* Navbar */}
-      <nav className="main-header navbar navbar-expand navbar-white navbar-light">
-        {/* Left navbar links */}
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              data-widget="pushmenu"
-              href="#"
-              role="button"
-            >
-              <i className="fas fa-bars" />
-            </a>
-          </li>
-          <li className="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" className="nav-link">
-              Home
-            </a>
-          </li>
-          <li className="nav-item d-none d-sm-inline-block">
-            <a href="#" className="nav-link">
-              Contact
-            </a>
-          </li>
-        </ul>
-        {/* Right navbar links */}
-        <ul className="navbar-nav ml-auto">
-          {/* Navbar Search */}
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              data-widget="navbar-search"
-              href="#"
-              role="button"
-            >
-              <i className="fas fa-search" />
-            </a>
-            <div className="navbar-search-block">
-              <form className="form-inline">
-                <div className="input-group input-group-sm">
-                  <input
-                    className="form-control form-control-navbar"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                  <div className="input-group-append">
-                    <button className="btn btn-navbar" type="submit">
-                      <i className="fas fa-search" />
-                    </button>
-                    <button
-                      className="btn btn-navbar"
-                      type="button"
-                      data-widget="navbar-search"
-                    >
-                      <i className="fas fa-times" />
-                    </button>
-                  </div>
-                </div>
-              </form>
+    <>
+      <div className="app-header header-shadow">
+        <div className="app-header__logo">
+          <div className="logo-src" />
+          <div className="header__pane ml-auto">
+            <div>
+              <button
+                type="button"
+                className="hamburger close-sidebar-btn hamburger--elastic"
+                data-class="closed-sidebar"
+              >
+                <span className="hamburger-box">
+                  <span className="hamburger-inner" />
+                </span>
+              </button>
             </div>
-          </li>
-          {/* Messages Dropdown Menu */}
-          <li className="nav-item dropdown">
-            <a className="nav-link" data-toggle="dropdown" href="#">
-              <i className="far fa-comments" />
-              <span className="badge badge-danger navbar-badge">3</span>
-            </a>
-            <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <a href="#" className="dropdown-item">
-                {/* Message Start */}
-                <div className="media">
-                  <img
-                    src="dist/img/user1-128x128.jpg"
-                    alt="User Avatar"
-                    className="img-size-50 mr-3 img-circle"
-                  />
-                  <div className="media-body">
-                    <h3 className="dropdown-item-title">
-                      Brad Diesel
-                      <span className="float-right text-sm text-danger">
-                        <i className="fas fa-star" />
-                      </span>
-                    </h3>
-                    <p className="text-sm">Call me whenever you can...</p>
-                    <p className="text-sm text-muted">
-                      <i className="far fa-clock mr-1" /> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                {/* Message End */}
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item">
-                {/* Message Start */}
-                <div className="media">
-                  <img
-                    src="dist/img/user8-128x128.jpg"
-                    alt="User Avatar"
-                    className="img-size-50 img-circle mr-3"
-                  />
-                  <div className="media-body">
-                    <h3 className="dropdown-item-title">
-                      John Pierce
-                      <span className="float-right text-sm text-muted">
-                        <i className="fas fa-star" />
-                      </span>
-                    </h3>
-                    <p className="text-sm">I got your message bro</p>
-                    <p className="text-sm text-muted">
-                      <i className="far fa-clock mr-1" /> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                {/* Message End */}
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item">
-                {/* Message Start */}
-                <div className="media">
-                  <img
-                    src="dist/img/user3-128x128.jpg"
-                    alt="User Avatar"
-                    className="img-size-50 img-circle mr-3"
-                  />
-                  <div className="media-body">
-                    <h3 className="dropdown-item-title">
-                      Nora Silvester
-                      <span className="float-right text-sm text-warning">
-                        <i className="fas fa-star" />
-                      </span>
-                    </h3>
-                    <p className="text-sm">The subject goes here</p>
-                    <p className="text-sm text-muted">
-                      <i className="far fa-clock mr-1" /> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                {/* Message End */}
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item dropdown-footer">
-                See All Messages
-              </a>
-            </div>
-          </li>
-          {/* Notifications Dropdown Menu */}
-          <li className="nav-item dropdown">
-            <a className="nav-link" data-toggle="dropdown" href="#">
-              <i className="far fa-bell" />
-              <span className="badge badge-warning navbar-badge">15</span>
-            </a>
-            <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <span className="dropdown-item dropdown-header">
-                15 Notifications
+          </div>
+        </div>
+        <div className="app-header__mobile-menu">
+          <div>
+            <button
+              type="button"
+              className="hamburger hamburger--elastic mobile-toggle-nav"
+            >
+              <span className="hamburger-box">
+                <span className="hamburger-inner" />
               </span>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item">
-                <i className="fas fa-envelope mr-2" /> 4 new messages
-                <span className="float-right text-muted text-sm">3 mins</span>
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item">
-                <i className="fas fa-users mr-2" /> 8 friend requests
-                <span className="float-right text-muted text-sm">12 hours</span>
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item">
-                <i className="fas fa-file mr-2" /> 3 new reports
-                <span className="float-right text-muted text-sm">2 days</span>
-              </a>
-              <div className="dropdown-divider" />
-              <a href="#" className="dropdown-item dropdown-footer">
-                See All Notifications
-              </a>
+            </button>
+          </div>
+        </div>
+        <div className="app-header__menu">
+          <span>
+            <button
+              type="button"
+              className="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav"
+            >
+              <span className="btn-icon-wrapper">
+                <i className="fa fa-ellipsis-v fa-w-6" />
+              </span>
+            </button>
+          </span>
+        </div>
+        <div className="app-header__content">
+          <div className="app-header-left">
+            <div className="search-wrapper">
+              <div className="input-holder">
+                <input
+                  type="text"
+                  className="search-input"
+                  placeholder="Type to search"
+                />
+                <button className="search-icon">
+                  <span />
+                </button>
+              </div>
+              <button className="close" />
             </div>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              data-widget="fullscreen"
-              href="#"
-              role="button"
-            >
-              <i className="fas fa-expand-arrows-alt" />
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              data-widget="control-sidebar"
-              data-controlsidebar-slide="true"
-              href="#"
-              role="button"
-            >
-              <i className="fas fa-th-large" />
-            </a>
-          </li>
-        </ul>
-      </nav>
-      {/* /.navbar */}
-    </div>
+          </div>
+          <div className="app-header-right">
+            <div className="header-dots">
+              <div className="dropdown">
+                <button
+                  type="button"
+                  data-toggle="dropdown"
+                  className="p-0 mr-2 btn btn-link"
+                >
+                  <span className="icon-wrapper icon-wrapper-alt rounded-circle">
+                    <span className="icon-wrapper-bg bg-focus" />
+                    <span className="language-icon opacity-8 flag large DE" />
+                  </span>
+                </button>
+                {/* Choose Language */}
+                <div
+                  tabIndex={-1}
+                  role="menu"
+                  aria-hidden="true"
+                  className="rm-pointers dropdown-menu dropdown-menu-right"
+                >
+                  <div className="dropdown-menu-header">
+                    <div className="dropdown-menu-header-inner pt-4 pb-4 bg-focus">
+                      <div
+                        className="menu-header-image opacity-05"
+                        style={{
+                          backgroundImage:
+                            'url("assets/images/dropdown-header/city2.jpg")',
+                        }}
+                      ></div>
+                      <div className="menu-header-content text-center text-white">
+                        <h6 className="menu-header-subtitle mt-0">
+                          {" "}
+                          Choose Language
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                  <h6 tabIndex={-1} className="dropdown-header">
+                    {" "}
+                    Popular Languages
+                  </h6>
+                  <button type="button" tabIndex={0} className="dropdown-item">
+                    <span className="mr-3 opacity-8 flag large US" /> English
+                  </button>
+                  <button type="button" tabIndex={0} className="dropdown-item">
+                    <span className="mr-3 opacity-8 flag large VN" />
+                    Việt Nam
+                  </button>
+                  <div tabIndex={-1} className="dropdown-divider" />
+                  <h6 tabIndex={-1} className="dropdown-header">
+                    Others
+                  </h6>
+                  <button
+                    type="button"
+                    tabIndex={0}
+                    className="dropdown-item active"
+                  >
+                    <span className="mr-3 opacity-8 flag large DE" /> Germany
+                  </button>
+                  <button type="button" tabIndex={0} className="dropdown-item">
+                    <span className="mr-3 opacity-8 flag large IT" /> Italy
+                  </button>
+                </div>
+                {/* /Choose Language */}
+              </div>
+              {/* User Online */}
+              <div className="dropdown">
+                <button
+                  type="button"
+                  aria-haspopup="true"
+                  data-toggle="dropdown"
+                  aria-expanded="false"
+                  className="p-0 btn btn-link dd-chart-btn"
+                >
+                  <span className="icon-wrapper icon-wrapper-alt rounded-circle">
+                    <span className="icon-wrapper-bg bg-success" />
+                    <i className="icon text-success ion-ios-analytics" />
+                  </span>
+                </button>
+                <div
+                  tabIndex={-1}
+                  role="menu"
+                  aria-hidden="true"
+                  className="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right"
+                >
+                  <div className="dropdown-menu-header">
+                    <div className="dropdown-menu-header-inner bg-premium-dark">
+                      <div
+                        className="menu-header-image"
+                        style={{
+                          backgroundImage:
+                            'url("assets/images/dropdown-header/abstract4.jpg")',
+                        }}
+                      ></div>
+                      <div className="menu-header-content text-white">
+                        <h5 className="menu-header-title">Users Online</h5>
+                        <h6 className="menu-header-subtitle">
+                          Recent Account Activity Overview
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="widget-chart">
+                    <div className="widget-chart-content">
+                      <div className="icon-wrapper rounded-circle">
+                        <div className="icon-wrapper-bg opacity-9 bg-focus" />
+                        <i className="lnr-users text-white" />
+                      </div>
+                      <div className="widget-numbers">
+                        <span>344k</span>
+                      </div>
+                      <div className="widget-subheading pt-2">
+                        Profile views since last login
+                      </div>
+                      <div className="widget-description text-danger">
+                        <span className="pr-1">
+                          <span>176%</span>
+                        </span>
+                        <i className="fa fa-arrow-left" />
+                      </div>
+                    </div>
+                    <div className="widget-chart-wrapper">
+                      <div id="dashboard-sparkline-carousel-3-pop" />
+                    </div>
+                  </div>
+                  <ul className="nav flex-column">
+                    <li className="nav-item-divider mt-0 nav-item" />
+                    <li className="nav-item-btn text-center nav-item">
+                      <button className="btn-shine btn-wide btn-pill btn btn-warning btn-sm">
+                        <i className="fa fa-cog fa-spin mr-2" />
+                        View Details
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              {/* /User Online */}
+            </div>
+            {/* User Information */}
+            <div className="header-btn-lg pr-0">
+              <div className="widget-content p-0">
+                <div className="widget-content-wrapper">
+                  <div className="widget-content-left">
+                    <div className="btn-group">
+                      <a
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        className="p-0 btn"
+                      >
+                        <img
+                          width={42}
+                          className="rounded-circle"
+                          height={42}
+                          style={{ borderRadius: "50%" }}
+                          src
+                          alt
+                        />
+                        <i className="fa fa-angle-down ml-2 opacity-8" />
+                      </a>
+                      <div
+                        tabIndex={-1}
+                        role="menu"
+                        aria-hidden="true"
+                        className="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right"
+                      >
+                        <div className="dropdown-menu-header">
+                          <div className="dropdown-menu-header-inner bg-info">
+                            <div
+                              className="menu-header-image opacity-2"
+                              style={{
+                                backgroundImage:
+                                  'url("Dashboard/assets/images/dropdown-header/city3.jpg")',
+                              }}
+                            ></div>
+                            <div className="menu-header-content text-left">
+                              <div className="widget-content p-0">
+                                <div className="widget-content-wrapper">
+                                  <div className="widget-content-left mr-3">
+                                    {"{"}
+                                    {"{"}--{" "}
+                                    <img
+                                      width={42}
+                                      height={42}
+                                      alt="rounded-circle"
+                                      style={{ borderRadius: "50%" }}
+                                      src="assets/images/avatar/{{ Auth::user()->avatar ?? 'default-avatar.jpeg' }}"
+                                    />{" "}
+                                    --{"}"}
+                                    {"}"}
+                                  </div>
+                                  <div className="widget-content-left">
+                                    <div className="widget-heading">
+                                      đsjdlsd
+                                    </div>
+                                    <div className="widget-subheading opacity-8">
+                                      dsdjsdjs
+                                    </div>
+                                  </div>
+                                  <div className="widget-content-right mr-2">
+                                    <a
+                                      href="/admin/logout"
+                                      className="btn-pill btn-shadow btn-shine btn btn-focus"
+                                    >
+                                      Logout
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="scroll-area-xs" style={{ height: 150 }}>
+                          <div className="scrollbar-container ps">
+                            <ul className="nav flex-column">
+                              <li className="nav-item-header nav-item">
+                                Activity
+                              </li>
+                              <li className="nav-item">
+                                <a
+                                  href="javascript:void(0);"
+                                  className="nav-link"
+                                >
+                                  Chat
+                                  <div className="ml-auto badge badge-pill badge-info">
+                                    8
+                                  </div>
+                                </a>
+                              </li>
+                              <li className="nav-item">
+                                <a
+                                  href="javascript:void(0);"
+                                  className="nav-link"
+                                >
+                                  Recover Password
+                                </a>
+                              </li>
+                              <li className="nav-item-header nav-item">
+                                My Account
+                              </li>
+                              <li className="nav-item">
+                                <a
+                                  href="javascript:void(0);"
+                                  className="nav-link"
+                                >
+                                  Settings
+                                  <div className="ml-auto badge badge-success">
+                                    New
+                                  </div>
+                                </a>
+                              </li>
+                              <li className="nav-item">
+                                <a
+                                  href="javascript:void(0);"
+                                  className="nav-link"
+                                >
+                                  Messages
+                                  <div className="ml-auto badge badge-warning">
+                                    512
+                                  </div>
+                                </a>
+                              </li>
+                              <li className="nav-item">
+                                <a
+                                  href="javascript:void(0);"
+                                  className="nav-link"
+                                >
+                                  Logs
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <ul className="nav flex-column">
+                          <li className="nav-item-divider mb-0 nav-item" />
+                        </ul>
+                        <div className="grid-menu grid-menu-2col">
+                          <div className="no-gutters row">
+                            <div className="col-sm-6">
+                              <button className="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
+                                <i className="pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2" />
+                                Message Inbox
+                              </button>
+                            </div>
+                            <div className="col-sm-6">
+                              <button className="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">
+                                <i className="pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2" />
+                                <b>Support Tickets</b>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <ul className="nav flex-column">
+                          <li className="nav-item-divider nav-item"></li>
+                          <li className="nav-item-btn text-center nav-item">
+                            <button className="btn-wide btn btn-primary btn-sm">
+                              {" "}
+                              Open Messages
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="widget-content-left  ml-3 header-user-info">
+                    <div className="widget-heading"> dsdsdj</div>
+                    <div className="widget-subheading"> dsjdksjdskdj</div>
+                  </div>
+                  <div className="widget-content-right header-user-info ml-3">
+                    <button
+                      type="button"
+                      className="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example"
+                    >
+                      <i className="fa text-white fa-calendar pr-1 pl-1" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* End User Information */}
+            <div className="header-btn-lg">
+              <button
+                type="button"
+                className="hamburger hamburger--elastic open-right-drawer"
+              >
+                <span className="hamburger-box">
+                  <span className="hamburger-inner" />
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

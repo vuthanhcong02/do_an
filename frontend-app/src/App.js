@@ -8,6 +8,9 @@ import Notification from "./components/pages/Notification/Notification";
 import EnglishCourse from "./components/pages/EnglishCourse/EnglishCourse";
 import ITCourse from "./components/pages/ITCourse/ITCourse";
 import PrivateLayout from "./components/Layouts/PrivateLayout";
+import HomeAdmin from "./components/pages/Admin/HomeAdmin";
+import ManagerBanner from "./components/pages/Admin/Banner/ManagerBanner";
+import CreateBanner from "./components/pages/Admin/Banner/CreateBanner";
 function App() {
   return (
     <div className="App-container">
@@ -20,7 +23,13 @@ function App() {
           <Route path="/english-courses" element={<EnglishCourse />} />
           <Route path="/information-courses" element={<ITCourse />} />
         </Route>
-        <Route path="/admin" element={<PrivateLayout />}></Route>
+        <Route path="/admin" element={<PrivateLayout />}>
+          <Route index element={<HomeAdmin />} />
+          {/* Di chuyển route "/banners" vào trong route "/admin" */}
+          <Route path="banners" element={<ManagerBanner />} />
+          <Route path="banners/create" element={<CreateBanner />} />
+          <Route path="banners/:id/edit" element={<CreateBanner />} />
+        </Route>
       </Routes>
     </div>
   );
