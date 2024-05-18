@@ -7,6 +7,7 @@ import Contact from "./components/pages/Contact/Contact";
 import Notification from "./components/pages/Notification/Notification";
 import EnglishCourse from "./components/pages/EnglishCourse/EnglishCourse";
 import ITCourse from "./components/pages/ITCourse/ITCourse";
+import PrivateLayout from "./components/Layouts/PrivateLayout";
 function App() {
   return (
     <div className="App-container">
@@ -19,6 +20,7 @@ function App() {
           <Route path="/english-courses" element={<EnglishCourse />} />
           <Route path="/information-courses" element={<ITCourse />} />
         </Route>
+        <Route path="/admin" element={<PrivateLayout />}></Route>
       </Routes>
     </div>
   );
