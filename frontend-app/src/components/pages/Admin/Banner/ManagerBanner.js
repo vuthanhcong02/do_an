@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { getBanners } from "../../../../services/BannerService";
 export default function ManagerBanner() {
+  const [banners, setBanners] = useState([]);
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      const res = await getBanners();
+      if (res.success === true) {
+        console.log(res.banners.data);
+        setBanners(res.banners.data);
+      }
+    };
+    fetchBanners();
+  }, []);
   return (
     <div className="app-main__inner">
       <div className="app-page-title">
@@ -71,49 +84,58 @@ export default function ManagerBanner() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="text-center text-muted">#01</td>
-                    <td className="text-center">
-                      <img
-                        src="assets/images/avatars/1.png"
-                        width={50}
-                        height={50}
-                        alt-=""
-                      />
-                    </td>
-                    <td className="text-center">Mô tả</td>
-                    <td className="text-center">1</td>
-                    <td className="text-center">
-                      <span className="badge badge-success">Active</span>
-                    </td>
-                    <td className="text-center">
-                      <NavLink
-                        to="1/edit"
-                        data-toggle="tooltip"
-                        title="Edit"
-                        data-placement="bottom"
-                        className="btn btn-outline-warning border-0 btn-sm"
-                      >
-                        <span className="btn-icon-wrapper opacity-8">
-                          <i className="fa fa-edit fa-w-20" />
-                        </span>
-                      </NavLink>
-                      <form className="d-inline" action method="post">
-                        <button
-                          className="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
-                          type="submit"
-                          data-toggle="tooltip"
-                          title="Delete"
-                          data-placement="bottom"
-                          onclick="return confirm('Do you really want to delete this item?')"
-                        >
-                          <span className="btn-icon-wrapper opacity-8">
-                            <i className="fa fa-trash fa-w-20" />
+                  {banners.length > 0 &&
+                    banners.map((banner) => (
+                      <tr>
+                        <td className="text-center text-muted">#01</td>
+                        <td className="text-center">
+                          <img
+                            src="assets/images/avatars/1.png"
+                            width={50}
+                            height={50}
+                            alt-=""
+                          />
+                        </td>
+                        <td className="text-center">{banner?.title}</td>
+                        <td className="text-center">{banner?.position}</td>
+                        <td className="text-center">
+                          <span
+                            className={`badge badge-${
+                              banner?.status === 1 ? "success" : "danger"
+                            }`}
+                          >
+                            {banner?.status === 1 ? "Active" : "Inactive"}
                           </span>
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
+                        </td>
+                        <td className="text-center">
+                          <NavLink
+                            to="1/edit"
+                            data-toggle="tooltip"
+                            title="Edit"
+                            data-placement="bottom"
+                            className="btn btn-outline-warning border-0 btn-sm"
+                          >
+                            <span className="btn-icon-wrapper opacity-8">
+                              <i className="fa fa-edit fa-w-20" />
+                            </span>
+                          </NavLink>
+                          <form className="d-inline" action method="post">
+                            <button
+                              className="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
+                              type="submit"
+                              data-toggle="tooltip"
+                              title="Delete"
+                              data-placement="bottom"
+                              onclick="return confirm('Do you really want to delete this item?')"
+                            >
+                              <span className="btn-icon-wrapper opacity-8">
+                                <i className="fa fa-trash fa-w-20" />
+                              </span>
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>

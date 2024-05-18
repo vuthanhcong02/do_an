@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Banner;
 
 class BannerController extends Controller
 {
@@ -12,9 +13,25 @@ class BannerController extends Controller
     public function index()
     {
         //
-        return view('Dashboard.banner.index');
+        $banners = Banner::orderBy('id', 'desc')->paginate(10);
+
+        return response()->json([
+            'banners' => $banners,
+            'success' => true,
+            'message' => 'Banner fetched successfully',
+
+        ], 200);
     }
 
+    public function getBannersOrderByPosition()
+    {
+        $banners = Banner::where('status', 1)->orderBy('position', 'asc')->get();
+        return response()->json([
+            'banners' => $banners,
+            'success' => true,
+            'message' => 'Banner fetched successfully',
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -30,6 +47,15 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         //
+
+        $banner = Banner::create($request->all());
+        return response()->json([
+            'banner' => $banner,
+            'message' => 'Banner created successfully',
+            'success' => true
+        ]);
+        // dd($banner);
+
     }
 
     /**

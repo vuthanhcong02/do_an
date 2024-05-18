@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { createBanner } from "../../../../services/BannerService";
 export default function CreateBanner() {
   const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
   const [selectedImage, setSelectedImage] = useState(
     "https://picsum.photos/900"
   );
@@ -14,6 +17,14 @@ export default function CreateBanner() {
       setSelectedImage(reader.result);
     };
     setSelectedImage(image);
+  };
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    const res = await createBanner(data);
+    if (res.success === true) {
+      navigate("/admin/banners");
+    }
   };
   return (
     <div className="app-main__inner">
@@ -36,8 +47,11 @@ export default function CreateBanner() {
         <div className="col-md-12">
           <div className="main-card mb-3 card">
             <div className="card-body">
-              <form method="post" encType="multipart/form-data">
-                <div className="position-relative row form-group">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                encType="multipart/form-data"
+              >
+                {/* <div className="position-relative row form-group">
                   <label
                     htmlFor="image"
                     className="col-md-3 text-md-right col-form-label"
@@ -62,13 +76,12 @@ export default function CreateBanner() {
                         <input
                           type="file"
                           onChange={handleImageChange}
-                          name="image"
                           accept="image/x-png,image/gif,image/jpeg"
                         />
                       </label>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="position-relative row form-group">
                   <label
                     htmlFor="title"
@@ -78,7 +91,7 @@ export default function CreateBanner() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      name="title"
+                      {...register("title")}
                       id="title"
                       placeholder="Title"
                       type="text"
@@ -95,8 +108,7 @@ export default function CreateBanner() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      name="index"
-                      id="index"
+                      {...register("position")}
                       placeholder="Số thứ tự"
                       type="text"
                       className="form-control"
@@ -113,10 +125,10 @@ export default function CreateBanner() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      name="status"
-                      id="status"
+                      {...register("status")}
                       type="checkbox"
-                      defaultValue
+                      value={1}
+                      defaultValue={0}
                     />
                   </div>
                 </div>

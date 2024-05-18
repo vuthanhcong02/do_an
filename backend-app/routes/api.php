@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::group(['prefix' => '/banners'], function () {
+    Route::get('/', [\App\Http\Controllers\BannerController::class, 'index']);
+    Route::get('/order-by-position', [\App\Http\Controllers\BannerController::class, 'getBannersOrderByPosition']);
+    Route::post('/', [\App\Http\Controllers\BannerController::class, 'store']);
+});
+
 Route::fallback(function () {
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact info@website.com'

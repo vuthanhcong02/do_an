@@ -1,62 +1,50 @@
 import React from "react";
 import "./Home.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import NewsItem from "../../NewsItem/NewsItem";
 import CourseItem from "../../CourseItem/CourseItem";
 import EventItem from "../../EventItem/EventItem";
+import { getBannersOrderByPosition } from "../../../services/BannerService";
+
 export default function Home() {
   const [index, setIndex] = useState(0);
+  const [banners, setBanners] = useState([]);
   const description =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, ";
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      const res = await getBannersOrderByPosition();
+      if (res.success === true) {
+        console.log(res.banners);
+        setBanners(res.banners);
+      }
+    };
+    fetchBanners();
+  }, []);
   return (
     <>
       <div className="Home-container">
         <div className="Home-slider">
           <Carousel activeIndex={index} onSelect={handleSelect}>
-            <Carousel.Item>
-              {/* <ExampleCarouselImage text="First slide" /> */}
-              <img
-                className="d-block w-100"
-                src="https://picsum.photos/900"
-                alt="First slide"
-              />
-              <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>
-                  Nulla vitae elit libero, a pharetra augue mollis interdum.
-                </p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className=""
-                src="https://picsum.photos/900"
-                alt="First slide"
-              />
-
-              <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src="https://picsum.photos/900"
-                alt="First slide"
-              />
-              <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur.
-                </p>
-              </Carousel.Caption>
-            </Carousel.Item>
+            {banners.map((banner, idx) => (
+              <Carousel.Item key={idx}>
+                <img
+                  className="d-block w-100"
+                  src="https://picsum.photos/900" // Sử dụng đường dẫn hình ảnh từ dữ liệu banner
+                  alt={`Slide ${idx}`}
+                />
+                <Carousel.Caption>
+                  <h3>{banner.title}</h3>{" "}
+                  {/* Thay thế title bằng trường tương ứng trong dữ liệu banner */}
+                  <p>{banner.description || description}</p>{" "}
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))}
           </Carousel>
         </div>
         <div className="Home-content">
