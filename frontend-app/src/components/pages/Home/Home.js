@@ -10,10 +10,12 @@ import {
   getNewsOrderById,
   getNewByFeatured,
 } from "../../../services/NewsService";
+import { getCourseOrderById } from "../../../services/CourseService";
 export default function Home() {
   const [index, setIndex] = useState(0);
   const [banners, setBanners] = useState([]);
   const [newsFeatured, setNewsFeatured] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   const [news, setNews] = useState([]);
 
@@ -55,6 +57,17 @@ export default function Home() {
     };
     fetchNews();
   }, []);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const res = await getCourseOrderById();
+      if (res.success === true) {
+        console.log("Courses", res.data);
+        setCourses(res.data);
+      }
+    };
+    fetchCourses();
+  }, []);
   return (
     <>
       <div className="Home-container">
@@ -83,9 +96,12 @@ export default function Home() {
                 <span>Tuyển sinh khóa học</span>
               </div>
               <div className="Home-content-courses-list">
+                {/* <CourseItem description={description} />
                 <CourseItem description={description} />
-                <CourseItem description={description} />
-                <CourseItem description={description} />
+                <CourseItem description={description} /> */}
+                {courses.map((course, idx) => (
+                  <CourseItem key={idx} course={course} />
+                ))}
                 <div className="Home-content-courses-more">
                   <span>Xem thêm </span>
                 </div>

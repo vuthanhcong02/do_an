@@ -48,9 +48,18 @@ Route::group(['prefix' => '/news'], function () {
     Route::get('/', [\App\Http\Controllers\NewsController::class, 'index']);
     Route::get('/{id}', [\App\Http\Controllers\NewsController::class, 'show']);
 
-    Route::post('/', [\App\Http\Controllers\NewsController::class, 'store']);
+    Route::post('/', [\App\Http\Controllers\NewsController::class, 'create']);
     Route::put('/{id}', [\App\Http\Controllers\NewsController::class, 'update']);
     Route::delete('/{id}', [\App\Http\Controllers\NewsController::class, 'destroy']);
+});
+
+Route::group(['prefix' => '/courses'], function () {
+    Route::get('/', [\App\Http\Controllers\CourseController::class, 'getAll']);
+    Route::get('/order-by-id', [\App\Http\Controllers\CourseController::class, 'getCourseOrderById']);
+    Route::get('/{id}', [\App\Http\Controllers\CourseController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\CourseController::class, 'createCourse']);
+    Route::put('/{id}', [\App\Http\Controllers\CourseController::class, 'update']);
+    Route::delete('/{id}', [\App\Http\Controllers\CourseController::class, 'destroy']);
 });
 Route::fallback(function () {
     return response()->json([
