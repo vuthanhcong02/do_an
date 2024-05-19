@@ -26,6 +26,14 @@ Route::group(['prefix' => '/banners'], function () {
     Route::delete('/{id}', [\App\Http\Controllers\BannerController::class, 'destroy']);
 });
 
+Route::group(['prefix' => '/teachers'], function () {
+    Route::get('/', [\App\Http\Controllers\TeacherController::class, 'getAll']);
+    Route::post('/', [\App\Http\Controllers\TeacherController::class, 'createTeacher']);
+    Route::get('/{id}', [\App\Http\Controllers\TeacherController::class, 'showTeacher']);
+    Route::put('/{id}', [\App\Http\Controllers\TeacherController::class, 'updateTeacher']);
+    Route::delete('/{id}', [\App\Http\Controllers\TeacherController::class, 'deleteTeacher']);
+});
+
 Route::fallback(function () {
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact info@website.com'
