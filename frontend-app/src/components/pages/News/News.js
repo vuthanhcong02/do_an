@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./News.scss";
 import NewsItem from "../../NewsItem/NewsItem";
 import EventItem from "../../EventItem/EventItem";
 import { Link } from "react-router-dom";
+import { getNews, getNewByFeatured } from "../../../services/NewsService";
 export default function News() {
+  const [news, setNews] = useState([]);
+  const [newsFeatured, setNewsFeatured] = useState([]);
+
+  useEffect(() => {
+    const fetchNewsFeatured = async () => {
+      const res = await getNewByFeatured();
+      if (res.success === true) {
+        console.log(res.data);
+        setNewsFeatured(res.data);
+      }
+    };
+    fetchNewsFeatured();
+  }, []);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      const res = await getNews();
+      if (res.success === true) {
+        console.log(res.data);
+        setNews(res.data.data);
+      }
+    };
+    fetchNews();
+  }, []);
   return (
     <div className="News-container row">
       <div className="News-content col-md-9">
@@ -11,19 +36,10 @@ export default function News() {
           <span>Tin tức sự kiện</span>
         </div>
         <div className="News-content-item">
-          <EventItem />
-          <EventItem />
-          <EventItem />
-          <EventItem />
-          <EventItem />
-          <EventItem />
-          <EventItem />
-          <EventItem />
-
-          <EventItem />
-          <EventItem />
-
-          <EventItem />
+          {/* <EventItem /> */}
+          {news.map((item, index) => {
+            return <EventItem key={index} news={item} />;
+          })}
 
           <div className="News-content-pagination mt-3">
             <ul class="pagination justify-content-end">
@@ -66,10 +82,10 @@ export default function News() {
           <span>Nổi bật</span>
         </div>
         <div className="News-content-feature-item">
-          <NewsItem />
-          <NewsItem />
-          <NewsItem />
-          <NewsItem />
+          {newsFeatured.map((news, idx) => (
+            <NewsItem key={idx} news={news} />
+          ))}
+          {/* <NewsItem /> */}
         </div>
       </div>
     </div>

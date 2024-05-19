@@ -15,11 +15,11 @@ class CategoryRepository extends BaseRepository
 
     public function updateCategory(Request $request, $id)
     {
-        $banner = $this->model->find($id);
-        if (!$banner) {
+        $category = $this->model->find($id);
+        if (!$category) {
             return false;
         }
-        $banner->update($request->all());
-        return $banner;
+        $category->update($request->all());
+        return $category;
     }
 }

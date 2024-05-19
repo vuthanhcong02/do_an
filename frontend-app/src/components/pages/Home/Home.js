@@ -6,10 +6,17 @@ import NewsItem from "../../NewsItem/NewsItem";
 import CourseItem from "../../CourseItem/CourseItem";
 import EventItem from "../../EventItem/EventItem";
 import { getBannersOrderByPosition } from "../../../services/BannerService";
-
+import {
+  getNewsOrderById,
+  getNewByFeatured,
+} from "../../../services/NewsService";
 export default function Home() {
   const [index, setIndex] = useState(0);
   const [banners, setBanners] = useState([]);
+  const [newsFeatured, setNewsFeatured] = useState([]);
+
+  const [news, setNews] = useState([]);
+
   const description =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, ";
   const handleSelect = (selectedIndex) => {
@@ -20,11 +27,33 @@ export default function Home() {
     const fetchBanners = async () => {
       const res = await getBannersOrderByPosition();
       if (res.success === true) {
-        console.log(res);
+        console.log(res.data);
         setBanners(res.data);
       }
     };
     fetchBanners();
+  }, []);
+
+  useEffect(() => {
+    const fetchNewsFeatured = async () => {
+      const res = await getNewByFeatured();
+      if (res.success === true) {
+        console.log(res.data);
+        setNewsFeatured(res.data);
+      }
+    };
+    fetchNewsFeatured();
+  }, []);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      const res = await getNewsOrderById();
+      if (res.success === true) {
+        console.log(res.data);
+        setNews(res.data);
+      }
+    };
+    fetchNews();
   }, []);
   return (
     <>
@@ -67,10 +96,10 @@ export default function Home() {
                 <span>Tin nổi bật</span>
               </div>
               <div className="Home-content-news-list">
-                <NewsItem />
-                <NewsItem />
-                <NewsItem />
-                <NewsItem />
+                {newsFeatured.map((news, idx) => (
+                  <NewsItem key={idx} news={news} />
+                ))}
+                {/* <NewsItem /> */}
                 <div className="Home-content-news-more">
                   <span>Xem thêm </span>
                 </div>
@@ -82,10 +111,13 @@ export default function Home() {
               <span>Sự kiện</span>
             </div>
             <div className="Home-content-events-list">
+              {/* <EventItem />
               <EventItem />
               <EventItem />
-              <EventItem />
-              <EventItem />
+              <EventItem /> */}
+              {news.map((news, idx) => (
+                <EventItem key={idx} news={news} />
+              ))}
               <div className="Home-content-events-more">
                 <span>Xem thêm </span>
               </div>

@@ -15,11 +15,11 @@ class TeacherRepository extends BaseRepository
 
     public function updateTeacher(Request $request, $id)
     {
-        $banner = $this->model->find($id);
-        if (!$banner) {
+        $teacher = $this->model->find($id);
+        if (!$teacher) {
             return false;
         }
-        $banner->update($request->all());
-        return $banner;
+        $teacher->update($request->all());
+        return $teacher;
     }
 }

@@ -41,6 +41,17 @@ Route::group(['prefix' => '/categories'], function () {
     Route::put('/{id}', [\App\Http\Controllers\CategoryController::class, 'update']);
     Route::delete('/{id}', [\App\Http\Controllers\CategoryController::class, 'destroy']);
 });
+
+Route::group(['prefix' => '/news'], function () {
+    Route::get('/featured', [\App\Http\Controllers\NewsController::class, 'getNewsByFeatured']);
+    Route::get('/order-by-id', [\App\Http\Controllers\NewsController::class, 'getNewsOrderById']);
+    Route::get('/', [\App\Http\Controllers\NewsController::class, 'index']);
+    Route::get('/{id}', [\App\Http\Controllers\NewsController::class, 'show']);
+
+    Route::post('/', [\App\Http\Controllers\NewsController::class, 'store']);
+    Route::put('/{id}', [\App\Http\Controllers\NewsController::class, 'update']);
+    Route::delete('/{id}', [\App\Http\Controllers\NewsController::class, 'destroy']);
+});
 Route::fallback(function () {
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact info@website.com'
