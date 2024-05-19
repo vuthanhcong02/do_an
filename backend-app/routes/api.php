@@ -34,6 +34,13 @@ Route::group(['prefix' => '/teachers'], function () {
     Route::delete('/{id}', [\App\Http\Controllers\TeacherController::class, 'deleteTeacher']);
 });
 
+Route::group(['prefix' => '/categories'], function () {
+    Route::get('/', [\App\Http\Controllers\CategoryController::class, 'index']);
+    Route::get('/{id}', [\App\Http\Controllers\CategoryController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\CategoryController::class, 'store']);
+    Route::put('/{id}', [\App\Http\Controllers\CategoryController::class, 'update']);
+    Route::delete('/{id}', [\App\Http\Controllers\CategoryController::class, 'destroy']);
+});
 Route::fallback(function () {
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact info@website.com'
