@@ -18,9 +18,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::group(['prefix' => '/banners'], function () {
-    Route::get('/', [\App\Http\Controllers\BannerController::class, 'index']);
+    Route::get('/', [\App\Http\Controllers\BannerController::class, 'getAll']);
     Route::get('/order-by-position', [\App\Http\Controllers\BannerController::class, 'getBannersOrderByPosition']);
+    Route::get('/{id}', [\App\Http\Controllers\BannerController::class, 'show']);
     Route::post('/', [\App\Http\Controllers\BannerController::class, 'store']);
+    Route::put('/{id}', [\App\Http\Controllers\BannerController::class, 'update']);
+    Route::delete('/{id}', [\App\Http\Controllers\BannerController::class, 'destroy']);
 });
 
 Route::fallback(function () {

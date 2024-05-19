@@ -3,34 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Banner;
+use App\Services\BannerService;
 
 class BannerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    protected $bannerService;
+    public function __construct(BannerService $bannerService)
+    {
+        $this->bannerService = $bannerService;
+    }
+    public function getAll()
     {
         //
-        $banners = Banner::orderBy('id', 'desc')->paginate(10);
-
-        return response()->json([
-            'banners' => $banners,
-            'success' => true,
-            'message' => 'Banner fetched successfully',
-
-        ], 200);
+        $banners = $this->bannerService->getAll();
+        if (!$banners) {
+            return $this->customResponse(404, false, null, 'Banner not found', null);
+        }
+        return $this->customResponse(200, true, $banners, null, null);
     }
 
     public function getBannersOrderByPosition()
     {
-        $banners = Banner::where('status', 1)->orderBy('position', 'asc')->get();
-        return response()->json([
-            'banners' => $banners,
-            'success' => true,
-            'message' => 'Banner fetched successfully',
-        ]);
+        $banners = $this->bannerService->getBannerOrderByPosition();
+        if (!$banners) {
+            return $this->customResponse(404, false, null, 'Banner not found', null);
+        }
+
+        return $this->customResponse(200, true, $banners, null, null);
     }
     /**
      * Show the form for creating a new resource.
@@ -38,7 +41,6 @@ class BannerController extends Controller
     public function create()
     {
         //
-        return view('Dashboard.banner.create');
     }
 
     /**
@@ -48,14 +50,12 @@ class BannerController extends Controller
     {
         //
 
-        $banner = Banner::create($request->all());
-        return response()->json([
-            'banner' => $banner,
-            'message' => 'Banner created successfully',
-            'success' => true
-        ]);
-        // dd($banner);
+        $data = $this->bannerService->createBanner($request);
+        if (!$data) {
+            return $this->customResponse(400, false, null, 'Banner not created', null);
+        }
 
+        return $this->customResponse(200, true, $data, null, null);
     }
 
     /**
@@ -63,7 +63,13 @@ class BannerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //\
+
+        $banner = $this->bannerService->getBannerById($id);
+        if (!$banner) {
+            return $this->customResponse(404, false, null, 'Banner not found', null);
+        }
+        return $this->customResponse(200, true, $banner, null, null);
     }
 
     /**
@@ -81,6 +87,16 @@ class BannerController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        // $requestData = $request->all();
+        // dd($requestData);
+        $banner = $this->bannerService->updateBanner($request, $id);
+
+        // dd($banner);
+        if (!$banner) {
+            return $this->customResponse(404, false, null, 'Banner not found', null);
+        }
+
+        return $this->customResponse(200, true, $banner, null, null);
     }
 
     /**
@@ -89,5 +105,11 @@ class BannerController extends Controller
     public function destroy(string $id)
     {
         //
+
+        $banner = $this->bannerService->deleteBanner($id);
+        if (!$banner) {
+            return $this->customResponse(404, false, null, 'Banner not found', null);
+        }
+        return $this->customResponse(200, true, $banner, null, null);
     }
 }

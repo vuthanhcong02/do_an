@@ -8,8 +8,8 @@ export default function ManagerBanner() {
     const fetchBanners = async () => {
       const res = await getBanners();
       if (res.success === true) {
-        console.log(res.banners.data);
-        setBanners(res.banners.data);
+        console.log(res.data);
+        setBanners(res.data.data);
       }
     };
     fetchBanners();

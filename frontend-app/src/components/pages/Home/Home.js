@@ -20,8 +20,8 @@ export default function Home() {
     const fetchBanners = async () => {
       const res = await getBannersOrderByPosition();
       if (res.success === true) {
-        console.log(res.banners);
-        setBanners(res.banners);
+        console.log(res);
+        setBanners(res.data);
       }
     };
     fetchBanners();
