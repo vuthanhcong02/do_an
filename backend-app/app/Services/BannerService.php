@@ -4,56 +4,18 @@ namespace App\Services;
 
 use App\Repositories\BannerRepository;
 use Illuminate\Http\Request;
+use App\Models\Banner;
 
-class BannerService
+class BannerService extends BaseService
 {
-    protected $bannerRepository;
 
-    public function __construct(BannerRepository $bannerRepository)
+    public function __construct(Banner $banner)
     {
-        $this->bannerRepository = $bannerRepository;
-    }
-
-    public function getAll()
-    {
-        return $this->bannerRepository->getAll();
-    }
-
-    public function createBanner(Request $request)
-    {
-        $data = $request->all();
-        $user = $this->bannerRepository->create($data);
-        if (!$user) {
-            return false;
-        }
-        // Mail::to($data['email'])->send(new SendMail($data));
-        return $user;
-    }
-
-    public function updateBanner(Request $request, $id)
-    {
-
-        // dd($data);
-        $banner = $this->bannerRepository->updateBanner($request, $id);
-        if (!$banner) {
-            return false;
-        }
-
-        return $banner;
-    }
-
-    public function deleteBanner($id)
-    {
-        return $this->bannerRepository->delete($id);
-    }
-
-    public function getBannerById($id)
-    {
-        return $this->bannerRepository->find($id);
+        parent::__construct($banner);
     }
 
     public function getBannerOrderByPosition()
     {
-        return $this->bannerRepository->getBannersOrderByPosition();
+        return $this->model->where('status', 1)->orderBy('position', 'asc')->get();
     }
 }

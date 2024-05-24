@@ -27,7 +27,8 @@ class NewsController extends Controller
 
     public function create(Request $request)
     {
-        $new = $this->newsService->createNews($request);
+        $data = $request->all();
+        $new = $this->newsService->create($data);
         if (!$new) {
             return $this->customResponse(400, false, null, 'News not created', null);
         }
@@ -37,7 +38,7 @@ class NewsController extends Controller
 
     public function show($id)
     {
-        $news = $this->newsService->getNews($id);
+        $news = $this->newsService->find($id);
         if (!$news) {
             return $this->customResponse(404, false, null, 'News not found', null);
         }
@@ -47,7 +48,8 @@ class NewsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $news = $this->newsService->updateNews($request, $id);
+        $data = $request->all();
+        $news = $this->newsService->update($data, $id);
         if (!$news) {
             return $this->customResponse(404, false, null, 'News not found', null);
         }
@@ -57,7 +59,7 @@ class NewsController extends Controller
 
     public function destroy($id)
     {
-        $news = $this->newsService->deleteNews($id);
+        $news = $this->newsService->delete($id);
         if (!$news) {
             return $this->customResponse(404, false, null, 'News not found', null);
         }
@@ -77,7 +79,7 @@ class NewsController extends Controller
 
     public function getNewsOrderById()
     {
-        $news = $this->newsService->getNewsOrderById();
+        $news = $this->newsService->getNewsByOrderById();
         if (!$news) {
             return $this->customResponse(404, false, null, 'News not found', null);
         }

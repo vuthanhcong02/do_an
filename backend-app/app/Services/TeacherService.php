@@ -2,54 +2,13 @@
 
 namespace App\Services;
 
-use App\Repositories\TeacherRepository;
 use Illuminate\Http\Request;
+use App\Models\Teacher;
 
-class TeacherService
+class TeacherService extends BaseService
 {
-    protected $teacherRepository;
-
-    public function __construct(TeacherRepository $teacherRepository)
+    public function __construct(Teacher $teacher)
     {
-        $this->teacherRepository = $teacherRepository;
-    }
-
-    public function getAll()
-    {
-        return $this->teacherRepository->getAll();
-    }
-
-
-    public function createTeacher(Request $request)
-    {
-        $data = $request->all();
-        $teacher = $this->teacherRepository->create($data);
-        if (!$teacher) {
-            return false;
-        }
-        return $teacher;
-    }
-
-    public function getTeacher($id)
-    {
-        $teacher = $this->teacherRepository->find($id);
-        if (!$teacher) {
-            return false;
-        }
-        return $teacher;
-    }
-
-    public function updateTeacher(Request $request, $id)
-    {
-        $teacher = $this->teacherRepository->updateTeacher($request, $id);
-        if (!$teacher) {
-            return false;
-        }
-        return $teacher;
-    }
-
-    public function deleteTeacher($id)
-    {
-        return $this->teacherRepository->delete($id);
+        parent::__construct($teacher);
     }
 }

@@ -28,7 +28,8 @@ class TeacherController extends Controller
 
     public function createTeacher(Request $request)
     {
-        $teacher = $this->teacherService->createTeacher($request);
+        $data = $request->all();
+        $teacher = $this->teacherService->create($data);
         if (!$teacher) {
             return $this->customResponse(400, false, null, 'Teacher not created', null);
         }
@@ -38,7 +39,7 @@ class TeacherController extends Controller
 
     public function showTeacher($id)
     {
-        $teacher = $this->teacherService->getTeacher($id);
+        $teacher = $this->teacherService->find($id);
         if (!$teacher) {
             return $this->customResponse(404, false, null, 'Teacher not found', null);
         }
@@ -47,7 +48,8 @@ class TeacherController extends Controller
     }
     public function updateTeacher(Request $request, $id)
     {
-        $teacher = $this->teacherService->updateTeacher($request, $id);
+        $data = $request->all();
+        $teacher = $this->teacherService->update($data, $id);
         if (!$teacher) {
             return $this->customResponse(400, false, null, 'Teacher not updated', null);
         }
@@ -57,7 +59,7 @@ class TeacherController extends Controller
 
     public function deleteTeacher($id)
     {
-        $teacher = $this->teacherService->deleteTeacher($id);
+        $teacher = $this->teacherService->delete($id);
         if (!$teacher) {
             return $this->customResponse(400, false, null, 'Teacher not deleted', null);
         }

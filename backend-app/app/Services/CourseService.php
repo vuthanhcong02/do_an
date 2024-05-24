@@ -2,61 +2,20 @@
 
 namespace App\Services;
 
-use App\Repositories\CourseRepository;
+use App\Models\Course;
 use App\Repositories\TeacherRepository;
 use Illuminate\Http\Request;
 
-class CourseService
+class CourseService extends BaseService
 {
-    protected $courseRepository;
-
-    public function __construct(CourseRepository $courseRepository)
+    public function __construct(Course $course)
     {
-        $this->courseRepository = $courseRepository;
-    }
-
-    public function getAll()
-    {
-        return $this->courseRepository->getAll();
-    }
-
-
-    public function createCourse(Request $request)
-    {
-        $data = $request->all();
-        $teacher = $this->courseRepository->create($data);
-        if (!$teacher) {
-            return false;
-        }
-        return $teacher;
-    }
-
-    public function getCourse($id)
-    {
-        $teacher = $this->courseRepository->find($id);
-        if (!$teacher) {
-            return false;
-        }
-        return $teacher;
-    }
-
-    public function updateCourse(Request $request, $id)
-    {
-        $teacher = $this->courseRepository->updateCourse($request, $id);
-        if (!$teacher) {
-            return false;
-        }
-        return $teacher;
-    }
-
-    public function deleteCourse($id)
-    {
-        return $this->courseRepository->delete($id);
+        parent::__construct($course);
     }
 
     public function getCourseOrderById()
     {
-        $courses = $this->courseRepository->getCourseOrderById();
+        $courses = $this->model->orderBy('id', 'desc')->limit(6)->get();
         if (!$courses) {
             return false;
         }

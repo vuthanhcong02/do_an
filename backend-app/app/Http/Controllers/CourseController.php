@@ -31,7 +31,8 @@ class CourseController extends Controller
 
     public function createCourse(Request $request)
     {
-        $course = $this->courseService->createCourse($request);
+        $data = $request->all();
+        $course = $this->courseService->create($data);
         if (!$course) {
             return $this->customResponse(false, 'Course not created', 404);
         }
@@ -41,7 +42,7 @@ class CourseController extends Controller
 
     public function show($id)
     {
-        $course = $this->courseService->getCourse($id);
+        $course = $this->courseService->find($id);
         if (!$course) {
             return $this->customResponse(false, 'Course not found', 404);
         }
@@ -50,7 +51,8 @@ class CourseController extends Controller
 
     public function update(Request $request, $id)
     {
-        $course = $this->courseService->updateCourse($request, $id);
+        $data = $request->all();
+        $course = $this->courseService->update($data, $id);
         if (!$course) {
             return $this->customResponse(false, 'Course not updated', 404);
         }
@@ -60,7 +62,7 @@ class CourseController extends Controller
 
     public function destroy($id)
     {
-        $course = $this->courseService->deleteCourse($id);
+        $course = $this->courseService->delete($id);
         if (!$course) {
             return $this->customResponse(false, 'Course not deleted', 404);
         }

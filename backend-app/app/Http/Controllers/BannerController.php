@@ -35,13 +35,6 @@ class BannerController extends Controller
 
         return $this->customResponse(200, true, $banners, null, null);
     }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -50,7 +43,8 @@ class BannerController extends Controller
     {
         //
 
-        $data = $this->bannerService->createBanner($request);
+        $data = $request->all();
+        $banner = $this->bannerService->create($data);
         if (!$data) {
             return $this->customResponse(400, false, null, 'Banner not created', null);
         }
@@ -65,7 +59,7 @@ class BannerController extends Controller
     {
         //\
 
-        $banner = $this->bannerService->getBannerById($id);
+        $banner = $this->bannerService->find($id);
         if (!$banner) {
             return $this->customResponse(404, false, null, 'Banner not found', null);
         }
@@ -87,9 +81,9 @@ class BannerController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        // $requestData = $request->all();
+        $data = $request->all();
         // dd($requestData);
-        $banner = $this->bannerService->updateBanner($request, $id);
+        $banner = $this->bannerService->update($data, $id);
 
         // dd($banner);
         if (!$banner) {
@@ -106,7 +100,7 @@ class BannerController extends Controller
     {
         //
 
-        $banner = $this->bannerService->deleteBanner($id);
+        $banner = $this->bannerService->delete($id);
         if (!$banner) {
             return $this->customResponse(404, false, null, 'Banner not found', null);
         }

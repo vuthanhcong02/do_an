@@ -28,7 +28,8 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $category = $this->categoryService->createCategory($request);
+        $data = $request->all();
+        $category = $this->categoryService->create($data);
         if (!$category) {
             return $this->customResponse(false, 'Category not created', 404);
         }
@@ -37,7 +38,7 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        $category = $this->categoryService->getCategory($id);
+        $category = $this->categoryService->find($id);
         if (!$category) {
             return $this->customResponse(false, 'Category not found', 404);
         }
@@ -46,7 +47,8 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $category = $this->categoryService->updateCategory($request, $id);
+        $data = $request->all();
+        $category = $this->categoryService->update($data, $id);
         if (!$category) {
             return $this->customResponse(false, 'Category not updated', 404);
         }
@@ -55,7 +57,7 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        $category = $this->categoryService->deleteCategory($id);
+        $category = $this->categoryService->delete($id);
         if (!$category) {
             return $this->customResponse(false, 'Category not deleted', 404);
         }
