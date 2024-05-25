@@ -20,10 +20,10 @@ class CategoryController extends Controller
     {
         $categories = $this->categoryService->getAll();
         if (!$categories) {
-            return $this->customResponse(false, 'Categories not found', 404);
+            return $this->customResponse(404, false, null, 'Category not found', null);
         }
 
-        return $this->customResponse(true, $categories, 200);
+        return $this->customResponse(200, true, $categories);
     }
 
     public function store(Request $request)
@@ -40,27 +40,28 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->find($id);
         if (!$category) {
-            return $this->customResponse(false, 'Category not found', 404);
+            return $this->customResponse(404, false, null, 'Category not found', null);
         }
-        return $this->customResponse(true, $category, 200);
+        return $this->customResponse(200, true, $category, null, null);
     }
 
-    public function update(Request $request, $id)
+    public function updateCategory(Request $request, $id)
     {
         $data = $request->all();
-        $category = $this->categoryService->update($data, $id);
+        // dd($data);
+        $category = $this->categoryService->update($id, $data);
         if (!$category) {
-            return $this->customResponse(false, 'Category not updated', 404);
+            return $this->customResponse(400, false, null, 'Category not updated', null);
         }
-        return $this->customResponse(true, $category, 200);
+        return $this->customResponse(200, true, $category, null, null);
     }
 
     public function destroy($id)
     {
         $category = $this->categoryService->delete($id);
         if (!$category) {
-            return $this->customResponse(false, 'Category not deleted', 404);
+            return $this->customResponse(400, false, null, 'Category not deleted', null);
         }
-        return $this->customResponse(true, $category, 200);
+        return $this->customResponse(200, true, $category, null, null);
     }
 }

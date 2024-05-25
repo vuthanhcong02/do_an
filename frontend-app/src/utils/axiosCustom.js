@@ -5,6 +5,9 @@ const httpClient = axios.create({
   headers: {
     "Content-Type": "application/json, multipart/form-data",
     Accept: "application/json",
+    "X-Requested-With": "XMLHttpRequest",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
   },
 });
 
