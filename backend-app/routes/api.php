@@ -22,7 +22,7 @@ Route::group(['prefix' => '/banners'], function () {
     Route::get('/order-by-position', [\App\Http\Controllers\BannerController::class, 'getBannersOrderByPosition']);
     Route::get('/{id}', [\App\Http\Controllers\BannerController::class, 'show']);
     Route::post('/', [\App\Http\Controllers\BannerController::class, 'store']);
-    Route::put('/{id}', [\App\Http\Controllers\BannerController::class, 'update']);
+    Route::put('/{id}', [\App\Http\Controllers\BannerController::class, 'updateBanner']);
     Route::delete('/{id}', [\App\Http\Controllers\BannerController::class, 'destroy']);
 });
 

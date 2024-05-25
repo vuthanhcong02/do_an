@@ -13,6 +13,7 @@ import ManagerBanner from "./components/pages/Admin/Banner/ManagerBanner";
 import CreateBanner from "./components/pages/Admin/Banner/CreateBanner";
 import ManagerNews from "./components/pages/Admin/News/ManagerNews";
 import CreateNews from "./components/pages/Admin/News/CreateNews";
+import EditBanner from "./components/pages/Admin/Banner/EditBanner";
 function App() {
   return (
     <div className="App-container">
@@ -30,7 +31,7 @@ function App() {
           {/* Di chuyển route "/banners" vào trong route "/admin" */}
           <Route path="banners" element={<ManagerBanner />} />
           <Route path="banners/create" element={<CreateBanner />} />
-          <Route path="banners/:id/edit" element={<CreateBanner />} />
+          <Route path="banners/:id/edit" element={<EditBanner />} />
 
           <Route path="news" element={<ManagerNews />} />
           <Route path="news/create" element={<CreateNews />} />

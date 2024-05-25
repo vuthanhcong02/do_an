@@ -1,29 +1,49 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useNavigate, NavLink } from "react-router-dom";
 import { createBanner } from "../../../../services/BannerService";
+import httpClient from "../../../../utils/axiosCustom";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+
 export default function CreateBanner() {
   const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
   const { register, handleSubmit } = useForm();
-  const [selectedImage, setSelectedImage] = useState(
-    "https://picsum.photos/900"
-  );
 
   const handleImageChange = (event) => {
     const image = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onloadend = () => {
-      setSelectedImage(reader.result);
+      setImagePreview(reader.result);
     };
-    setSelectedImage(image);
+    setSelectedImage(event.target.files[0]);
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
-    const res = await createBanner(data);
-    if (res.success === true) {
-      navigate("/admin/banners");
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+    formData.append("title", data.title);
+    formData.append("position", data.position);
+    formData.append("status", data.status ? 1 : 0);
+
+    try {
+      const response = await axios.post(
+        "http://api.ngoaingutinhoc.tech.com/api/banners",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.data.success) {
+        navigate("/admin/banners");
+      }
+    } catch (error) {
+      console.error("Error uploading data", error);
     }
   };
   return (
@@ -59,9 +79,9 @@ export default function CreateBanner() {
                     Hình ảnh
                   </label>
                   <div className="col-md-9 col-xl-8 d-flex flex-lg-column">
-                    {selectedImage && (
+                    {imagePreview && (
                       <img
-                        src={selectedImage}
+                        src={imagePreview}
                         alt=""
                         style={{ width: 200, height: 200 }}
                       />
@@ -69,11 +89,12 @@ export default function CreateBanner() {
                   </div>
                   <div
                     className="col-md-9 col-xl-8"
-                    style={{ marginTop: 20, marginLeft: 70 }}
+                    style={{ marginTop: 20, marginLeft: 80 }}
                   >
                     <div className="d-flex flex-column align-items-center justify-content-center">
                       <label className="label">
                         <input
+                          {...register("image")}
                           type="file"
                           onChange={handleImageChange}
                           accept="image/x-png,image/gif,image/jpeg"
@@ -82,6 +103,37 @@ export default function CreateBanner() {
                     </div>
                   </div>
                 </div> */}
+                <div className="position-relative row form-group">
+                  <label
+                    htmlFor="image"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Image
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <img
+                      style={{ height: 200, width: 450, cursor: "pointer" }}
+                      data-toggle="tooltip"
+                      title="Click to change the image"
+                      data-placement="bottom"
+                      src={imagePreview ? imagePreview : "/add-image-icon.jpg"}
+                      alt=""
+                    />
+                    <input
+                      type="file"
+                      accept="image/x-png,image/gif,image/jpeg"
+                      {...register("image")}
+                      onChange={handleImageChange}
+                      className="image form-control-file"
+                      // style={{ display: "none" }}
+                    />
+                    <input type="hidden" name="image" />
+                    <small className="form-text text-muted">
+                      Click on the image to change (required)
+                    </small>
+                  </div>
+                </div>
+
                 <div className="position-relative row form-group">
                   <label
                     htmlFor="title"
@@ -132,23 +184,24 @@ export default function CreateBanner() {
                     />
                   </div>
                 </div>
-                <div className="position-relative row form-group mb-1">
-                  <div className="col-md-9 col-xl-8 offset-md-2">
-                    <NavLink
+                <div class="position-relative row form-group mb-1">
+                  <div class="col-md-9 col-xl-8 offset-md-2">
+                    <button
                       onClick={() => navigate(-1)}
-                      className="border-0 btn btn-outline-danger mr-1"
+                      class="border-0 btn btn-outline-danger mr-1"
                     >
-                      <span className="btn-icon-wrapper pr-1 opacity-8">
-                        <i className="fa fa-times fa-w-20" />
+                      <span class="btn-icon-wrapper pr-1 opacity-8">
+                        <i class="fa fa-times fa-w-20"></i>
                       </span>
                       <span>Cancel</span>
-                    </NavLink>
+                    </button>
+
                     <button
                       type="submit"
-                      className="btn-shadow btn-hover-shine btn btn-primary"
+                      class="btn-shadow btn-hover-shine btn btn-primary"
                     >
-                      <span className="btn-icon-wrapper pr-2 opacity-8">
-                        <i className="fa fa-download fa-w-20" />
+                      <span class="btn-icon-wrapper pr-2 opacity-8">
+                        <i class="fa fa-download fa-w-20"></i>
                       </span>
                       <span>Save</span>
                     </button>

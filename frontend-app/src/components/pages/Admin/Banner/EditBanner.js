@@ -1,20 +1,80 @@
-import React from "react";
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, NavLink, useParams } from "react-router-dom";
+import { createBanner, showBanner } from "../../../../services/BannerService";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { baseUrl } from "../../../../config";
+
 export default function EditBanner() {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = useState(
-    "https://picsum.photos/900"
-  );
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [banner, setBanner] = useState(null);
+  const { register, handleSubmit, setValue } = useForm();
 
   const handleImageChange = (event) => {
     const image = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onloadend = () => {
-      setSelectedImage(reader.result);
+      setImagePreview(reader.result);
     };
-    setSelectedImage(image);
+    setSelectedImage(event.target.files[0]);
+  };
+
+  useEffect(() => {
+    fetchBanner();
+  }, []);
+  const fetchBanner = async () => {
+    const { success, data } = await showBanner(id);
+    if (success) {
+      console.log(data);
+      setBanner(data);
+    }
+  };
+
+  useEffect(() => {
+    if (banner) {
+      setValue("image", banner.image);
+      setValue("title", banner.title);
+      setValue("position", banner.position);
+      setValue("status", banner.status);
+    }
+  }, [banner]);
+
+  useEffect(() => {
+    if (banner && banner.image) {
+      setImagePreview(`${baseUrl}${banner.image}`);
+    } else {
+      setImagePreview(null);
+    }
+  }, [banner, selectedImage]);
+
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("_method", "PUT");
+    formData.append("image", selectedImage);
+    formData.append("title", data.title);
+    formData.append("position", data.position);
+    formData.append("status", data.status ? 1 : 0);
+
+    try {
+      const response = await axios.post(
+        "http://api.ngoaingutinhoc.tech.com/api/banners/" + id,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.data.success) {
+        navigate("/admin/banners");
+      }
+    } catch (error) {
+      console.error("Error uploading data", error);
+    }
   };
   return (
     <div className="app-main__inner">
@@ -37,39 +97,45 @@ export default function EditBanner() {
         <div className="col-md-12">
           <div className="main-card mb-3 card">
             <div className="card-body">
-              <form method="post" encType="multipart/form-data">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                encType="multipart/form-data"
+              >
                 <div className="position-relative row form-group">
                   <label
                     htmlFor="image"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Hình ảnh
+                    Image
                   </label>
-                  <div className="col-md-9 col-xl-8 d-flex flex-lg-column">
-                    {selectedImage && (
-                      <img
-                        src={selectedImage}
-                        alt=""
-                        style={{ width: 200, height: 200 }}
-                      />
-                    )}
-                  </div>
-                  <div
-                    className="col-md-9 col-xl-8"
-                    style={{ marginTop: 20, marginLeft: 70 }}
-                  >
-                    <div className="d-flex flex-column align-items-center justify-content-center">
-                      <label className="label">
-                        <input
-                          type="file"
-                          onChange={handleImageChange}
-                          name="image"
-                          accept="image/x-png,image/gif,image/jpeg"
-                        />
-                      </label>
-                    </div>
+                  <div className="col-md-9 col-xl-8">
+                    <img
+                      style={{ height: 200, width: 450, cursor: "pointer" }}
+                      data-toggle="tooltip"
+                      title="Click to change the image"
+                      data-placement="bottom"
+                      src={
+                        imagePreview
+                          ? imagePreview
+                          : `${baseUrl}/images/no-image.png`
+                      }
+                      alt=""
+                    />
+                    <input
+                      type="file"
+                      accept="image/x-png,image/gif,image/jpeg"
+                      {...register("image")}
+                      onChange={handleImageChange}
+                      className="image form-control-file"
+                      // style={{ display: "none" }}
+                    />
+                    <input type="hidden" name="image" />
+                    <small className="form-text text-muted">
+                      Click on the image to change (required)
+                    </small>
                   </div>
                 </div>
+
                 <div className="position-relative row form-group">
                   <label
                     htmlFor="title"
@@ -79,7 +145,7 @@ export default function EditBanner() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      name="title"
+                      {...register("title")}
                       id="title"
                       placeholder="Title"
                       type="text"
@@ -96,8 +162,7 @@ export default function EditBanner() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      name="index"
-                      id="index"
+                      {...register("position")}
                       placeholder="Số thứ tự"
                       type="text"
                       className="form-control"
@@ -113,31 +178,27 @@ export default function EditBanner() {
                     Hiển thị
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <input
-                      name="status"
-                      id="status"
-                      type="checkbox"
-                      defaultValue
-                    />
+                    <input {...register("status")} type="checkbox" />
                   </div>
                 </div>
-                <div className="position-relative row form-group mb-1">
-                  <div className="col-md-9 col-xl-8 offset-md-2">
-                    <NavLink
+                <div class="position-relative row form-group mb-1">
+                  <div class="col-md-9 col-xl-8 offset-md-2">
+                    <button
                       onClick={() => navigate(-1)}
-                      className="border-0 btn btn-outline-danger mr-1"
+                      class="border-0 btn btn-outline-danger mr-1"
                     >
-                      <span className="btn-icon-wrapper pr-1 opacity-8">
-                        <i className="fa fa-times fa-w-20" />
+                      <span class="btn-icon-wrapper pr-1 opacity-8">
+                        <i class="fa fa-times fa-w-20"></i>
                       </span>
                       <span>Cancel</span>
-                    </NavLink>
+                    </button>
+
                     <button
                       type="submit"
-                      className="btn-shadow btn-hover-shine btn btn-primary"
+                      class="btn-shadow btn-hover-shine btn btn-primary"
                     >
-                      <span className="btn-icon-wrapper pr-2 opacity-8">
-                        <i className="fa fa-download fa-w-20" />
+                      <span class="btn-icon-wrapper pr-2 opacity-8">
+                        <i class="fa fa-download fa-w-20"></i>
                       </span>
                       <span>Save</span>
                     </button>

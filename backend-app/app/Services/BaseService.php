@@ -31,6 +31,7 @@ class BaseService
     public function update($id, $data = [])
     {
         $record = $this->find($id);
+        // dd($record);
         if (!$record) {
             return false;
         }

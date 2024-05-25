@@ -3,7 +3,7 @@ import axios from "axios";
 const httpClient = axios.create({
   baseURL: process.env.API_URL || "http://api.ngoaingutinhoc.tech.com/api/",
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json, multipart/form-data",
     Accept: "application/json",
   },
 });

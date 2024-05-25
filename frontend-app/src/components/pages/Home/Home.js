@@ -11,6 +11,7 @@ import {
   getNewByFeatured,
 } from "../../../services/NewsService";
 import { getCourseOrderById } from "../../../services/CourseService";
+import { baseUrl } from "../../../config";
 export default function Home() {
   const [index, setIndex] = useState(0);
   const [banners, setBanners] = useState([]);
@@ -77,13 +78,11 @@ export default function Home() {
               <Carousel.Item key={idx}>
                 <img
                   className="d-block w-100"
-                  src="https://picsum.photos/900" // Sử dụng đường dẫn hình ảnh từ dữ liệu banner
+                  src={`${baseUrl}${banner.image}`}
                   alt={`Slide ${idx}`}
                 />
                 <Carousel.Caption>
-                  <h3>{banner.title}</h3>{" "}
-                  {/* Thay thế title bằng trường tương ứng trong dữ liệu banner */}
-                  <p>{banner.description || description}</p>{" "}
+                  <h3>{banner.title}</h3> <p>{banner.description || null}</p>{" "}
                 </Carousel.Caption>
               </Carousel.Item>
             ))}

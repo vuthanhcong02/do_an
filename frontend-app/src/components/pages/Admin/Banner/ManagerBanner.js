@@ -1,19 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { getBanners } from "../../../../services/BannerService";
+import { getBanners, deleteBanner } from "../../../../services/BannerService";
+import { baseUrl } from "../../../../config";
 export default function ManagerBanner() {
   const [banners, setBanners] = useState([]);
 
   useEffect(() => {
     const fetchBanners = async () => {
-      const res = await getBanners();
-      if (res.success === true) {
-        console.log(res.data);
-        setBanners(res.data.data);
+      const { success, data } = await getBanners();
+      if (success) {
+        console.log(data);
+        setBanners(data.data);
       }
     };
     fetchBanners();
   }, []);
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (confirmDelete) {
+      const { success, data } = await deleteBanner(id);
+      if (success) {
+        const newBanners = banners.filter((item) => item.id !== id);
+        setBanners(newBanners);
+      }
+    }
+  };
   return (
     <div className="app-main__inner">
       <div className="app-page-title">
@@ -85,15 +99,17 @@ export default function ManagerBanner() {
                 </thead>
                 <tbody>
                   {banners.length > 0 &&
-                    banners.map((banner) => (
-                      <tr>
-                        <td className="text-center text-muted">#01</td>
+                    banners.map((banner, index) => (
+                      <tr key={banner?.id}>
+                        <td className="text-center text-muted">{index + 1}</td>
                         <td className="text-center">
                           <img
-                            src="assets/images/avatars/1.png"
-                            width={50}
-                            height={50}
-                            alt-=""
+                            src={`${baseUrl}${banner?.image}`}
+                            style={{
+                              width: "100px",
+                              height: "70px",
+                              objectFit: "cover",
+                            }}
                           />
                         </td>
                         <td className="text-center">{banner?.title}</td>
@@ -109,7 +125,7 @@ export default function ManagerBanner() {
                         </td>
                         <td className="text-center">
                           <NavLink
-                            to="1/edit"
+                            to={`${banner?.id}/edit`}
                             data-toggle="tooltip"
                             title="Edit"
                             data-placement="bottom"
@@ -119,20 +135,18 @@ export default function ManagerBanner() {
                               <i className="fa fa-edit fa-w-20" />
                             </span>
                           </NavLink>
-                          <form className="d-inline" action method="post">
-                            <button
-                              className="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
-                              type="submit"
-                              data-toggle="tooltip"
-                              title="Delete"
-                              data-placement="bottom"
-                              onclick="return confirm('Do you really want to delete this item?')"
-                            >
-                              <span className="btn-icon-wrapper opacity-8">
-                                <i className="fa fa-trash fa-w-20" />
-                              </span>
-                            </button>
-                          </form>
+                          <button
+                            className="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
+                            data-toggle="tooltip"
+                            title="Delete"
+                            data-placement="bottom"
+                            // onclick="return confirm('Do you really want to delete this item?')"
+                            onClick={() => handleDelete(banner?.id)}
+                          >
+                            <span className="btn-icon-wrapper opacity-8">
+                              <i className="fa fa-trash fa-w-20" />
+                            </span>
+                          </button>
                         </td>
                       </tr>
                     ))}
