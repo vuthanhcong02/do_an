@@ -81,7 +81,7 @@ export default function SideNav() {
                 <li>
                   <NavLink to="categories" className="nav-link">
                     <i className="metismenu-icon" />
-                    Môn học
+                    Subject
                   </NavLink>
                 </li>
                 <li>

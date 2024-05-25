@@ -14,6 +14,9 @@ import CreateBanner from "./components/pages/Admin/Banner/CreateBanner";
 import ManagerNews from "./components/pages/Admin/News/ManagerNews";
 import CreateNews from "./components/pages/Admin/News/CreateNews";
 import EditBanner from "./components/pages/Admin/Banner/EditBanner";
+import ManagerCategory from "./components/pages/Admin/Category/ManagerCategory";
+import CreateCategory from "./components/pages/Admin/Category/CreateCategory";
+import EditCategory from "./components/pages/Admin/Category/EditCategory";
 function App() {
   return (
     <div className="App-container">
@@ -35,6 +38,10 @@ function App() {
 
           <Route path="news" element={<ManagerNews />} />
           <Route path="news/create" element={<CreateNews />} />
+
+          <Route path="categories" element={<ManagerCategory />} />
+          <Route path="categories/create" element={<CreateCategory />} />
+          <Route path="categories/:id/edit" element={<EditCategory />} />
         </Route>
       </Routes>
     </div>
