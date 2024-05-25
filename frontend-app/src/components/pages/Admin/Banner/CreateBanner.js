@@ -71,38 +71,6 @@ export default function CreateBanner() {
                 onSubmit={handleSubmit(onSubmit)}
                 encType="multipart/form-data"
               >
-                {/* <div className="position-relative row form-group">
-                  <label
-                    htmlFor="image"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Hình ảnh
-                  </label>
-                  <div className="col-md-9 col-xl-8 d-flex flex-lg-column">
-                    {imagePreview && (
-                      <img
-                        src={imagePreview}
-                        alt=""
-                        style={{ width: 200, height: 200 }}
-                      />
-                    )}
-                  </div>
-                  <div
-                    className="col-md-9 col-xl-8"
-                    style={{ marginTop: 20, marginLeft: 80 }}
-                  >
-                    <div className="d-flex flex-column align-items-center justify-content-center">
-                      <label className="label">
-                        <input
-                          {...register("image")}
-                          type="file"
-                          onChange={handleImageChange}
-                          accept="image/x-png,image/gif,image/jpeg"
-                        />
-                      </label>
-                    </div>
-                  </div>
-                </div> */}
                 <div className="position-relative row form-group">
                   <label
                     htmlFor="image"

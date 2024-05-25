@@ -11,3 +11,15 @@ export const getNewByFeatured = () => {
 export const getNewsOrderById = () => {
   return httpClient.get(`/news/order-by-id`);
 };
+
+export const createNews = (data) => {
+  return httpClient.post("/news", data);
+};
+
+export const getNewsById = (id) => {
+  return httpClient.get(`/news/${id}`);
+};
+
+export const deleteNews = (id) => {
+  return httpClient.delete(`/news/${id}`);
+};

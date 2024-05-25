@@ -2,20 +2,54 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import ReactQuill from "react-quill";
+import { createNews } from "../../../../services/NewsService";
+import "react-quill/dist/quill.snow.css";
+import axios from "axios";
+
 export default function CreateNews() {
   const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [content, setContent] = useState("");
   const { register, handleSubmit } = useForm();
-  const [selectedImage, setSelectedImage] = useState(
-    "https://picsum.photos/900"
-  );
+
   const handleImageChange = (event) => {
     const image = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onloadend = () => {
-      setSelectedImage(reader.result);
+      setImagePreview(reader.result);
     };
-    setSelectedImage(image);
+    setSelectedImage(event.target.files[0]);
+  };
+
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("slug", data.slug);
+    formData.append("content", content);
+    formData.append("featured", data.featured ? 1 : 0);
+
+    // console.log(data, content);
+    try {
+      const response = await axios.post(
+        "http://api.ngoaingutinhoc.tech.com/api/news",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.data.success) {
+        navigate("/admin/news");
+      }
+    } catch (error) {
+      console.error("Error uploading data", error);
+    }
   };
 
   return (
@@ -39,41 +73,38 @@ export default function CreateNews() {
         <div className="col-md-12">
           <div className="main-card mb-3 card">
             <div className="card-body">
-              <form method="post" encType="multipart/form-data" action="">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                encType="multipart/form-data"
+              >
                 <div className="position-relative row form-group">
                   <label
                     htmlFor="image"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Hình ảnh
+                    Image
                   </label>
-                  <div className="col-md-9 col-xl-8 d-flex flex-lg-column">
+                  <div className="col-md-9 col-xl-8">
                     <img
-                      src={selectedImage}
-                      alt="Generic placeholder image"
-                      className="img-fluid"
-                      style={{
-                        width: "300px",
-                        height: "180px",
-                        objectFit: "fill",
-                      }}
+                      style={{ height: 200, width: 450, cursor: "pointer" }}
+                      data-toggle="tooltip"
+                      title="Click to change the image"
+                      data-placement="bottom"
+                      src={imagePreview ? imagePreview : "/add-image-icon.jpg"}
+                      alt=""
                     />
-                  </div>
-                  <div
-                    className="col-md-9 col-xl-8"
-                    style={{ marginTop: "20px", marginLeft: "115px" }}
-                  >
-                    <div className="d-flex flex-column align-items-center justify-content-center">
-                      <label className="label">
-                        <input
-                          type="file"
-                          onChange={handleImageChange}
-                          name="image"
-                          accept="image/x-png,image/gif,image/jpeg"
-                        />
-                        <span>Chọn hình ảnh</span>
-                      </label>
-                    </div>
+                    <input
+                      type="file"
+                      accept="image/x-png,image/gif,image/jpeg"
+                      {...register("image")}
+                      onChange={handleImageChange}
+                      className="image form-control-file"
+                      // style={{ display: "none" }}
+                    />
+                    <input type="hidden" name="image" />
+                    <small className="form-text text-muted">
+                      Click on the image to change (required)
+                    </small>
                   </div>
                 </div>
 
@@ -86,12 +117,10 @@ export default function CreateNews() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      name="title"
-                      id="title"
+                      {...register("title")}
                       placeholder="Title"
                       type="text"
                       className="form-control"
-                      value=""
                     />
                   </div>
                 </div>
@@ -108,7 +137,24 @@ export default function CreateNews() {
                       placeholder="Description"
                       type="text"
                       className="form-control"
-                      value=""
+                      {...register("description")}
+                    />
+                  </div>
+                </div>
+
+                <div className="position-relative row form-group">
+                  <label
+                    htmlFor="title"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Slug
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <input
+                      placeholder="Slug"
+                      type="text"
+                      className="form-control"
+                      {...register("slug")}
                     />
                   </div>
                 </div>
@@ -120,39 +166,36 @@ export default function CreateNews() {
                   >
                     Content
                   </label>
-                  <div className="col-md-9 col-xl-8">
-                    <textarea
-                      name="content"
-                      id="content"
-                      placeholder="Content"
-                      type="text"
-                      className="form-control"
-                      value=""
-                    ></textarea>
+                  <div className="col-md-9 col-xl-8 mb-5">
+                    <ReactQuill
+                      theme="snow"
+                      style={{ height: "400px" }}
+                      onChange={(e) => {
+                        setContent(e);
+                      }}
+                    />
                   </div>
                 </div>
 
-                <div className="position-relative row form-group">
+                <div className="position-relative row form-group d-flex align-items-center">
                   <label
-                    htmlFor="price"
+                    htmlFor="status"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Tác giả
+                    Hiển thị
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <select
-                      name="user_id"
-                      id="user_id"
-                      className="form-control"
-                    >
-                      <option value="">-- Tác giả --</option>
-                    </select>
+                    <input
+                      {...register("featured")}
+                      type="checkbox"
+                      value={1}
+                      defaultValue={0}
+                    />
                   </div>
                 </div>
-
                 <div className="position-relative row form-group mb-1">
                   <div className="col-md-9 col-xl-8 offset-md-2">
-                    <NavLink
+                    <button
                       onClick={() => navigate(-1)}
                       className="border-0 btn btn-outline-danger mr-1"
                     >
@@ -160,7 +203,7 @@ export default function CreateNews() {
                         <i className="fa fa-times fa-w-20"></i>
                       </span>
                       <span>Cancel</span>
-                    </NavLink>
+                    </button>
 
                     <button
                       type="submit"

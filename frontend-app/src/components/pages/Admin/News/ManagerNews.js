@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { getNews, deleteNews } from "../../../../services/NewsService";
+import { baseUrl } from "../../../../config";
+import { getSummary } from "../../../../utils/function";
 export default function ManagerNews() {
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    fetchNews();
+  }, []);
+
+  const fetchNews = async () => {
+    const { success, data } = await getNews();
+    if (success) {
+      console.log(data);
+      setNews(data.data);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (confirmDelete) {
+      const { success } = await deleteNews(id);
+      if (success) {
+        const newNews = news.filter((item) => item.id !== id);
+        setNews(newNews);
+      }
+    }
+  };
   return (
     <div className="app-main__inner">
       <div className="app-page-title">
@@ -66,58 +95,72 @@ export default function ManagerNews() {
                     <th className="text-center">Hỉnh ảnh</th>
                     <th className="text-center">Tiêu đề</th>
                     <th className="text-center">Nội dung</th>
-                    <th className="text-center">Tác giả</th>
+                    <th className="text-center">Featured</th>
                     <th className="text-center">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="text-center text-muted">#01</td>
-                    <td className="text-center">
-                      <img
-                        src="assets/images/avatars/7.png"
-                        width={50}
-                        height={50}
-                        alt
+                  {news.map((item, index) => (
+                    <tr key={index}>
+                      <td className="text-center text-muted">{index + 1}</td>
+                      <td className="text-center">
+                        <img
+                          src={`${baseUrl}${item?.image}`}
+                          width={100}
+                          height={70}
+                          alt
+                        />
+                      </td>
+                      <td className="text-center">{item.title}</td>
+                      <td
+                        className="text-center"
+                        dangerouslySetInnerHTML={{
+                          __html: getSummary(item.content),
+                        }}
                       />
-                    </td>
-                    <td className="text-center">Image</td>
-                    <td className="text-center">Image</td>
-                    <td className="text-center">Image</td>
-                    <td className="text-center">
-                      <a
-                        href="./user-show.html"
-                        className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
-                      >
-                        Details
-                      </a>
-                      <a
-                        href="admin/news/edit"
-                        data-toggle="tooltip"
-                        title="Edit"
-                        data-placement="bottom"
-                        className="btn btn-outline-warning border-0 btn-sm"
-                      >
-                        <span className="btn-icon-wrapper opacity-8">
-                          <i className="fa fa-edit fa-w-20" />
+                      <td className="text-center">
+                        {" "}
+                        <span
+                          className={`badge badge-${
+                            item?.featured === 1 ? "success" : "danger"
+                          }`}
+                        >
+                          {item?.featured === 1 ? "Featured" : "Not Featured"}
                         </span>
-                      </a>
-                      <form className="d-inline" action method="post">
+                      </td>
+                      <td className="text-center">
+                        <NavLink
+                          to={`/${item.id}`}
+                          className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
+                        >
+                          Details
+                        </NavLink>
+                        <NavLink
+                          to={`${item.id}/edit`}
+                          data-toggle="tooltip"
+                          title="Edit"
+                          data-placement="bottom"
+                          className="btn btn-outline-warning border-0 btn-sm"
+                        >
+                          <span className="btn-icon-wrapper opacity-8">
+                            <i className="fa fa-edit fa-w-20" />
+                          </span>
+                        </NavLink>
                         <button
                           className="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
                           type="submit"
                           data-toggle="tooltip"
                           title="Delete"
                           data-placement="bottom"
-                          onclick="return confirm('Do you really want to delete this item?')"
+                          onClick={() => handleDelete(item.id)}
                         >
                           <span className="btn-icon-wrapper opacity-8">
                             <i className="fa fa-trash fa-w-20" />
                           </span>
                         </button>
-                      </form>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

@@ -8,7 +8,6 @@ export default function CourseItem({ title, image, description, course }) {
         <img src={course?.image} alt="" />
       </div>
       <div className="CourseItem-content">
-        <div className="CourseItem-dot"></div>
         <div className="CourseItem-title">
           <span className="CourseItem-title-text">{course?.name}</span>
           <p className="CourseItem-description">{course?.description}</p>

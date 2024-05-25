@@ -14,6 +14,7 @@ import CreateBanner from "./components/pages/Admin/Banner/CreateBanner";
 import ManagerNews from "./components/pages/Admin/News/ManagerNews";
 import CreateNews from "./components/pages/Admin/News/CreateNews";
 import EditBanner from "./components/pages/Admin/Banner/EditBanner";
+import EditNews from "./components/pages/Admin/News/EditNews";
 function App() {
   return (
     <div className="App-container">
@@ -35,6 +36,7 @@ function App() {
 
           <Route path="news" element={<ManagerNews />} />
           <Route path="news/create" element={<CreateNews />} />
+          <Route path="news/:id/edit" element={<EditNews />} />
         </Route>
       </Routes>
     </div>
