@@ -57,7 +57,7 @@ export default function SideNav() {
                 <li>
                   <NavLink to="/admin" className="nav-link">
                     <i className="metismenu-icon" />
-                    Báo cáo thống kê
+                    Dashboard
                   </NavLink>
                 </li>
                 <li>
@@ -69,13 +69,31 @@ export default function SideNav() {
                 <li>
                   <NavLink to="news" className="nav-link">
                     <i className="metismenu-icon" />
-                    Bài đăng - tin tức
+                    Tin tức
                   </NavLink>
                 </li>
                 <li>
-                  <a href="admin/courses" className=" nav-link">
+                  <NavLink to="events" className="nav-link">
+                    <i className="metismenu-icon" />
+                    Sự kiện
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="categories" className="nav-link">
+                    <i className="metismenu-icon" />
+                    Môn học
+                  </NavLink>
+                </li>
+                <li>
+                  <a href="courses" className=" nav-link">
                     <i className="metismenu-icon" />
                     Khóa học
+                  </a>
+                </li>
+                <li>
+                  <a href="teachers" className=" nav-link">
+                    <i className="metismenu-icon" />
+                    Giảng viên
                   </a>
                 </li>
                 <li>
