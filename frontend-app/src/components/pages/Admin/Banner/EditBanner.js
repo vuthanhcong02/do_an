@@ -54,7 +54,9 @@ export default function EditBanner() {
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("_method", "PUT");
-    formData.append("image", selectedImage);
+    if (selectedImage) {
+      formData.append("image", selectedImage);
+    }
     formData.append("title", data.title);
     formData.append("position", data.position);
     formData.append("status", data.status ? 1 : 0);

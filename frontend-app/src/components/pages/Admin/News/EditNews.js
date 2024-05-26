@@ -59,7 +59,9 @@ export default function EditNews() {
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("_method", "PUT");
-    formData.append("image", selectedImage);
+    if (selectedImage) {
+      formData.append("image", selectedImage);
+    }
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("slug", data.slug);

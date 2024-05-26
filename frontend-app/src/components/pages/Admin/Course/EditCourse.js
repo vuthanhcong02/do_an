@@ -93,7 +93,9 @@ export default function EditCourse() {
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("_method", "PUT");
-    formData.append("image", selectedImage);
+    if (selectedImage) {
+      formData.append("image", selectedImage);
+    }
     formData.append("name", data.name);
     formData.append("description", description);
     formData.append("slug", data.slug);
