@@ -57,12 +57,12 @@
         }
     }
     .App-content{
-        height:3000px;
+        flex: 1;
         background-color: #ECF0F7;
 
     }
     .App-footer{
-       
+      
         .App-footer-contact-container{
             display: flex;
             justify-content: space-between;

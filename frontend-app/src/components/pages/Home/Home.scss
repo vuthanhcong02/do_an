@@ -52,8 +52,7 @@
             }
             .Home-content-news{
                 padding :10px 10px 30px 10px;
-    
-                height: 477px;
+                min-height: 477px;
                 background-color: white;
                 .Home-content-news-title{
                     display: flex;
@@ -84,6 +83,7 @@
             }
         }
         .Home-content-events{
+            margin-top: 20px;
             padding :10px 10px 30px 10px;
             height: 100%;
             background-color: white;

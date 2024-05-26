@@ -21,4 +21,23 @@ class CourseService extends BaseService
         }
         return $courses;
     }
+
+    public function getCourseByFeatured()
+    {
+        $courses = $this->model->where('featured', 1)->limit(6)->orderBy('id', 'desc')->get();
+        if (!$courses) {
+            return false;
+        }
+        return $courses;
+    }
+
+    public function getCoursesByEnglishCategory()
+    {
+        return  $this->model->where('category_id', 2)->orderBy('id', 'desc')->paginate(10);
+    }
+
+    public function getCoursesByInformationCategory()
+    {
+        return  $this->model->where('category_id', 1)->orderBy('id', 'desc')->paginate(10);
+    }
 }

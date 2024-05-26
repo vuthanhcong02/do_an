@@ -94,4 +94,31 @@ class CourseController extends Controller
         }
         return $this->customResponse(200,  true, $courses);
     }
+
+    public function getCourseByFeatured()
+    {
+        $courses = $this->courseService->getCourseByFeatured();
+        if (!$courses) {
+            return $this->customResponse(404, false, null, 'Course not found', null);
+        }
+        return $this->customResponse(200,  true, $courses);
+    }
+
+    public function getCourseByEnglishCategory()
+    {
+        $courses = $this->courseService->getCoursesByEnglishCategory();
+        if (!$courses) {
+            return $this->customResponse(404, false, null, 'Course not found', null);
+        }
+        return $this->customResponse(200,  true, $courses);
+    }
+
+    public function getCourseByInformationCategory()
+    {
+        $courses = $this->courseService->getCoursesByInformationCategory();
+        if (!$courses) {
+            return $this->customResponse(404, false, null, 'Course not found', null);
+        }
+        return $this->customResponse(200,  true, $courses);
+    }
 }

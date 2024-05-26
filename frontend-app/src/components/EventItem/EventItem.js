@@ -2,6 +2,7 @@ import React from "react";
 import "./EventItem.scss";
 import { baseUrl } from "../../config";
 import { getSummary } from "../../utils/function";
+import moment from "moment";
 export default function EventItem({ news }) {
   return (
     <div className="EventItem-container">
@@ -12,7 +13,10 @@ export default function EventItem({ news }) {
         <div className="EventItem-title d-flex flex-column">
           <div>
             <span>{news?.title}</span>
-            <span className="EventItem-date"> ({news?.created_at})</span>
+            <span className="EventItem-date">
+              {" "}
+              ({moment(news?.created_at).format("DD/MM/YYYY")})
+            </span>
           </div>
           <div className="EventItem-description">
             {getSummary(news?.description)}

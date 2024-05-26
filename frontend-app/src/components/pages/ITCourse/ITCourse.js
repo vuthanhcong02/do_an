@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CourseItem from "../../CourseItem/CourseItem";
 import { Link } from "react-router-dom";
+import { getCourseByInformationCategory } from "../../../services/CourseService";
 export default function ITCourse() {
-  const description =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    fetchCourseByInformationCategory();
+  }, []);
+
+  const fetchCourseByInformationCategory = async () => {
+    const { success, data } = await getCourseByInformationCategory();
+    if (success) {
+      setCourses(data.data);
+    }
+  };
   return (
     <div className="EnglishCourse-container">
       <div className="EnglishCourse-content">
@@ -11,14 +22,9 @@ export default function ITCourse() {
           <span>IT Course</span>
         </div>
         <div className="EnglishCourse-content-item">
-          <CourseItem description={description} />
-          <CourseItem description={description} />
-          <CourseItem description={description} />
-          <CourseItem description={description} />
-          <CourseItem description={description} />
-          <CourseItem description={description} />
-          <CourseItem description={description} />
-          <CourseItem description={description} />
+          {courses.map((course) => (
+            <CourseItem key={course.id} course={course} />
+          ))}
           <div className="News-content-pagination mt-3">
             <ul class="pagination justify-content-end">
               <li class="page-item disabled">
