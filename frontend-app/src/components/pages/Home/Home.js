@@ -21,8 +21,6 @@ export default function Home() {
 
   const [news, setNews] = useState([]);
 
-  const description =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, ";
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
@@ -96,9 +94,6 @@ export default function Home() {
                 <span>Tuyển sinh khóa học</span>
               </div>
               <div className="Home-content-courses-list">
-                {/* <CourseItem description={description} />
-                <CourseItem description={description} />
-                <CourseItem description={description} /> */}
                 {courses.map((course, idx) => (
                   <CourseItem key={idx} course={course} />
                 ))}
@@ -115,7 +110,6 @@ export default function Home() {
                 {newsFeatured.map((news, idx) => (
                   <NewsItem key={idx} news={news} />
                 ))}
-                {/* <NewsItem /> */}
                 <div className="Home-content-news-more">
                   <span>Xem thêm </span>
                 </div>
@@ -127,10 +121,6 @@ export default function Home() {
               <span>Sự kiện</span>
             </div>
             <div className="Home-content-events-list">
-              {/* <EventItem />
-              <EventItem />
-              <EventItem />
-              <EventItem /> */}
               {news.map((news, idx) => (
                 <EventItem key={idx} news={news} />
               ))}

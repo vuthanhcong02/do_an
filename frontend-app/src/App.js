@@ -22,6 +22,7 @@ import ManagerCourse from "./components/pages/Admin/Course/ManagerCourse.js";
 import EditCourse from "./components/pages/Admin/Course/EditCourse.js";
 import CreateCourse from "./components/pages/Admin/Course/CreateCourse.js";
 import CourseDetails from "./components/pages/CourseDetails/CourseDetails.js";
+import NewsDetails from "./components/pages/NewsDetails/NewsDetails.js";
 function App() {
   return (
     <div className="App-container">
@@ -34,6 +35,7 @@ function App() {
           <Route path="/english-courses" element={<EnglishCourse />} />
           <Route path="/information-courses" element={<ITCourse />} />
           <Route path="/courses/:id" element={<CourseDetails />} />
+          <Route path="/news/:id" element={<NewsDetails />} />
           <Route path="*" element={<Home />} />
         </Route>
         <Route path="/admin" element={<PrivateLayout />}>

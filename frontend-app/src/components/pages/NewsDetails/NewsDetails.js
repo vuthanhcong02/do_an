@@ -1,54 +1,50 @@
 import React, { useEffect, useState } from "react";
 import CourseItem from "../../CourseItem/CourseItem";
 import { Link, NavLink, useParams } from "react-router-dom";
-import "./CourseDetails.scss";
-import {
-  getCourseById,
-  getCourseByFeatured,
-} from "../../../services/CourseService";
+import { getNewsById, getNewByFeatured } from "../../../services/NewsService";
 import { baseUrl } from "../../../config";
-export default function CourseDetails() {
+export default function NewsDetails() {
   const { id } = useParams();
-  const [courses, setCourses] = useState([]);
-  const [courseDetails, setCourseDetails] = useState({});
+  const [news, setNews] = useState([]);
+  const [newsDetails, setNewsDetails] = useState({});
   //   console.log(course);
 
   useEffect(() => {
-    fetchCourseDetails();
+    fetchNewsDetails();
   }, [id]);
 
-  const fetchCourseDetails = async () => {
-    const { success, data } = await getCourseById(id);
+  const fetchNewsDetails = async () => {
+    const { success, data } = await getNewsById(id);
     if (success) {
-      setCourseDetails(data);
+      setNewsDetails(data);
     }
   };
 
   useEffect(() => {
-    fetchCourses();
+    fetchNews();
   }, []);
 
-  const fetchCourses = async () => {
-    const { success, data } = await getCourseByFeatured();
+  const fetchNews = async () => {
+    const { success, data } = await getNewByFeatured();
     if (success) {
-      setCourses(data);
+      setNews(data);
     }
   };
   return (
     <div className="CourseDetails-container">
       <div className="CourseDetails-content col-8">
         <div className="CourseDetails-content-title">
-          <span>Khóa học</span>
+          <span>Tin tức</span>
         </div>
         <div className="CourseDetails-content-item p-3">
           <h4 className="CourseDetails-content-item-title">
-            {courseDetails.name}
+            {newsDetails.title}
           </h4>
           <p className="CourseDetails-content-item-description">
-            {courseDetails.sub_description}
+            {newsDetails.sub_description}
           </p>
           <img
-            src={`${baseUrl}${courseDetails.image}`}
+            src={`${baseUrl}${newsDetails.image}`}
             alt=""
             style={{
               width: "100%",
@@ -60,28 +56,28 @@ export default function CourseDetails() {
           <div
             className="CourseDetails-content-item-content"
             dangerouslySetInnerHTML={{
-              __html: courseDetails.description,
+              __html: newsDetails.content,
             }}
           />
         </div>
       </div>
       <div className="CourseDetails-more col-4">
         <div className="CourseDetails-more-title">
-          <span>Các khóa học khác</span>
+          <span>Các tin tức khác</span>
         </div>
-        {courses.map((course, index) => (
+        {news.map((item, index) => (
           <NavLink
-            to={`/courses/${course?.id}`}
+            to={`/news/${item?.id}`}
             style={{ textDecoration: "none" }}
             className="CourseDetails-more-item row"
-            key={course?.id}
+            key={item?.id}
           >
             <div className="CourseDetails-more-item-image col-5">
-              <img src={`${baseUrl}${course?.image}`} alt="" />
+              <img src={`${baseUrl}${item?.image}`} alt="" />
             </div>
             <div className="CourseDetails-more-item-content col-7">
               <span className="CourseDetails-more-item-title">
-                {course?.name}
+                {item?.title}
               </span>
             </div>
           </NavLink>
