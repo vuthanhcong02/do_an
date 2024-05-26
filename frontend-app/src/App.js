@@ -18,6 +18,9 @@ import EditNews from "./components/pages/Admin/News/EditNews";
 import ManagerCategory from "./components/pages/Admin/Category/ManagerCategory";
 import CreateCategory from "./components/pages/Admin/Category/CreateCategory.js";
 import EditCategory from "./components/pages/Admin/Category/EditCategory";
+import ManagerCourse from "./components/pages/Admin/Course/ManagerCourse.js";
+import EditCourse from "./components/pages/Admin/Course/EditCourse.js";
+import CreateCourse from "./components/pages/Admin/Course/CreateCourse.js";
 function App() {
   return (
     <div className="App-container">
@@ -44,6 +47,10 @@ function App() {
           <Route path="categories" element={<ManagerCategory />} />
           <Route path="categories/create" element={<CreateCategory />} />
           <Route path="categories/:id/edit" element={<EditCategory />} />
+
+          <Route path="courses" element={<ManagerCourse />} />
+          <Route path="courses/create" element={<CreateCourse />} />
+          <Route path="courses/:id/edit" element={<EditCourse />} />
         </Route>
       </Routes>
     </div>

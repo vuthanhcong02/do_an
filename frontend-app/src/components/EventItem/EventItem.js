@@ -15,7 +15,6 @@ export default function EventItem({ news }) {
             <span className="EventItem-date"> ({news?.created_at})</span>
           </div>
           <div className="EventItem-description">
-            {" "}
             {getSummary(news?.description)}
           </div>
         </div>

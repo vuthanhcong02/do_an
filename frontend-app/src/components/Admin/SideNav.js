@@ -85,10 +85,10 @@ export default function SideNav() {
                   </NavLink>
                 </li>
                 <li>
-                  <a href="courses" className=" nav-link">
+                  <NavLink to="courses" className=" nav-link">
                     <i className="metismenu-icon" />
                     Khóa học
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
                   <a href="teachers" className=" nav-link">

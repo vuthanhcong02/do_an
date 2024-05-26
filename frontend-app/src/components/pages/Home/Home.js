@@ -6,6 +6,7 @@ import NewsItem from "../../NewsItem/NewsItem";
 import CourseItem from "../../CourseItem/CourseItem";
 import EventItem from "../../EventItem/EventItem";
 import { getBannersOrderByPosition } from "../../../services/BannerService";
+import { getSummary } from "../../../utils/function";
 import {
   getNewsOrderById,
   getNewByFeatured,

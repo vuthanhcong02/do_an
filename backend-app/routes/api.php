@@ -54,7 +54,7 @@ Route::group(['prefix' => '/news'], function () {
 });
 
 Route::group(['prefix' => '/courses'], function () {
-    Route::get('/', [\App\Http\Controllers\CourseController::class, 'getAll']);
+    Route::get('/', [\App\Http\Controllers\CourseController::class, 'index']);
     Route::get('/order-by-id', [\App\Http\Controllers\CourseController::class, 'getCourseOrderById']);
     Route::get('/{id}', [\App\Http\Controllers\CourseController::class, 'show']);
     Route::post('/', [\App\Http\Controllers\CourseController::class, 'createCourse']);
