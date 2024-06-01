@@ -31,6 +31,9 @@ import EventDetails from "./components/pages/EventDetails/EventDetails.js";
 import ManagerTeacher from "./components/pages/Admin/Teacher/ManagerTeacher.js";
 import CreateTeacher from "./components/pages/Admin/Teacher/CreateTeacher.js";
 import EditTeacher from "./components/pages/Admin/Teacher/EditTeacher.js";
+import ManagerClassRoom from "./components/pages/Admin/ClassRoom/ManagerClassRoom.js";
+import CreateClassRoom from "./components/pages/Admin/ClassRoom/CreateClassRoom.js";
+import EditClassRoom from "./components/pages/Admin/ClassRoom/EditClassRoom.js";
 function App() {
   return (
     <div className="App-container">
@@ -74,6 +77,11 @@ function App() {
           <Route path="teachers" element={<ManagerTeacher />} />
           <Route path="teachers/create" element={<CreateTeacher />} />
           <Route path="teachers/:id/edit" element={<EditTeacher />} />
+
+          <Route path="classrooms" element={<ManagerClassRoom />} />
+
+          <Route path="classrooms/create" element={<CreateClassRoom />} />
+          <Route path="classrooms/:id/edit" element={<EditClassRoom />} />
         </Route>
       </Routes>
     </div>

@@ -74,6 +74,14 @@ Route::group(['prefix' => '/courses'], function () {
     Route::put('/{id}', [\App\Http\Controllers\CourseController::class, 'update']);
     Route::delete('/{id}', [\App\Http\Controllers\CourseController::class, 'destroy']);
 });
+
+Route::group(['prefix' => '/classrooms'], function () {
+    Route::get('/', [\App\Http\Controllers\ClassRoomController::class, 'getAll']);
+    Route::get('/{id}', [\App\Http\Controllers\ClassRoomController::class, 'showClassRoom']);
+    Route::post('/', [\App\Http\Controllers\ClassRoomController::class, 'createClassRoom']);
+    Route::put('/{id}', [\App\Http\Controllers\ClassRoomController::class, 'updateClassRoom']);
+    Route::delete('/{id}', [\App\Http\Controllers\ClassRoomController::class, 'deleteClassRoom']);
+});
 Route::fallback(function () {
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact info@website.com'

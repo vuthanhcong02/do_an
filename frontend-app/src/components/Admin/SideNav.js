@@ -97,32 +97,47 @@ export default function SideNav() {
                   </NavLink>
                 </li>
                 <li>
-                  <a href="admin/users" className=" nav-link">
+                  <NavLink to="users" className=" nav-link">
                     <i className="metismenu-icon" />
                     Người dùng
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="admin/registrations" className=" nav-link">
+                  <NavLink to="registrations" className=" nav-link">
                     <i className="metismenu-icon" />
                     Đăng kí học
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="admin/classes" className=" nav-link">
+                  <NavLink to="classes" className=" nav-link">
                     <i className="metismenu-icon" />
                     Lớp học
-                  </a>
+                  </NavLink>
                 </li>
+
                 <li>
-                  <NavLink to="admin/notifications" className=" nav-link">
+                  <NavLink to="classrooms" className=" nav-link">
+                    <i className="metismenu-icon" />
+                    Phòng học
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="schedules" className=" nav-link">
+                    <i className="metismenu-icon" />
+                    Thời khóa biểu
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink className=" nav-link">
                     <i className="metismenu-icon" />
                     Thông báo
                   </NavLink>
                   <ul>
                     <li>
                       <a
-                        href="admin/notifications/exam-schedules"
+                        href="notifications/exam-schedules"
                         className=" nav-link"
                       >
                         <i className="metismenu-icon" />
@@ -131,7 +146,7 @@ export default function SideNav() {
                     </li>
                     <li>
                       <a
-                        href="admin/notifications/exam-results"
+                        href="notifications/exam-results"
                         className=" nav-link"
                       >
                         <i className="metismenu-icon" />
