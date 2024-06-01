@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./News.scss";
+import "../News/News.scss";
 import NewsItem from "../../NewsItem/NewsItem";
-import EventItem from "../../EventItem/EventList";
 import { Link } from "react-router-dom";
 import { getNews, getNewByFeatured } from "../../../services/NewsService";
+import { getEvents } from "../../../services/EventService";
 import NewList from "../../NewList/NewList";
-export default function News() {
-  const [news, setNews] = useState([]);
+import EventList from "../../EventItem/EventList";
+export default function Event() {
+  const [events, setEvents] = useState([]);
   const [newsFeatured, setNewsFeatured] = useState([]);
 
   useEffect(() => {
@@ -22,10 +23,10 @@ export default function News() {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const res = await getNews();
+      const res = await getEvents();
       if (res.success === true) {
         console.log(res.data);
-        setNews(res.data.data);
+        setEvents(res.data.data);
       }
     };
     fetchNews();
@@ -34,11 +35,12 @@ export default function News() {
     <div className="News-container row">
       <div className="News-content col-md-9">
         <div className="News-content-title">
-          <span>Tin tức</span>
+          <span>Sự kiện</span>
         </div>
         <div className="News-content-item">
-          {news.map((item, index) => {
-            return <NewList key={index} news={item} />;
+          {/* <EventItem /> */}
+          {events?.map((item, index) => {
+            return <EventList key={index} event={item} />;
           })}
 
           <div className="News-content-pagination mt-3">

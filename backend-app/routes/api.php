@@ -53,6 +53,16 @@ Route::group(['prefix' => '/news'], function () {
     Route::delete('/{id}', [\App\Http\Controllers\NewsController::class, 'destroy']);
 });
 
+Route::group(['prefix' => '/events'], function () {
+    Route::get('/featured', [\App\Http\Controllers\EventController::class, 'getEventsByFeatured']);
+    Route::get('/', [\App\Http\Controllers\EventController::class, 'index']);
+    Route::get('/{id}', [\App\Http\Controllers\EventController::class, 'show']);
+
+    Route::post('/', [\App\Http\Controllers\EventController::class, 'store']);
+    Route::put('/{id}', [\App\Http\Controllers\EventController::class, 'updateEvent']);
+    Route::delete('/{id}', [\App\Http\Controllers\EventController::class, 'destroy']);
+});
+
 Route::group(['prefix' => '/courses'], function () {
     Route::get('/featured', [\App\Http\Controllers\CourseController::class, 'getCourseByFeatured']);
     Route::get('/get-course-by-english-category', [\App\Http\Controllers\CourseController::class, 'getCourseByEnglishCategory']);

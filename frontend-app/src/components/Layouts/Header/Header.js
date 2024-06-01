@@ -67,7 +67,9 @@ export default function Header() {
                     <NavLink to="/news" className="nav-link">
                       Tin tức
                     </NavLink>
-
+                    <NavLink to="/events" className="nav-link">
+                      Sự kiện
+                    </NavLink>
                     <NavDropdown
                       href="#action2"
                       title="Đào tạo"

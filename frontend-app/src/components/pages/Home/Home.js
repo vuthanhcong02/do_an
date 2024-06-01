@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import NewsItem from "../../NewsItem/NewsItem";
 import CourseItem from "../../CourseItem/CourseItem";
-import EventItem from "../../EventItem/EventItem";
+import EventItem from "../../EventItem/EventList";
 import { getBannersOrderByPosition } from "../../../services/BannerService";
 import { getSummary } from "../../../utils/function";
 import {
@@ -12,13 +12,16 @@ import {
   getNewByFeatured,
 } from "../../../services/NewsService";
 import { getCourseOrderById } from "../../../services/CourseService";
+import { getEventsByFeatured } from "../../../services/EventService";
 import { baseUrl } from "../../../config";
+import NewList from "../../NewList/NewList";
+import EventList from "../../EventItem/EventList";
 export default function Home() {
   const [index, setIndex] = useState(0);
   const [banners, setBanners] = useState([]);
   const [newsFeatured, setNewsFeatured] = useState([]);
   const [courses, setCourses] = useState([]);
-
+  const [events, setEvents] = useState([]);
   const [news, setNews] = useState([]);
 
   const handleSelect = (selectedIndex) => {
@@ -26,48 +29,64 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const fetchBanners = async () => {
-      const res = await getBannersOrderByPosition();
-      if (res.success === true) {
-        console.log(res.data);
-        setBanners(res.data);
-      }
-    };
     fetchBanners();
   }, []);
 
+  const fetchBanners = async () => {
+    const res = await getBannersOrderByPosition();
+    if (res.success === true) {
+      console.log(res.data);
+      setBanners(res.data);
+    }
+  };
+
   useEffect(() => {
-    const fetchNewsFeatured = async () => {
-      const res = await getNewByFeatured();
-      if (res.success === true) {
-        console.log(res.data);
-        setNewsFeatured(res.data);
-      }
-    };
     fetchNewsFeatured();
   }, []);
 
+  const fetchNewsFeatured = async () => {
+    const res = await getNewByFeatured();
+    if (res.success === true) {
+      console.log(res.data);
+      setNewsFeatured(res.data);
+    }
+  };
+
   useEffect(() => {
-    const fetchNews = async () => {
-      const res = await getNewsOrderById();
-      if (res.success === true) {
-        console.log(res.data);
-        setNews(res.data);
-      }
-    };
     fetchNews();
   }, []);
 
+  const fetchNews = async () => {
+    const res = await getNewsOrderById();
+    if (res.success === true) {
+      console.log(res.data);
+      setNews(res.data);
+    }
+  };
+
   useEffect(() => {
-    const fetchCourses = async () => {
-      const res = await getCourseOrderById();
-      if (res.success === true) {
-        console.log("Courses", res.data);
-        setCourses(res.data);
-      }
-    };
     fetchCourses();
   }, []);
+
+  const fetchCourses = async () => {
+    const res = await getCourseOrderById();
+    if (res.success === true) {
+      console.log("Courses", res.data);
+      setCourses(res.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    const res = await getEventsByFeatured();
+    if (res.success === true) {
+      console.log("Events", res.data);
+      setEvents(res.data);
+    }
+  };
   return (
     <>
       <div className="Home-container">
@@ -121,8 +140,8 @@ export default function Home() {
               <span>Sự kiện</span>
             </div>
             <div className="Home-content-events-list">
-              {news.map((news, idx) => (
-                <EventItem key={idx} news={news} />
+              {events.map((event, idx) => (
+                <EventList key={idx} event={event} />
               ))}
               <div className="Home-content-events-more">
                 <span>Xem thêm </span>
