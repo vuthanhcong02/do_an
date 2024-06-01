@@ -34,6 +34,9 @@ import EditTeacher from "./components/pages/Admin/Teacher/EditTeacher.js";
 import ManagerClassRoom from "./components/pages/Admin/ClassRoom/ManagerClassRoom.js";
 import CreateClassRoom from "./components/pages/Admin/ClassRoom/CreateClassRoom.js";
 import EditClassRoom from "./components/pages/Admin/ClassRoom/EditClassRoom.js";
+import ManagerClass from "./components/pages/Admin/Classes/ManagerClass.js";
+import CreateClass from "./components/pages/Admin/Classes/CreateClass.js";
+import EditClass from "./components/pages/Admin/Classes/EditClass.js";
 function App() {
   return (
     <div className="App-container">
@@ -79,9 +82,12 @@ function App() {
           <Route path="teachers/:id/edit" element={<EditTeacher />} />
 
           <Route path="classrooms" element={<ManagerClassRoom />} />
-
           <Route path="classrooms/create" element={<CreateClassRoom />} />
           <Route path="classrooms/:id/edit" element={<EditClassRoom />} />
+
+          <Route path="classes" element={<ManagerClass />} />
+          <Route path="classes/create" element={<CreateClass />} />
+          <Route path="classes/:id/edit" element={<EditClass />} />
         </Route>
       </Routes>
     </div>
