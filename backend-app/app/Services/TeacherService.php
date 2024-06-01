@@ -11,4 +11,9 @@ class TeacherService extends BaseService
     {
         parent::__construct($teacher);
     }
+
+    public function getAllTeachers()
+    {
+        return $this->model->with('category')->orderBy('id', 'desc')->paginate(10);
+    }
 }

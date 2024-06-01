@@ -28,6 +28,9 @@ import CreateEvent from "./components/pages/Admin/Event/CreateEvent.js";
 import EditEvent from "./components/pages/Admin/Event/EditEvent.js";
 import Event from "./components/pages/Event/Event.js";
 import EventDetails from "./components/pages/EventDetails/EventDetails.js";
+import ManagerTeacher from "./components/pages/Admin/Teacher/ManagerTeacher.js";
+import CreateTeacher from "./components/pages/Admin/Teacher/CreateTeacher.js";
+import EditTeacher from "./components/pages/Admin/Teacher/EditTeacher.js";
 function App() {
   return (
     <div className="App-container">
@@ -67,6 +70,10 @@ function App() {
           <Route path="events" element={<ManagerEvents />} />
           <Route path="events/create" element={<CreateEvent />} />
           <Route path="events/:id/edit" element={<EditEvent />} />
+
+          <Route path="teachers" element={<ManagerTeacher />} />
+          <Route path="teachers/create" element={<CreateTeacher />} />
+          <Route path="teachers/:id/edit" element={<EditTeacher />} />
         </Route>
       </Routes>
     </div>
