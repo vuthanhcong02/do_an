@@ -91,6 +91,14 @@ Route::group(['prefix' => '/classes'], function () {
     Route::delete('/{id}', [\App\Http\Controllers\ClassesController::class, 'destroyClass']);
 });
 
+Route::group(['prefix' => '/schedules'], function () {
+    Route::get('/', [\App\Http\Controllers\ScheduleController::class, 'getAll']);
+    Route::get('/{id}', [\App\Http\Controllers\ScheduleController::class, 'getScheduleById']);
+    Route::post('/', [\App\Http\Controllers\ScheduleController::class, 'makeSchedule']);
+    Route::put('/{id}', [\App\Http\Controllers\ScheduleController::class, 'updateSchedule']);
+    Route::delete('/{id}', [\App\Http\Controllers\ScheduleController::class, 'deleteSchedule']);
+});
+
 Route::fallback(function () {
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact info@website.com'

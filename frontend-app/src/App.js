@@ -37,6 +37,9 @@ import EditClassRoom from "./components/pages/Admin/ClassRoom/EditClassRoom.js";
 import ManagerClass from "./components/pages/Admin/Classes/ManagerClass.js";
 import CreateClass from "./components/pages/Admin/Classes/CreateClass.js";
 import EditClass from "./components/pages/Admin/Classes/EditClass.js";
+import ManagerSchedule from "./components/pages/Admin/Schedule/ManagerSchedule.js";
+import CreateSchedule from "./components/pages/Admin/Schedule/CreateSchedule.js";
+import EditSchedule from "./components/pages/Admin/Schedule/EditSchedule.js";
 function App() {
   return (
     <div className="App-container">
@@ -88,6 +91,10 @@ function App() {
           <Route path="classes" element={<ManagerClass />} />
           <Route path="classes/create" element={<CreateClass />} />
           <Route path="classes/:id/edit" element={<EditClass />} />
+
+          <Route path="schedules" element={<ManagerSchedule />} />
+          <Route path="schedules/create" element={<CreateSchedule />} />
+          <Route path="schedules/:id/edit" element={<EditSchedule />} />
         </Route>
       </Routes>
     </div>
