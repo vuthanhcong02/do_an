@@ -89,9 +89,11 @@ Route::group(['prefix' => '/classes'], function () {
     Route::post('/', [\App\Http\Controllers\ClassesController::class, 'createClass']);
     Route::put('/{id}', [\App\Http\Controllers\ClassesController::class, 'updateClass']);
     Route::delete('/{id}', [\App\Http\Controllers\ClassesController::class, 'destroyClass']);
+    Route::get('/course/{id}', [\App\Http\Controllers\ClassesController::class, 'getClassesByCourse']);
 });
 
 Route::group(['prefix' => '/schedules'], function () {
+    Route::get('/course/{id}', [\App\Http\Controllers\ScheduleController::class, 'getScheduleByCourseId']);
     Route::get('/', [\App\Http\Controllers\ScheduleController::class, 'getAll']);
     Route::get('/{id}', [\App\Http\Controllers\ScheduleController::class, 'getScheduleById']);
     Route::post('/', [\App\Http\Controllers\ScheduleController::class, 'makeSchedule']);

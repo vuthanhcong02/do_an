@@ -22,19 +22,22 @@ export default function Footer() {
           <div className="d-flex flex-column">
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faLocation} />
-              <span className="p-2">175 CMT8, Phú My Hòa, Cà Mà, Hanoi</span>
+              <span className="p-2">175 Tây Sơn, Đống Đa, Hà Nội</span>
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faPhone} />
-              <span className="p-2 fz-13">0971765824</span>
+              <span className="p-2 fz-13">
+                {" "}
+                (024) 38522201 - Fax: (024) 35633351
+              </span>
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faEnvelope} />
-              <span className="p-2 fz-13">congvtc02@gmail</span>
+              <span className="p-2 fz-13">ttnnth@tlu.edu.vn</span>
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faEarth} />
-              <span className="p-2 fz-13">ngoaingutinhoc.tech.com</span>
+              <span className="p-2 fz-13">ngoaingutinhoc.tlu.com</span>
             </div>
           </div>
         </div>

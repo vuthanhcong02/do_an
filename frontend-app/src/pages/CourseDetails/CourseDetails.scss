@@ -1,0 +1,69 @@
+.CourseDetails-container{
+    padding: 20px 100px; 
+    display: flex;
+    min-height: 1000px;
+    .CourseDetails-content{
+        background-color: white;
+        padding: 0 10px 100px 10px;
+        border-right: 1px solid #d9d9d9;
+        .CourseDetails-content-title{
+            margin-top: 10px;
+            background-color: #273272;
+            color: white;
+            padding: 10px;
+            
+        }
+        .CourseDetails-content-item{
+            cursor: pointer;
+            .CourseDetails-content-item-title{
+                color: #273272;
+            }
+            .CourseDetails-content-item-content{
+                padding: 10px;
+                margin: 10px 0;
+            }
+        }
+    }
+    .CourseDetails-more{
+        background-color: white;
+        padding: 0 10px;
+        .CourseDetails-more-title{
+            margin-top: 10px;
+            background-color: #273272;
+            color: white;
+            padding: 10px;
+            
+        }
+        .CourseDetails-more-item{
+            padding: 10px;
+            display: flex;
+            align-items: start;
+            justify-content: start;
+            border-bottom: 1px solid #d9d9d9;
+            .CourseDetails-more-item-image{
+                width: 150px;
+                height: 70px;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .CourseDetails-more-item-title{
+                font-size: 14px;
+                color: #273272;
+                font-weight: 600;
+                cursor: pointer;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+}
+.ql-editor img {
+    max-width: 100%; /* Giữ cho ảnh không bị tràn ra ngoài phần tử cha */
+    height: auto; /* Đảm bảo tỷ lệ hình ảnh được giữ nguyên */
+    /* Thêm các thuộc tính khác nếu cần thiết */
+  }

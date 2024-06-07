@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../Admin/Header";
 import Footer from "../Admin/Footer";
 import SideNav from "../Admin/SideNav";
-import HomeAdmin from "../pages/Admin/HomeAdmin";
+import HomeAdmin from "../../pages/Admin/HomeAdmin";
 import { Outlet } from "react-router-dom";
 export default function PrivateLayout() {
   return (

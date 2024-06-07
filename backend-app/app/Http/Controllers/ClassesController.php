@@ -67,4 +67,14 @@ class ClassesController extends Controller
 
         return $this->customResponse(200, true, $class, null, null);
     }
+
+    public function getClassesByCourse($courseId)
+    {
+        $classes = $this->classesService->getClassesByCourse($courseId);
+        if (!$classes) {
+            return $this->customResponse(404, false, null, 'Classes not found', null);
+        }
+
+        return $this->customResponse(200, true, $classes, null, null);
+    }
 }

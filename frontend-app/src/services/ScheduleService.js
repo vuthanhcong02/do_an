@@ -19,3 +19,7 @@ export const updateSchedule = (id, data) => {
 export const deleteSchedule = (id) => {
   return httpClient.delete(`/schedules/${id}`);
 };
+
+export const getSchedulesByCourseId = (id) => {
+  return httpClient.get(`/schedules/course/${id}`);
+};

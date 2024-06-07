@@ -14,11 +14,16 @@ class ScheduleService extends BaseService
 
     public function getAllSchedules()
     {
-        return $this->model->with('class', 'classroom', 'teacher')->orderBy('id', 'desc')->paginate(10);
+        return $this->model->with('class', 'classroom', 'teacher', 'course')->orderBy('id', 'desc')->paginate(10);
     }
 
     public function getScheduleById($id)
     {
-        return $this->model->with('class', 'classroom', 'teacher')->find($id);
+        return $this->model->with('class', 'classroom', 'teacher', 'course')->find($id);
+    }
+
+    public function getScheduleByCourseId($courseId)
+    {
+        return $this->model->with('class', 'classroom', 'teacher', 'course')->where('course_id', $courseId)->get();
     }
 }

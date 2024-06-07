@@ -21,11 +21,11 @@ export default function Header() {
         <div className="d-flex justify-content-center align-items-center">
           <div className="App-header-contact-phone d-flex align-items-center">
             <FontAwesomeIcon icon={faPhone} />
-            <span className="p-2">0971765824</span>
+            <span className="p-2">(024) 38522201 - Fax: (024) 35633351</span>
           </div>
           <div className="App-header-contact-email d-flex align-items-center">
             <FontAwesomeIcon icon={faEnvelope} />
-            <span className="p-2">congvtc02@gmail.com</span>
+            <span className="p-2">ttnnth@tlu.edu.vn</span>
           </div>
         </div>
         <div>
@@ -45,7 +45,15 @@ export default function Header() {
             className="bg-body-tertiary mb-3"
           >
             <Container fluid className="bg-body-tertiary">
-              <Navbar.Brand href="#">Logo</Navbar.Brand>
+              <Navbar.Brand href="#">
+                <img
+                  src="/logo.png"
+                  alt=""
+                  width={100}
+                  height={60}
+                  style={{ backgroundImage: "#ECF0F7" }}
+                />
+              </Navbar.Brand>
               <Navbar.Toggle
                 aria-controls={`offcanvasNavbar-expand-${expand}`}
               />

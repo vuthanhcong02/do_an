@@ -19,3 +19,7 @@ export const makeClass = (data) => {
 export const updateClass = (id, data) => {
   return httpClient.put(`/classes/${id}`, data);
 };
+
+export const getClassesByCourse = (id) => {
+  return httpClient.get(`/classes/course/${id}`);
+};

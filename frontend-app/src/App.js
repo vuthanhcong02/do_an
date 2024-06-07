@@ -1,45 +1,46 @@
 import "./App.scss";
-import MainLayout from "./components/Layouts/MainLayout";
-import Home from "./components/pages/Home/Home";
+import MainLayout from "./components/Layouts/MainLayout.js";
+import Home from "./pages/Home/Home";
 import { Routes, Route } from "react-router-dom";
-import News from "./components/pages/News/News";
-import Contact from "./components/pages/Contact/Contact";
-import Notification from "./components/pages/Notification/Notification";
-import EnglishCourse from "./components/pages/EnglishCourse/EnglishCourse";
-import ITCourse from "./components/pages/ITCourse/ITCourse";
-import PrivateLayout from "./components/Layouts/PrivateLayout";
-import HomeAdmin from "./components/pages/Admin/HomeAdmin";
-import ManagerBanner from "./components/pages/Admin/Banner/ManagerBanner";
-import CreateBanner from "./components/pages/Admin/Banner/CreateBanner";
-import ManagerNews from "./components/pages/Admin/News/ManagerNews";
-import CreateNews from "./components/pages/Admin/News/CreateNews";
-import EditBanner from "./components/pages/Admin/Banner/EditBanner";
-import EditNews from "./components/pages/Admin/News/EditNews";
-import ManagerCategory from "./components/pages/Admin/Category/ManagerCategory";
-import CreateCategory from "./components/pages/Admin/Category/CreateCategory.js";
-import EditCategory from "./components/pages/Admin/Category/EditCategory";
-import ManagerCourse from "./components/pages/Admin/Course/ManagerCourse.js";
-import EditCourse from "./components/pages/Admin/Course/EditCourse.js";
-import CreateCourse from "./components/pages/Admin/Course/CreateCourse.js";
-import CourseDetails from "./components/pages/CourseDetails/CourseDetails.js";
-import NewsDetails from "./components/pages/NewsDetails/NewsDetails.js";
-import ManagerEvents from "./components/pages/Admin/Event/ManagerEvents.js";
-import CreateEvent from "./components/pages/Admin/Event/CreateEvent.js";
-import EditEvent from "./components/pages/Admin/Event/EditEvent.js";
-import Event from "./components/pages/Event/Event.js";
-import EventDetails from "./components/pages/EventDetails/EventDetails.js";
-import ManagerTeacher from "./components/pages/Admin/Teacher/ManagerTeacher.js";
-import CreateTeacher from "./components/pages/Admin/Teacher/CreateTeacher.js";
-import EditTeacher from "./components/pages/Admin/Teacher/EditTeacher.js";
-import ManagerClassRoom from "./components/pages/Admin/ClassRoom/ManagerClassRoom.js";
-import CreateClassRoom from "./components/pages/Admin/ClassRoom/CreateClassRoom.js";
-import EditClassRoom from "./components/pages/Admin/ClassRoom/EditClassRoom.js";
-import ManagerClass from "./components/pages/Admin/Classes/ManagerClass.js";
-import CreateClass from "./components/pages/Admin/Classes/CreateClass.js";
-import EditClass from "./components/pages/Admin/Classes/EditClass.js";
-import ManagerSchedule from "./components/pages/Admin/Schedule/ManagerSchedule.js";
-import CreateSchedule from "./components/pages/Admin/Schedule/CreateSchedule.js";
-import EditSchedule from "./components/pages/Admin/Schedule/EditSchedule.js";
+import News from "./pages/News/News.js";
+import Contact from "./pages/Contact/Contact.js";
+import Notification from "./pages/Notification/Notification.js";
+import EnglishCourse from "./pages/EnglishCourse/EnglishCourse.js";
+import ITCourse from "./pages/ITCourse/ITCourse.js";
+import PrivateLayout from "./components/Layouts/PrivateLayout.js";
+import HomeAdmin from "./pages/Admin/HomeAdmin.js";
+import ManagerBanner from "./pages/Admin/Banner/ManagerBanner";
+import CreateBanner from "./pages/Admin/Banner/CreateBanner";
+import ManagerNews from "./pages/Admin/News/ManagerNews";
+import CreateNews from "./pages/Admin/News/CreateNews";
+import EditBanner from "./pages/Admin/Banner/EditBanner";
+import EditNews from "./pages/Admin/News/EditNews";
+import ManagerCategory from "./pages/Admin/Category/ManagerCategory";
+import CreateCategory from "./pages/Admin/Category/CreateCategory.js";
+import EditCategory from "./pages/Admin/Category/EditCategory";
+import ManagerCourse from "./pages/Admin/Course/ManagerCourse.js";
+import EditCourse from "./pages/Admin/Course/EditCourse.js";
+import CreateCourse from "./pages/Admin/Course/CreateCourse.js";
+import CourseDetails from "./pages/CourseDetails/CourseDetails.js";
+import NewsDetails from "./pages/NewsDetails/NewsDetails.js";
+import ManagerEvents from "./pages/Admin/Event/ManagerEvents.js";
+import CreateEvent from "./pages/Admin/Event/CreateEvent.js";
+import EditEvent from "./pages/Admin/Event/EditEvent.js";
+import Event from "./pages/Event/Event.js";
+import EventDetails from "./pages/EventDetails/EventDetails.js";
+import ManagerTeacher from "./pages/Admin/Teacher/ManagerTeacher.js";
+import CreateTeacher from "./pages/Admin/Teacher/CreateTeacher.js";
+import EditTeacher from "./pages/Admin/Teacher/EditTeacher.js";
+import ManagerClassRoom from "./pages/Admin/ClassRoom/ManagerClassRoom.js";
+import CreateClassRoom from "./pages/Admin/ClassRoom/CreateClassRoom.js";
+import EditClassRoom from "./pages/Admin/ClassRoom/EditClassRoom.js";
+import ManagerClass from "./pages/Admin/Classes/ManagerClass.js";
+import CreateClass from "./pages/Admin/Classes/CreateClass.js";
+import EditClass from "./pages/Admin/Classes/EditClass.js";
+import ManagerSchedule from "./pages/Admin/Schedule/ManagerSchedule.js";
+import CreateSchedule from "./pages/Admin/Schedule/CreateSchedule.js";
+import EditSchedule from "./pages/Admin/Schedule/EditSchedule.js";
+import CourseRegister from "./pages/CourseRegister/CourseRegister.js";
 function App() {
   return (
     <div className="App-container">
@@ -53,8 +54,10 @@ function App() {
           <Route path="/english-courses" element={<EnglishCourse />} />
           <Route path="/information-courses" element={<ITCourse />} />
           <Route path="/courses/:id" element={<CourseDetails />} />
+          <Route path="/courses/:id/register" element={<CourseRegister />} />
           <Route path="/news/:id" element={<NewsDetails />} />
           <Route path="/events/:id" element={<EventDetails />} />
+
           <Route path="*" element={<Home />} />
         </Route>
         <Route path="/admin" element={<PrivateLayout />}>

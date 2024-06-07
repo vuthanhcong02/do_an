@@ -1,0 +1,40 @@
+.TableSchedule-container{
+
+    .TableSchedule-title{
+        text-transform: uppercase;
+        padding: 10px 0;
+        border-bottom: 1px solid #d9d9d9;
+    }
+    .TableSchedule-content{
+        .TableSchedule-content-title{
+            .name_course{
+                color:#273272;
+                font-weight:bold;
+            }
+        }
+        .TableSchedule-content-description{
+            .price_discount{
+                color:red;            
+                margin-left: 3px;
+            }
+        }   
+    }
+
+}
+.table-bordered thead th{
+    background-color: #273272;
+    font-size: 14px;
+    font-weight: 200;
+    color:white;
+}
+.btn_register_course{
+    background-color: #273272;
+    padding:4px 15px;
+    color:white;
+    outline:#273272;   
+    &:hover{
+        background-color: white;
+        color: #273272;
+        cursor: pointer;
+    }
+}

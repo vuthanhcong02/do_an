@@ -69,4 +69,13 @@ class ScheduleController extends Controller
 
         return $this->customResponse(200, true, $schedule, null, null);
     }
+
+    public function getScheduleByCourseId($id)
+    {
+        $schedule = $this->scheduleService->getScheduleByCourseId($id);
+        if (!$schedule) {
+            return $this->customResponse(404, false, null, 'Schedule not found', null);
+        }
+        return $this->customResponse(200, true, $schedule, null, null);
+    }
 }

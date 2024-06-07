@@ -16,4 +16,10 @@ class ClassesService extends BaseService
     {
         return $this->model->with('course', 'teacher')->orderBy('id', 'desc')->paginate(10);
     }
+
+    public function getClassesByCourse($courseId)
+    {
+
+        return $classes = $this->model->where('course_id', $courseId)->get();
+    }
 }

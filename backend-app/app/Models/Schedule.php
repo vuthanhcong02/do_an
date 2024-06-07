@@ -11,11 +11,16 @@ class Schedule extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['class_id', 'classroom_id', 'teacher_id', 'day_of_week', 'start_end_time'];
+    protected $fillable = ['class_id', 'classroom_id', 'teacher_id', 'course_id', 'day_of_week', 'start_end_time'];
 
     public function classroom()
     {
         return $this->belongsTo(ClassRoom::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
     }
 
     public function class()
