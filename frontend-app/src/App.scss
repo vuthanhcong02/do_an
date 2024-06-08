@@ -1,6 +1,7 @@
 .App-container{
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
     height: 100vh;
     .App-header{
         height: 180px;
@@ -62,7 +63,7 @@
 
     }
     .App-footer{
-      
+        
         .App-footer-contact-container{
             display: flex;
             justify-content: space-between;
@@ -70,6 +71,7 @@
         }
         color:white;
         height: 350px;
+        
         background-color: #273272;
         
         padding: 40px 100px 30px 100px;

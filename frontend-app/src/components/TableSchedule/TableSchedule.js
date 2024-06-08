@@ -1,6 +1,7 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import "./TableSchedule.scss";
+import { NavLink } from "react-router-dom";
 export default function TableSchedule({ course, schedules }) {
   return (
     <div className="TableSchedule-container">
@@ -110,7 +111,11 @@ export default function TableSchedule({ course, schedules }) {
               <td>{item?.course?.start_date}</td>
               <td>{item?.classroom?.name}</td>
               <td className="text-center">
-                <button className="btn_register_course">Đăng kí</button>
+                <NavLink
+                  to={`/courses/${course?.id}/schedule/${item?.id}/register`}
+                >
+                  <button className="btn_register_course">Đăng kí</button>
+                </NavLink>
               </td>
             </tr>
           ))}
