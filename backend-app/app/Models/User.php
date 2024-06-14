@@ -27,6 +27,11 @@ class User extends Authenticatable
         'date_of_birthday',
     ];
 
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

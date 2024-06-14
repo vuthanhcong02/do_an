@@ -1,20 +1,66 @@
 import { faCircleRight, faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { createRegistration } from "../../services/RegistrationService";
 
-export default function ItemUserRegister({ handleContinue, schedule }) {
+export default function ItemUserRegister({
+  handleContinue,
+  schedule,
+  handleSetUser,
+}) {
+  const [show, setShow] = useState(false);
+  const [dataToSubmit, setDataToSubmit] = useState(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const handleClose = () => setShow(false);
 
   const onSubmit = (data) => {
-    console.log(data);
+    const schedule_id = schedule?.id;
+    const total_price = 1000000; ///
+    // console.log("total_price: ", total_price);
+    const dataCreate = {
+      full_name: data.full_name,
+      email: data.email,
+      phone: data.phone,
+      address: data.address,
+      gender: parseInt(data.gender),
+      date_of_birthday: data.date_of_birthday,
+      object_type: data.object_type,
+      payment_type: data.payment_type,
+      schedule_id: schedule_id,
+      total_price: total_price,
+    };
+    // console.log(dataCreate);
+    setDataToSubmit(dataCreate);
+    handleSetUser(dataCreate);
+    setShow(true);
     // handleContinue("payment_information");
   };
+
+  const handleConfirm = async () => {
+    if (dataToSubmit) {
+      // console.log(dataToSubmit);
+      const { success, data } = await createRegistration(dataToSubmit);
+      if (success) {
+        if (data.id) {
+          handleContinue("payment_information");
+
+          console.log(data);
+          // window.location.href = data;
+        } else {
+          window.location.href = data;
+        }
+      }
+      setShow(false);
+    }
+  };
+
   return (
     <div className="ItemUserRegister-container p-3">
       <div className="ItemUserRegister-content">
@@ -38,7 +84,7 @@ export default function ItemUserRegister({ handleContinue, schedule }) {
                     <Form.Control
                       type="text"
                       placeholder="Họ và tên"
-                      {...register("name", { required: true })}
+                      {...register("full_name", { required: true })}
                     />
                   </Col>
                 </Form.Group>
@@ -84,15 +130,18 @@ export default function ItemUserRegister({ handleContinue, schedule }) {
                     Đối tượng <span className="text-danger">(*)</span>
                   </Form.Label>
                   <Col sm={8}>
-                    <Form.Select
+                    <select
+                      className="form-select"
                       aria-label="Default select example"
                       {...register("object_type", { required: true })}
                     >
-                      <option>Chọn đối tượng</option>
-                      <option value="1">Học sinh/sinh viên</option>
-                      <option value="2">Người đi làm</option>
-                      <option value="3">Khác</option>
-                    </Form.Select>
+                      <option value="" disabled selected>
+                        Chọn đối tượng
+                      </option>
+                      <option value="student">Học sinh/sinh viên</option>
+                      <option value="worker">Người đi làm</option>
+                      <option value="other">Khác</option>
+                    </select>
                   </Col>
                 </Form.Group>
 
@@ -118,11 +167,19 @@ export default function ItemUserRegister({ handleContinue, schedule }) {
                     Hình thức thanh toán<span className="text-danger">(*)</span>
                   </Form.Label>
                   <Col sm={8}>
-                    <Form.Select aria-label="Default select example">
-                      <option>Chọn hình thức thanh toán</option>
-                      <option value="1">Thanh toán trực tiếp</option>
-                      <option value="2">Thanh toán VNPAY</option>
-                    </Form.Select>
+                    <select
+                      className="form-select"
+                      aria-label="Default select example"
+                      {...register("payment_type", { required: true })}
+                    >
+                      <option value="" disabled selected>
+                        Chọn hình thức thanh toán
+                      </option>
+                      <option value="payment_direct">
+                        Thanh toán trực tiếp
+                      </option>
+                      <option value="payment_vnpay">Thanh toán VNPAY</option>
+                    </select>
                   </Col>
                 </Form.Group>
               </Col>
@@ -170,15 +227,16 @@ export default function ItemUserRegister({ handleContinue, schedule }) {
                     Giới tính <span className="text-danger">(*)</span>
                   </Form.Label>
                   <Col sm={8}>
-                    <Form.Select
-                      aria-label="Default select example"
+                    <select
+                      className="form-select "
                       {...register("gender", { required: true })}
                     >
-                      <option>Chọn giới tính</option>
+                      <option value="" disabled selected>
+                        Select your gender
+                      </option>
                       <option value={1}>Nam</option>
                       <option value={0}>Nữ</option>
-                      <option value={2}>Khác</option>
-                    </Form.Select>
+                    </select>
                   </Col>
                 </Form.Group>
                 <Form.Group
@@ -190,11 +248,7 @@ export default function ItemUserRegister({ handleContinue, schedule }) {
                     Mã ưu đãi (nếu có)
                   </Form.Label>
                   <Col sm={8}>
-                    <Form.Control
-                      type="text"
-                      placeholder="Mã ưu đãi"
-                      {...register("note")}
-                    />
+                    <Form.Control type="text" placeholder="Mã ưu đãi" />
                   </Col>
                 </Form.Group>
               </Col>
@@ -247,7 +301,7 @@ export default function ItemUserRegister({ handleContinue, schedule }) {
                   style={{ width: "150px", height: "40px" }}
                   type="submit"
                 >
-                  Tiếp tục
+                  Xác nhận
                   <FontAwesomeIcon
                     icon={faCircleRight}
                     style={{ marginLeft: "5px" }}
@@ -258,6 +312,22 @@ export default function ItemUserRegister({ handleContinue, schedule }) {
           </form>
         </div>
       </div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Xác nhận</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Bạn hãy xác nhận các thông tin bên dưới là hoàn toàn chính xác ?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Đóng
+          </Button>
+          <Button variant="primary" onClick={handleConfirm}>
+            Xác nhận
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

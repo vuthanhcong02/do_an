@@ -41,6 +41,10 @@ import ManagerSchedule from "./pages/Admin/Schedule/ManagerSchedule.js";
 import CreateSchedule from "./pages/Admin/Schedule/CreateSchedule.js";
 import EditSchedule from "./pages/Admin/Schedule/EditSchedule.js";
 import CourseRegister from "./pages/CourseRegister/CourseRegister.js";
+import ManagerStudent from "./pages/Admin/Student/ManagerStudent.js";
+import EditStudent from "./pages/Admin/Student/EditStudent.js";
+import ManagerRegistration from "./pages/Admin/Registration/ManagerRegistration.js";
+import EditRegistration from "./pages/Admin/Registration/EditRegistration.js";
 function App() {
   return (
     <div className="App-container">
@@ -101,6 +105,12 @@ function App() {
           <Route path="schedules" element={<ManagerSchedule />} />
           <Route path="schedules/create" element={<CreateSchedule />} />
           <Route path="schedules/:id/edit" element={<EditSchedule />} />
+
+          <Route path="users" element={<ManagerStudent />} />
+          <Route path="users/:id/edit" element={<EditStudent />} />
+
+          <Route path="registrations" element={<ManagerRegistration />} />
+          <Route path="registrations/:id/edit" element={<EditRegistration />} />
         </Route>
       </Routes>
     </div>

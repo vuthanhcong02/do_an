@@ -101,6 +101,15 @@ Route::group(['prefix' => '/schedules'], function () {
     Route::delete('/{id}', [\App\Http\Controllers\ScheduleController::class, 'deleteSchedule']);
 });
 
+Route::group(['prefix' => '/users'], function () {
+    Route::get('/', [\App\Http\Controllers\UserController::class, 'getAll']);
+});
+
+Route::group(['prefix' => '/registrations'], function () {
+    Route::get('/', [\App\Http\Controllers\RegistrationController::class, 'getAll']);
+    Route::post('/', [\App\Http\Controllers\RegistrationController::class, 'createRegistration']);
+    Route::get('/vnPayCheck', [\App\Http\Controllers\RegistrationController::class, 'vnPayCheck']);
+});
 Route::fallback(function () {
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact info@website.com'

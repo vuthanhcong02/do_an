@@ -11,7 +11,7 @@ class Registration extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['user_id', 'schedule_id', 'payment_type', 'status'];
+    protected $fillable = ['user_id', 'schedule_id', 'payment_type', 'status', 'total_price'];
 
     public function user()
     {

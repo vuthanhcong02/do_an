@@ -23,6 +23,11 @@ export default function CourseRegister() {
     profile_information: true,
     payment_information: true,
   });
+  const [user, setUser] = useState({});
+
+  const handleSetUser = (data) => {
+    setUser(data);
+  };
   useEffect(() => {
     fetchCourse(course_id, schedule_id);
     fetchSchedule();
@@ -86,6 +91,7 @@ export default function CourseRegister() {
             <ItemUserRegister
               handleContinue={handleContinue}
               schedule={schedule}
+              handleSetUser={handleSetUser}
             />
           </Tab>
           <Tab
@@ -93,12 +99,16 @@ export default function CourseRegister() {
             title={
               <>
                 <FontAwesomeIcon icon={faDollarSign} />
-                <span className="p-3">Thanh toán học phí</span>
+                <span className="p-3">Thông tin thanh toán</span>
               </>
             }
             disabled={disabledTabs.payment_information}
           >
-            <ItemPaymentRegister />
+            <ItemPaymentRegister
+              course={course}
+              schedule={schedule}
+              user={user}
+            />
           </Tab>
         </Tabs>
       </div>
