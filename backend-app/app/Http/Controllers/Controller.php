@@ -19,6 +19,6 @@ class Controller extends BaseController
             "error" => $error,
             "meta" => $meta
         ];
-        return response()->json($responseData);
+        return response()->json($responseData, $statusCode);
     }
 }

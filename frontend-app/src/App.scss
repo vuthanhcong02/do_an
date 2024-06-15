@@ -7,7 +7,12 @@
         height: 180px;
         // border: 1px solid #d9d9d9;
         // background-color: #ECF0F7;
+        border-bottom: 1px solid #d9d9d9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
         background-color: white;
+        a#nav-dropdown-dark-example {
+            color: white !important;
+        }
         .App-header-contact{
             height: 50px;
             padding: 0 100px;
