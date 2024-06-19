@@ -1,25 +1,53 @@
 import { faCircleRight, faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { createRegistration } from "../../services/RegistrationService";
+import { userInfo } from "../../services/AuthService";
+import { useNavigate } from "react-router-dom";
 
 export default function ItemUserRegister({
   handleContinue,
   schedule,
   handleSetUser,
 }) {
+  const navigate = useNavigate();
+  const [user, setUser] = useState({});
   const [show, setShow] = useState(false);
   const [dataToSubmit, setDataToSubmit] = useState(null);
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
   const handleClose = () => setShow(false);
 
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      setValue("full_name", user?.full_name);
+      setValue("phone", user?.phone);
+      setValue("email", user?.email);
+      setValue("address", user?.address);
+      setValue("phone", user?.phone);
+      setValue("id_card", user?.id_card);
+      setValue("gender", user?.gender);
+      setValue("object_type", user?.object_type);
+      setValue("date_of_birthday", user?.date_of_birthday);
+    }
+  }, [user]);
+  const fetchUserInfo = async () => {
+    const { success, data } = await userInfo();
+    if (success) {
+      setUser(data);
+    }
+  };
   const onSubmit = (data) => {
     const schedule_id = schedule?.id;
     const total_price = 1000000; ///

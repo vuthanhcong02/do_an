@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleLeft, faCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { register } from "../../services/AuthService";
+import { registerUser } from "../../services/AuthService";
 export default function Register() {
   const {
     register,
@@ -20,25 +20,46 @@ export default function Register() {
   const onSubmit = async (dataUser) => {
     const UserData = {
       full_name: dataUser?.full_name,
-      username: dataUser?.username,
       email: dataUser?.email,
       password: dataUser?.password,
       confirm_password: dataUser?.confirm_password,
       gender: parseInt(dataUser?.gender),
+      object_type: dataUser?.object_type,
       phone: dataUser?.phone,
       address: dataUser?.address,
       date_of_birthday: dataUser?.date_of_birthday,
       id_card: dataUser?.id_card,
     };
 
-    const { success, data, access_token } = await register(UserData);
+    console.log(UserData);
 
-    if (success) {
-      localStorage.setItem("user", JSON.stringify(data));
-      localStorage.setItem("token", access_token);
-      window.location.href = "/";
+    try {
+      const response = await registerUser(UserData);
+
+      if (response.success) {
+        const { data, access_token } = response;
+        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("token", access_token);
+        window.location.href = "/";
+      } else {
+        console.error(
+          "Registration failed:",
+          response.message || "Unknown error"
+        );
+        // Handle error (show message to user, etc.)
+      }
+    } catch (error) {
+      console.error("An error occurred during registration:", error);
+      // Handle error (show message to user, etc.)
     }
   };
+
+  // const { success, data, access_token } = await register(UserData);
+  // if (success) {
+  //   localStorage.setItem("user", JSON.stringify(data));
+  //   localStorage.setItem("token", access_token);
+  //   window.location.href = "/";
+  // }
 
   return (
     <div className="App-register">

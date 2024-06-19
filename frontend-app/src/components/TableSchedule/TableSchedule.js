@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import "./TableSchedule.scss";
 import { NavLink } from "react-router-dom";
 export default function TableSchedule({ course, schedules }) {
+  const token = localStorage.getItem("token");
   return (
     <div className="TableSchedule-container">
       <h5 className="TableSchedule-title">Lịch khai giảng </h5>
@@ -112,7 +113,11 @@ export default function TableSchedule({ course, schedules }) {
               <td>{item?.classroom?.name}</td>
               <td className="text-center">
                 <NavLink
-                  to={`/courses/${course?.id}/schedule/${item?.id}/register`}
+                  to={
+                    token
+                      ? `/courses/${course?.id}/schedule/${item?.id}/register`
+                      : "/login"
+                  }
                 >
                   <button className="btn_register_course">Đăng kí</button>
                 </NavLink>

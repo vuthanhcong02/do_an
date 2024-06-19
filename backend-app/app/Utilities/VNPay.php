@@ -12,10 +12,11 @@ class VNPay
      * config.php
      *
      */
-    static $vnp_TmnCode = "HOU2CSK8"; //Mã website tại VNPAY
-    static $vnp_HashSecret = "AYZLBMZFZEGRHXIMMOYDBSICEFSCUZOM"; //Chuỗi bí mật
+    static $vnp_TmnCode = "KDAO62Q4"; //Mã website tại VNPAY
+    static $vnp_HashSecret = "68TY03MYLY0JBO3MA6QIM6DBBEUGI2KX"; //Chuỗi bí mật
     static $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    static $vnp_Returnurl = "/checkout/vnPayCheck"; //Chú ý cấu hình env('APP_URL') khi sử dụng biến này.
+    static $vnp_Returnurl = "http://api.ngoaingutinhoc.tech.com/api/registrations/vnpay/return"; //Chú ý cấu hình env('APP_URL') khi sử dụng biến này.
+
 
     /**
      * vnpay_create_payment.php
@@ -61,7 +62,7 @@ class VNPay
             "vnp_Locale" => $vnp_Locale,
             "vnp_OrderInfo" => $vnp_OrderInfo,
             "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => "http://ngoaingutinhoc.tlu.edu.com/registrations/vnPayCheck",
+            "vnp_ReturnUrl" => route('vnpay.return'),
             "vnp_TxnRef" => $vnp_TxnRef,
         );
 

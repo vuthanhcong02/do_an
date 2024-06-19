@@ -4,7 +4,7 @@ export const login = (data) => {
   return httpClient.post("/auth/login", data);
 };
 
-export const register = (data) => {
+export const registerUser = (data) => {
   return httpClient.post("/auth/register", data);
 };
 

@@ -49,6 +49,7 @@ export default function Header() {
       setIsLoggedIn(false);
       setUser({});
       localStorage.removeItem("token");
+      window.location.href = "/";
     }
   };
   return (
@@ -80,7 +81,7 @@ export default function Header() {
                   Thông tin cá nhân
                 </NavDropdown.Item>
                 <NavDropdown.Item as={NavLink} to="user/dashboard">
-                  Dashboard
+                  Khóa học của bạn
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout}>
