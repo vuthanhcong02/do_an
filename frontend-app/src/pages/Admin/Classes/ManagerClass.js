@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { getClasses, deleteClass } from "../../../services/ClassService";
+import { toast } from "react-toastify";
 
 export default function ManagerClass() {
   const [classes, setClasses] = useState([]);
@@ -27,6 +28,9 @@ export default function ManagerClass() {
       if (success) {
         const newClasses = classes.filter((item) => item.id !== id);
         setClasses(newClasses);
+        toast.success("Xóa class thành công");
+      } else {
+        toast.error("Xóa class thất bại");
       }
     }
   };

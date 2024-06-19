@@ -6,6 +6,7 @@ import {
 } from "../../../services/ClassRoomService";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function EditClassRoom() {
   const navigate = useNavigate();
@@ -42,6 +43,9 @@ export default function EditClassRoom() {
     // console.log("success", res);
     if (res.data.success) {
       navigate("/admin/classrooms");
+      toast.success("Cập nhật classroom thành công");
+    } else {
+      toast.error("Cập nhật classroom thất bại");
     }
   };
   return (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { getTeachers, deleteTeacher } from "../../../services/TeacherService";
 import { baseUrl } from "../../../config";
+import { toast } from "react-toastify";
 
 export default function ManagerTeacher() {
   const [teachers, setTeachers] = useState();
@@ -26,6 +27,9 @@ export default function ManagerTeacher() {
       if (success) {
         const newTeachers = teachers.filter((item) => item.id !== id);
         setTeachers(newTeachers);
+        toast.success("Xóa teacher thành công");
+      } else {
+        toast.error("Xóa teacher thất bại");
       }
     }
   };

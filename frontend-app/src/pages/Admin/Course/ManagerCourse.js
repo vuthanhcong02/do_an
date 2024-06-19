@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { getCourses, deleteCourse } from "../../../services/CourseService";
 import moment from "moment";
 import { baseUrl } from "../../../config";
+import { toast } from "react-toastify";
 export default function ManagerCourse() {
   const [courses, setCourses] = useState([]);
 
@@ -26,6 +27,9 @@ export default function ManagerCourse() {
       if (success) {
         const newCourses = courses.filter((item) => item.id !== id);
         setCourses(newCourses);
+        toast.success("Xóa course thành công");
+      } else {
+        toast.error("Xóa course thất bại");
       }
     }
   };

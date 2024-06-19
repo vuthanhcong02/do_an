@@ -6,6 +6,7 @@ import {
 } from "../../../services/CategoryService";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function EditCategory() {
   const { id } = useParams();
@@ -38,8 +39,10 @@ export default function EditCategory() {
     // console.log("success", res);
     if (res.data.success) {
       navigate("/admin/categories");
+      toast.success("Cập nhật category thành công");
+    } else {
+      toast.error("Cập nhật category thất bại");
     }
-
     // const { success } = await updateCategory(id, dataUpdate);
     // if (success) {
     //   navigate("/admin/categories");

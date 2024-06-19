@@ -4,6 +4,7 @@ import { makeClass } from "../../../services/ClassService";
 import { getTeachers } from "../../../services/TeacherService";
 import { getCourses } from "../../../services/CourseService";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function CreateClass() {
   const navigate = useNavigate();
@@ -42,6 +43,9 @@ export default function CreateClass() {
     const { success } = await makeClass(dataCreate);
     if (success) {
       navigate("/admin/classes");
+      toast.success("Tạo class thành công");
+    } else {
+      toast.error("Tạo class thất bại");
     }
   };
 

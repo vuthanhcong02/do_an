@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { makeClassRoom } from "../../../services/ClassRoomService";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function CreateClassRoom() {
   const navigate = useNavigate();
@@ -15,6 +16,9 @@ export default function CreateClassRoom() {
     const { success } = await makeClassRoom(dataCreate);
     if (success) {
       navigate("/admin/classrooms");
+      toast.success("Tạo classroom thành công");
+    } else {
+      toast.error("Tạo classroom thất bại");
     }
   };
 

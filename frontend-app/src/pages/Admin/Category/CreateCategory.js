@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { createCategory } from "../../../services/CategoryService";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function CreateCategory() {
   const navigate = useNavigate();
@@ -16,6 +17,9 @@ export default function CreateCategory() {
     const { success } = await createCategory(dataCreate);
     if (success) {
       navigate("/admin/categories");
+      toast.success("Thêm category thành công");
+    } else {
+      toast.error("Thêm category thất bại");
     }
   };
 

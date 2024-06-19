@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { getCategories } from "../../../services/CategoryService";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function CreateTeacher() {
   const navigate = useNavigate();
@@ -57,9 +58,11 @@ export default function CreateTeacher() {
       );
       if (response.data.success) {
         navigate("/admin/teachers");
+        toast.success("Tạo teacher thành công");
       }
     } catch (error) {
       console.error("Error uploading data", error);
+      toast.error("Tạo teacher thất bại");
     }
   };
   return (

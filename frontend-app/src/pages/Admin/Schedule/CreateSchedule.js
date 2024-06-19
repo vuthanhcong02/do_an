@@ -6,6 +6,7 @@ import { getClassRooms } from "../../../services/ClassRoomService";
 import { createSchedule } from "../../../services/ScheduleService";
 import { getCourses } from "../../../services/CourseService";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function CreateClass() {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ export default function CreateClass() {
 
   useEffect(() => {
     fetchTeachers();
+    fetchClassrooms();
+    fetchCourses();
   }, []);
 
   useEffect(() => {
@@ -25,14 +28,6 @@ export default function CreateClass() {
       fetchClasses();
     }
   }, [selectedCourse]);
-
-  useEffect(() => {
-    fetchClassrooms();
-  }, []);
-
-  useEffect(() => {
-    fetchCourses();
-  }, []);
 
   const fetchCourses = async () => {
     const { success, data } = await getCourses();
@@ -71,6 +66,9 @@ export default function CreateClass() {
     const { success } = await createSchedule(dataCreate);
     if (success) {
       navigate("/admin/schedules");
+      toast.success("Tạo schedule thành công");
+    } else {
+      toast.error("Tạo schedule thất bại");
     }
   };
 

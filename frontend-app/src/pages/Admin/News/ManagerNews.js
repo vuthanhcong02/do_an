@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { getNews, deleteNews } from "../../../services/NewsService";
 import { baseUrl } from "../../../config";
 import { getSummary } from "../../../utils/function";
+import { toast } from "react-toastify";
 export default function ManagerNews() {
   const [news, setNews] = useState([]);
 
@@ -27,6 +28,9 @@ export default function ManagerNews() {
       if (success) {
         const newNews = news.filter((item) => item.id !== id);
         setNews(newNews);
+        toast.succes("Xóa news thành công");
+      } else {
+        toast.error("Xóa news thất bại");
       }
     }
   };

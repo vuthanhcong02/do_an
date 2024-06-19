@@ -50,6 +50,7 @@ export default function Header() {
       window.location.href = "/";
     }
   };
+
   return (
     <>
       <div className="App-header-contact">
@@ -65,14 +66,31 @@ export default function Header() {
         </div>
         <div>
           <div className="d-flex justify-content-center align-items-center">
-            <FontAwesomeIcon icon={faFacebook} className="p-2" />
-            <FontAwesomeIcon icon={faInstagram} className="p-2" />
-            <FontAwesomeIcon icon={faTwitter} className="p-2" />
-            <FontAwesomeIcon icon={faYoutube} className="p-2 mr-4" />
+            <FontAwesomeIcon
+              icon={faFacebook}
+              className="p-2"
+              style={{ cursor: "pointer" }}
+            />
+            <FontAwesomeIcon
+              icon={faInstagram}
+              className="p-2"
+              style={{ cursor: "pointer" }}
+            />
+            <FontAwesomeIcon
+              icon={faTwitter}
+              className="p-2"
+              style={{ cursor: "pointer" }}
+            />
+            <FontAwesomeIcon
+              icon={faYoutube}
+              className="p-2 mr-4"
+              style={{ cursor: "pointer" }}
+            />
             {isLoggedIn ? (
               <NavDropdown
                 id="nav-dropdown-dark-example"
                 title={user?.full_name}
+                style={{ color: "white" }}
                 menuVariant="light"
               >
                 <NavDropdown.Item as={NavLink} to="user/profile">

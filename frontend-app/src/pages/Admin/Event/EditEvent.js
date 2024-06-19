@@ -7,6 +7,7 @@ import { getEventsById } from "../../../services/EventService";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { baseUrl } from "../../../config";
+import { toast } from "react-toastify";
 
 export default function EditEvent() {
   const navigate = useNavigate();
@@ -87,9 +88,11 @@ export default function EditEvent() {
       );
       if (response.data.success) {
         navigate("/admin/news");
+        toast.success("Cập nhật event này thành công");
       }
     } catch (error) {
       console.error("Error uploading data", error);
+      toast.error("Cập nhật event này thất bại");
     }
   };
 

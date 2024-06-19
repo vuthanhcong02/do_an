@@ -5,6 +5,7 @@ import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function CreateNews() {
   const navigate = useNavigate();
@@ -45,9 +46,11 @@ export default function CreateNews() {
       );
       if (response.data.success) {
         navigate("/admin/news");
+        toast.success("Tạo news thành này");
       }
     } catch (error) {
       console.error("Error uploading data", error);
+      toast.error("Tạo news thất bại");
     }
   };
 

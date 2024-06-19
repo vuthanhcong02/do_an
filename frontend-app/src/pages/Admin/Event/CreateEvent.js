@@ -5,6 +5,7 @@ import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function CreateEvent() {
   const navigate = useNavigate();
@@ -46,11 +47,13 @@ export default function CreateEvent() {
           },
         }
       );
-      if (response.data.success) {
+      if (response?.data?.success) {
         navigate("/admin/events");
+        toast.success("Tạo event thành công");
       }
     } catch (error) {
       console.error("Error uploading data", error);
+      toast.error("Tạo event thất bại");
     }
   };
 

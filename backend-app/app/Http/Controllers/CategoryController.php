@@ -23,7 +23,7 @@ class CategoryController extends Controller
             return $this->customResponse(404, false, null, 'Category not found', null);
         }
 
-        return $this->customResponse(200, true, $categories);
+        return $this->customResponse(200, true, $categories, null, null);
     }
 
     public function store(Request $request)
@@ -31,9 +31,10 @@ class CategoryController extends Controller
         $data = $request->all();
         $category = $this->categoryService->create($data);
         if (!$category) {
-            return $this->customResponse(false, 'Category not created', 404);
+            return $this->customResponse(404, false, null, 'Category not found', null);
         }
-        return $this->customResponse(true, $category, 201);
+
+        return $this->customResponse(200, true, $category, null, null);
     }
 
     public function show($id)

@@ -3,6 +3,8 @@ import "./Login.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { login } from "../../services/AuthService";
+import { toast } from "react-toastify";
+
 export default function Login() {
   const navigate = useNavigate();
   const {
@@ -19,6 +21,7 @@ export default function Login() {
     if (success) {
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", access_token);
+
       window.location.href = "/";
     }
   };

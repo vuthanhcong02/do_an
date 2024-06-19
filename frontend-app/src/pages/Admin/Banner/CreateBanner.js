@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
@@ -40,9 +40,11 @@ export default function CreateBanner() {
       );
       if (response.data.success) {
         navigate("/admin/banners");
+        toast.success("Tạo banner thành công");
       }
     } catch (error) {
       console.error("Error uploading data", error);
+      toast.error("Tạo banner thất bại");
     }
   };
   return (

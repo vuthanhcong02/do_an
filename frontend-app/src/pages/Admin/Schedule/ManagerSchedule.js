@@ -6,6 +6,7 @@ import {
 } from "../../../services/ScheduleService";
 import { baseUrl } from "../../../config";
 import { getSummary } from "../../../utils/function";
+import { toast } from "react-toastify";
 export default function ManagerSchedule() {
   const [schedules, setSchedules] = useState([]);
 
@@ -17,7 +18,7 @@ export default function ManagerSchedule() {
     const { success, data } = await getSchedules();
     if (success) {
       console.log(data);
-      setSchedules(data.data);
+      setSchedules(data?.data);
     }
   };
 
@@ -30,6 +31,9 @@ export default function ManagerSchedule() {
       if (success) {
         const newSchedule = schedules.filter((item) => item.id !== id);
         setSchedules(newSchedule);
+        toast.success("Xóa schedule thành công");
+      } else {
+        toast.error("Xóa schedule thất bại");
       }
     }
   };

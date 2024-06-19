@@ -4,6 +4,7 @@ import {
   getCategories,
   deleteCategory,
 } from "../../../services/CategoryService";
+import { toast } from "react-toastify";
 
 export default function ManagerCategory() {
   const [categories, setCategories] = useState([]);
@@ -29,6 +30,9 @@ export default function ManagerCategory() {
       if (success) {
         const newCategories = categories.filter((item) => item.id !== id);
         setCategories(newCategories);
+        toast.success("Xóa category thành công");
+      } else {
+        toast.error("Xóa category thất bại");
       }
     }
   };

@@ -5,6 +5,7 @@ import {
   getClassRooms,
   deleteClassRoom,
 } from "../../../services/ClassRoomService";
+import { toast } from "react-toastify";
 
 export default function ManagerClassRoom() {
   const [classrooms, setClassrooms] = useState([]);
@@ -30,6 +31,9 @@ export default function ManagerClassRoom() {
       if (success) {
         const newClassrooms = classrooms.filter((item) => item.id !== id);
         setClassrooms(newClassrooms);
+        toast.success("Xóa classroom thành công");
+      } else {
+        toast.error("Xóa classroom thất bại");
       }
     }
   };

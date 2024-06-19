@@ -50,6 +50,10 @@ import Register from "./pages/Register/Register.js";
 import UserProfile from "./pages/Profile/UserProfile.js";
 import UserLayout from "./components/Layouts/UserLayout.js";
 import UserDashboard from "./pages/UserDashboard/UserDashboard.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { PageNotFound } from "./pages/PageNotFound/PageNotFound.js";
+
 function App() {
   return (
     <div className="App-container">
@@ -75,8 +79,6 @@ function App() {
           />
           <Route path="/news/:id" element={<NewsDetails />} />
           <Route path="/events/:id" element={<EventDetails />} />
-
-          <Route path="*" element={<Home />} />
         </Route>
         <Route path="/admin" element={<PrivateLayout />}>
           <Route index element={<HomeAdmin />} />
@@ -123,7 +125,9 @@ function App() {
           <Route path="registrations" element={<ManagerRegistration />} />
           <Route path="registrations/:id/edit" element={<EditRegistration />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

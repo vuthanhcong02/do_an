@@ -5,6 +5,7 @@ import { getTeacherById } from "../../../services/TeacherService";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../../config";
+import { toast } from "react-toastify";
 
 export default function EditTeacher() {
   const { id } = useParams();
@@ -96,9 +97,12 @@ export default function EditTeacher() {
       );
       if (response.data.success) {
         navigate("/admin/teachers");
+        toast.success("Sửa teacher thành công");
       }
     } catch (error) {
       console.error("Error uploading data", error);
+
+      toast.error("Sửa teacher thất bại");
     }
   };
   return (

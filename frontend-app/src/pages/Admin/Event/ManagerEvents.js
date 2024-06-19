@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { getEvents, deleteEvent } from "../../../services/EventService";
 import { baseUrl } from "../../../config";
 import { getSummary } from "../../../utils/function";
+import { toast } from "react-toastify";
 export default function ManagerEvents() {
   const [events, setEvents] = useState([]);
 
@@ -27,6 +28,9 @@ export default function ManagerEvents() {
       if (success) {
         const newEvents = events.filter((item) => item.id !== id);
         setEvents(newEvents);
+        toast.succes("Xóa event thành công");
+      } else {
+        toast.error("Xóa event thất bại");
       }
     }
   };

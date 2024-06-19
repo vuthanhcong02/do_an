@@ -8,6 +8,7 @@ import { getScheduleById } from "../../../services/ScheduleService";
 import { getCourses } from "../../../services/CourseService";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function CreateClass() {
   const { id } = useParams();
@@ -106,6 +107,9 @@ export default function CreateClass() {
     // console.log("success", res);
     if (res.data.success) {
       navigate("/admin/schedules");
+      toast.success("Cập nhật schedule thành công");
+    } else {
+      toast.error("Cập nhật schedule thất bại");
     }
   };
 

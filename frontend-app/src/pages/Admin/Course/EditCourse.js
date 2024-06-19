@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import { baseUrl } from "../../../config";
+import { toast } from "react-toastify";
 
 export default function EditCourse() {
   const { id } = useParams();
@@ -123,9 +124,11 @@ export default function EditCourse() {
       );
       if (response.data.success) {
         navigate("/admin/courses");
+        toast.success("Cập nhật course thành công");
       }
     } catch (error) {
       console.error("Error uploading data", error);
+      toast.error("Cập nhật course thất bại");
     }
   };
   return (

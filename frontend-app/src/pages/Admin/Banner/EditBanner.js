@@ -4,6 +4,7 @@ import { createBanner, showBanner } from "../../../services/BannerService";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { baseUrl } from "../../../config";
+import { toast } from "react-toastify";
 
 export default function EditBanner() {
   const { id } = useParams();
@@ -73,9 +74,11 @@ export default function EditBanner() {
       );
       if (response.data.success) {
         navigate("/admin/banners");
+        toast.success("Cập nhật banner thành công");
       }
     } catch (error) {
       console.error("Error uploading data", error);
+      toast.error("Cập nhật banner thất bại");
     }
   };
   return (

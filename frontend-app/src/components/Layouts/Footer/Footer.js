@@ -13,6 +13,7 @@ import {
   faYoutube,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import { NavLink } from "react-router-dom";
 export default function Footer() {
   return (
     <>
@@ -37,7 +38,11 @@ export default function Footer() {
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faEarth} />
-              <span className="p-2 fz-13">ngoaingutinhoc.tlu.com</span>
+              <span className="p-2 fz-13">
+                <a href="/" className="text-decoration-none text-white">
+                  ngoaingutinhoc.tlu.com
+                </a>
+              </span>
             </div>
           </div>
         </div>
@@ -46,23 +51,38 @@ export default function Footer() {
           <div className="d-flex flex-column">
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">Trang chủ</span>
+              <span className="p-2">
+                <a href="/" className="text-decoration-none text-white">
+                  Trang chủ
+                </a>
+              </span>
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">Tin tức</span>
+              <span className="p-2">
+                <a href="/news" className="text-decoration-none text-white">
+                  Tin tức
+                </a>
+              </span>
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">Đào tạo</span>
+              <span className="p-2">
+                <a
+                  href="/notifications"
+                  className="text-decoration-none text-white"
+                >
+                  Thông báo
+                </a>
+              </span>
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">Thông báo</span>
-            </div>
-            <div className="d-flex align-items-center">
-              <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">Liên hệ</span>
+              <span className="p-2">
+                <a href="/contact" className="text-decoration-none text-white">
+                  Liên hệ
+                </a>
+              </span>
             </div>
           </div>
         </div>
@@ -94,28 +114,32 @@ export default function Footer() {
               <FontAwesomeIcon
                 icon={faFacebook}
                 size="2x"
-                className="p-2 cursor-pointer"
+                className="p-2"
+                style={{ cursor: "pointer" }}
               />
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon
                 icon={faInstagram}
                 size="2x"
-                className="p-2 cursor-pointer"
+                className="p-2"
+                style={{ cursor: "pointer" }}
               />
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon
                 icon={faTwitter}
                 size="2x"
-                className="p-2 cursor-pointer"
+                className="p-2"
+                style={{ cursor: "pointer" }}
               />
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon
                 icon={faYoutube}
                 size="2x"
-                className="p-2 cursor-pointer"
+                className="p-2"
+                style={{ cursor: "pointer" }}
               />
             </div>
           </div>

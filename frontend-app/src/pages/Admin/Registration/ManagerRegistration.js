@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import { getRegistrations } from "../../../services/RegistrationService";
 import moment from "moment";
 export default function ManagerRegistration() {
@@ -12,7 +12,7 @@ export default function ManagerRegistration() {
   const fetchRegistrations = async () => {
     const { success, data } = await getRegistrations();
     if (success) {
-      setRegistrations(data.data);
+      setRegistrations(data?.data);
     }
   };
   return (
@@ -24,7 +24,7 @@ export default function ManagerRegistration() {
               <i className="pe-7s-ticket icon-gradient bg-mean-fruit" />
             </div>
             <div>
-              News
+              Registrations
               <div className="page-title-subheading">
                 View, create, update, delete and manage.
               </div>

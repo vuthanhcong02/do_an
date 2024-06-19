@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { getBanners, deleteBanner } from "../../../services/BannerService";
 import { baseUrl } from "../../../config";
+import { toast } from "react-toastify";
 export default function ManagerBanner() {
   const [banners, setBanners] = useState([]);
 
@@ -25,6 +26,9 @@ export default function ManagerBanner() {
       if (success) {
         const newBanners = banners.filter((item) => item.id !== id);
         setBanners(newBanners);
+        toast.success("Xóa banner thành công");
+      } else {
+        toast.error("Xoa banner that bai");
       }
     }
   };

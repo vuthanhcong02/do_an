@@ -7,6 +7,7 @@ import { getNewsById } from "../../../services/NewsService";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { baseUrl } from "../../../config";
+import { toast } from "react-toastify";
 
 export default function EditNews() {
   const navigate = useNavigate();
@@ -82,9 +83,11 @@ export default function EditNews() {
       );
       if (response.data.success) {
         navigate("/admin/news");
+        toast.success("Cập nhật news thành công");
       }
     } catch (error) {
       console.error("Error uploading data", error);
+      toast.error("Cập nhật news thất bại");
     }
   };
 

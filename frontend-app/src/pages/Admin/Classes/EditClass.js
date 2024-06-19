@@ -5,6 +5,7 @@ import { getTeachers } from "../../../services/TeacherService";
 import { getCourses } from "../../../services/CourseService";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function EditClass() {
   const navigate = useNavigate();
@@ -16,13 +17,7 @@ export default function EditClass() {
 
   useEffect(() => {
     fetchTeachers();
-  }, []);
-
-  useEffect(() => {
     fetchCourses();
-  }, []);
-
-  useEffect(() => {
     fetchClass();
   }, []);
 
@@ -69,6 +64,9 @@ export default function EditClass() {
     // console.log("success", res);
     if (res.data.success) {
       navigate("/admin/classes");
+      toast.success("Cập nhật class thành công");
+    } else {
+      toast.error("Cập nhật class thất bại");
     }
   };
 
