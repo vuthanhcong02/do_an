@@ -1,0 +1,14 @@
+.app-container{
+
+    margin: 80px 0px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    background-color: white !important;
+    border-radius: 4px;
+    .active-link-custom{
+        color: white !important;
+        font-weight: 600;
+        background-color: #273272 !important;
+    }
+}

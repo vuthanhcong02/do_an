@@ -106,9 +106,10 @@ Route::group(['prefix' => '/users'], function () {
 });
 
 Route::group(['prefix' => '/registrations'], function () {
+    Route::get('/get-registrations-by-user', [\App\Http\Controllers\RegistrationController::class, 'getRegistrationByUser']);
     Route::get('/', [\App\Http\Controllers\RegistrationController::class, 'getAll']);
     Route::post('/', [\App\Http\Controllers\RegistrationController::class, 'createRegistration']);
-    Route::get('/vnPayCheck', [\App\Http\Controllers\RegistrationController::class, 'vnPayCheck']);
+    Route::get('/vnpay/return', [\App\Http\Controllers\RegistrationController::class, 'handleVNPayReturn'])->name('vnpay.return');
 });
 Route::fallback(function () {
     return response()->json([

@@ -1,0 +1,24 @@
+.UserDashboard-container{
+
+    .UserDashboard-title{
+        margin-bottom: 10px;
+        color: #273272;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .UserDashboard-card{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        width: 100%;
+
+        .card-register-course{
+            margin: 10px;
+        }
+    }
+}

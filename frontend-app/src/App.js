@@ -45,11 +45,22 @@ import ManagerStudent from "./pages/Admin/Student/ManagerStudent.js";
 import EditStudent from "./pages/Admin/Student/EditStudent.js";
 import ManagerRegistration from "./pages/Admin/Registration/ManagerRegistration.js";
 import EditRegistration from "./pages/Admin/Registration/EditRegistration.js";
+import Login from "./pages/Login/Login.js";
+import Register from "./pages/Register/Register.js";
+import UserProfile from "./pages/Profile/UserProfile.js";
+import UserLayout from "./components/Layouts/UserLayout.js";
+import UserDashboard from "./pages/UserDashboard/UserDashboard.js";
 function App() {
   return (
     <div className="App-container">
       <Routes>
         <Route path="/" element={<MainLayout />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="user/*" element={<UserLayout />}>
+            <Route path="profile" element={<UserProfile />} />
+            <Route path="dashboard" element={<UserDashboard />} />
+          </Route>
           <Route index element={<Home />} />
           <Route path="/news" element={<News />} />
           <Route path="/events" element={<Event />} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
@@ -14,7 +14,42 @@ import {
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
 import { NavLink } from "react-router-dom";
+import { userInfo, logout } from "../../../services/AuthService";
 export default function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, [isLoggedIn]);
+
+  const fetchUserInfo = async () => {
+    if (isLoggedIn) {
+      const { success, data } = await userInfo();
+      if (success) {
+        setUser(data);
+        // console.log(data?.full_name);
+      }
+    }
+  };
+
+  const handleLogout = async () => {
+    const { success } = await logout();
+    if (success) {
+      setIsLoggedIn(false);
+      setUser({});
+      localStorage.removeItem("token");
+      window.location.href = "/";
+    }
+  };
   return (
     <>
       <div className="App-header-contact">
@@ -33,7 +68,41 @@ export default function Header() {
             <FontAwesomeIcon icon={faFacebook} className="p-2" />
             <FontAwesomeIcon icon={faInstagram} className="p-2" />
             <FontAwesomeIcon icon={faTwitter} className="p-2" />
-            <FontAwesomeIcon icon={faYoutube} className="p-2" />
+            <FontAwesomeIcon icon={faYoutube} className="p-2 mr-4" />
+            {isLoggedIn ? (
+              <NavDropdown
+                id="nav-dropdown-dark-example"
+                title={user?.full_name}
+                menuVariant="light"
+              >
+                <NavDropdown.Item as={NavLink} to="user/profile">
+                  Thông tin cá nhân
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="user/dashboard">
+                  Khóa học của bạn
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>
+                  Đăng xuất
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <NavLink
+                to="/login"
+                className="p-2"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textDecoration: "none",
+                  hover: { textDecoration: "none" },
+                }}
+              >
+                <span className="p-2" style={{ color: "white" }}>
+                  Đăng nhập
+                </span>
+              </NavLink>
+            )}
           </div>
         </div>
       </div>
