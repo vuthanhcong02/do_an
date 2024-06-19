@@ -19,7 +19,7 @@ export default function CourseItem({ title, image, description, course }) {
             <span className="CourseItem-title-text">{course?.name}</span>
           </NavLink>
           <div className="CourseItem-description">
-            {getSummary(course?.short_description)}
+            {course?.short_description && getSummary(course?.short_description)}
           </div>
         </div>
       </div>

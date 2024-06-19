@@ -10,7 +10,7 @@ export default function UserLayout() {
 
   // use either one of these
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar container">
+    <div className="layout-user-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar container">
       <Tab.Container id="left-tabs-example" defaultActiveKey="first">
         <Row>
           <Col sm={3} style={{ height: "100vh" }}>
