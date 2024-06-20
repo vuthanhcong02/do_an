@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function __construct(AuthService $authService)
     {
         $this->authService = $authService;
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'adminLogin']]);
     }
 
     /**
@@ -79,6 +79,31 @@ class AuthController extends Controller
 
         Auth::logout();
         return $this->customResponse(200, true, null, null, null);
+    }
+
+    public function adminLogout()
+    {
+        if (!Auth::check()) {
+            return $this->customResponse(401, false, null, 'Unauthenticated.', null);
+        }
+
+        Auth::logout();
+        return $this->customResponse(200, true, null, null, null);
+    }
+
+    public function adminLogin(Request $request)
+
+    {
+
+        $user = $this->authService->adminLogin($request);
+        if (!$user) {
+            return $this->customResponse(401, false, null, 'Email or password not correct', null);
+        }
+
+        if (!$token = auth()->login($user)) {
+            return $this->customResponse(401, false, null, 'Email or password not correct', null);
+        }
+        return $this->createNewToken($token);
     }
 
     public function user_profile()

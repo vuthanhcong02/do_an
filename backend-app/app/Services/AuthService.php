@@ -51,4 +51,19 @@ class AuthService extends BaseService
 
         return $user;
     }
+
+    public function adminLogin($data)
+    {
+        if (isset($data['email']) && isset($data['password'])) {
+            $credentials = ['email' => $data['email'], 'password' => $data['password']];
+            if (!Auth::attempt($credentials)) {
+                return false;
+            }
+            if (auth()->user()->role != 'admin') {
+                return false;
+            }
+            return auth()->user();
+        }
+        return false;
+    }
 }

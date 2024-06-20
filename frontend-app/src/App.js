@@ -1,7 +1,7 @@
 import "./App.scss";
 import MainLayout from "./components/Layouts/MainLayout.js";
 import Home from "./pages/Home/Home";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import News from "./pages/News/News.js";
 import Contact from "./pages/Contact/Contact.js";
 import Notification from "./pages/Notification/Notification.js";
@@ -53,33 +53,40 @@ import UserDashboard from "./pages/UserDashboard/UserDashboard.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PageNotFound } from "./pages/PageNotFound/PageNotFound.js";
+import LoginAdmin from "./pages/Admin/Login/LoginAdmin.js";
 
 function App() {
   return (
-    <div className="App-container">
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="user/*" element={<UserLayout />}>
-            <Route path="profile" element={<UserProfile />} />
-            <Route path="dashboard" element={<UserDashboard />} />
+    <>
+      <div className="App-container">
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="user/*" element={<UserLayout />}>
+              <Route path="profile" element={<UserProfile />} />
+              <Route path="dashboard" element={<UserDashboard />} />
+            </Route>
+            <Route index element={<Home />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/events" element={<Event />} />
+            <Route path="/contacts" element={<Contact />} />
+            <Route path="/notifications" element={<Notification />} />
+            <Route path="/english-courses" element={<EnglishCourse />} />
+            <Route path="/information-courses" element={<ITCourse />} />
+            <Route path="/courses/:id" element={<CourseDetails />} />
+            <Route
+              path="/courses/:course_id/schedule/:schedule_id/register"
+              element={<CourseRegister />}
+            />
+            <Route path="/news/:id" element={<NewsDetails />} />
+            <Route path="/events/:id" element={<EventDetails />} />
           </Route>
-          <Route index element={<Home />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/events" element={<Event />} />
-          <Route path="/contacts" element={<Contact />} />
-          <Route path="/notifications" element={<Notification />} />
-          <Route path="/english-courses" element={<EnglishCourse />} />
-          <Route path="/information-courses" element={<ITCourse />} />
-          <Route path="/courses/:id" element={<CourseDetails />} />
-          <Route
-            path="/courses/:course_id/schedule/:schedule_id/register"
-            element={<CourseRegister />}
-          />
-          <Route path="/news/:id" element={<NewsDetails />} />
-          <Route path="/events/:id" element={<EventDetails />} />
-        </Route>
+        </Routes>
+      </div>
+      <Routes>
+        <Route path="admin/login" element={<LoginAdmin />} />
+
         <Route path="/admin" element={<PrivateLayout />}>
           <Route index element={<HomeAdmin />} />
           {/* Di chuyển route "/banners" vào trong route "/admin" */}
@@ -125,10 +132,9 @@ function App() {
           <Route path="registrations" element={<ManagerRegistration />} />
           <Route path="registrations/:id/edit" element={<EditRegistration />} />
         </Route>
-        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <ToastContainer />
-    </div>
+    </>
   );
 }
 
