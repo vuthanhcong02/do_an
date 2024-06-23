@@ -13,16 +13,42 @@ export default function Login() {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const UserData = {
-      email: data?.email,
+    // const UserData = {
+    //   email: data?.email,
+    //   phone: data?.phone,
+    //   identity_card: data?.identity_card,
+    //   password: data?.password,
+    // };
+
+    let UserData = {
       password: data?.password,
     };
+
+    if (/^\d+$/.test(data.identifier)) {
+      if (data.identifier.length === 10) {
+        UserData.phone = data.identifier;
+        console.log(UserData);
+      } else {
+        UserData.id_card = data.identifier;
+        console.log(UserData);
+      }
+    } else if (/\S+@\S+\.\S+/.test(data.identifier)) {
+      UserData.email = data.identifier;
+    } else {
+      toast.error(
+        "Vui lòng nhập đúng định dạng email, số điện thoại hoặc số CCCD"
+      );
+      return;
+    }
+
     const { success, data: user, access_token } = await login(UserData);
     if (success) {
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", access_token);
 
       window.location.href = "/";
+    } else {
+      toast.error("Tài khoản hoặc mật khẩu không chính xác!");
     }
   };
   return (
@@ -34,11 +60,11 @@ export default function Login() {
           <div className="form-group">
             <label htmlFor="username">Email</label>
             <input
-              type="email"
+              type="text"
               className="form-control"
               id="username"
-              placeholder="Nhập tên email"
-              {...register("email", { required: true })}
+              placeholder="Nhập tên email hoặc số điện thoại hoặc số CCCD"
+              {...register("identifier", { required: true })}
             />
           </div>
           <div className="form-group">

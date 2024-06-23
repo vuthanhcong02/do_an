@@ -54,6 +54,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PageNotFound } from "./pages/PageNotFound/PageNotFound.js";
 import LoginAdmin from "./pages/Admin/Login/LoginAdmin.js";
+import ManagerContact from "./pages/Admin/Contact/ManagerContact.js";
+import EditContact from "./pages/Admin/Contact/EditContact.js";
 
 function App() {
   return (
@@ -121,6 +123,9 @@ function App() {
           <Route path="classes" element={<ManagerClass />} />
           <Route path="classes/create" element={<CreateClass />} />
           <Route path="classes/:id/edit" element={<EditClass />} />
+
+          <Route path="contacts" element={<ManagerContact />} />
+          <Route path="contacts/:id/edit" element={<EditContact />} />
 
           <Route path="schedules" element={<ManagerSchedule />} />
           <Route path="schedules/create" element={<CreateSchedule />} />

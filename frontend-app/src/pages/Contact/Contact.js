@@ -1,6 +1,31 @@
 import React from "react";
 import "./Contact.scss";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { createContact } from "../../services/ContactService";
+import { toast } from "react-toastify";
 export default function Contact() {
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmit = async (data) => {
+    // console.log(data);
+    const dataCreate = {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      address: data.address,
+      message: data.message,
+      subject: data.subject,
+    };
+    const { success } = await createContact(dataCreate);
+    console.log(success);
+    if (success) {
+      toast.success("Gửi liên hệ thành công");
+      reset();
+    } else {
+      toast.error("Gửi liên hệ thất bại");
+    }
+  };
   return (
     <div className="Contact-container">
       <div className="Contact-content">
@@ -42,7 +67,7 @@ export default function Contact() {
             ></iframe>
           </div>
           <div className="Contact-content-main-form p-2">
-            <form className="row g-3">
+            <form className="row g-3" onSubmit={handleSubmit(onSubmit)}>
               <div className="form-group mb-3 col-6">
                 <label className="col" htmlFor="formGroupExampleInput">
                   Họ và tên
@@ -51,6 +76,8 @@ export default function Contact() {
                   type="text"
                   className="form-control"
                   placeholder="Nhập họ tên"
+                  {...register("name")}
+                  required
                 />
               </div>
               <div className="form-group mb-3 col-6">
@@ -61,7 +88,9 @@ export default function Contact() {
                   type="text"
                   className="form-control"
                   id="formGroupExampleInput"
-                  placeholder="Nhập họ tên"
+                  placeholder="Nhập địa chỉ"
+                  {...register("address")}
+                  required
                 />
               </div>
               <div className="form-group mb-3 col-6">
@@ -70,6 +99,8 @@ export default function Contact() {
                   type="text"
                   className="form-control"
                   placeholder="Email"
+                  {...register("email")}
+                  required
                 />
               </div>
               <div className="form-group mb-3 col-6">
@@ -78,6 +109,8 @@ export default function Contact() {
                   type="text"
                   className="form-control"
                   placeholder="Số điện thoại"
+                  {...register("phone")}
+                  required
                 />
               </div>
               <div className="form-group mb-3 col-12">
@@ -86,6 +119,8 @@ export default function Contact() {
                   type="text"
                   className="form-control"
                   placeholder="Tiêu đề"
+                  {...register("subject")}
+                  required
                 />
               </div>
               <div className="form-group mb-3 col-12">
@@ -94,6 +129,8 @@ export default function Contact() {
                   className="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  {...register("message")}
+                  required
                 ></textarea>
               </div>
               <div className="form-group mb-3 col-12 d-flex justify-content-center">

@@ -117,6 +117,13 @@ Route::group(['prefix' => '/schedules'], function () {
     Route::delete('/{id}', [\App\Http\Controllers\ScheduleController::class, 'deleteSchedule']);
 });
 
+Route::group(['prefix' => '/contacts'], function () {
+    Route::get('/', [\App\Http\Controllers\ContactController::class, 'getAll']);
+    Route::post('/', [\App\Http\Controllers\ContactController::class, 'createContact']);
+    Route::get('/{id}', [\App\Http\Controllers\ContactController::class, 'showContact']);
+    Route::put('/{id}', [\App\Http\Controllers\ContactController::class, 'updateContact']);
+    Route::delete('/{id}', [\App\Http\Controllers\ContactController::class, 'deleteContact']);
+});
 Route::group(['prefix' => '/users'], function () {
     Route::get('/', [\App\Http\Controllers\UserController::class, 'getAll']);
 });

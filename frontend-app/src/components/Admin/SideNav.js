@@ -130,6 +130,13 @@ export default function SideNav() {
                 </li>
 
                 <li>
+                  <NavLink to="contacts" className=" nav-link">
+                    <i className="metismenu-icon" />
+                    Liên hệ
+                  </NavLink>
+                </li>
+
+                <li>
                   <NavLink className=" nav-link">
                     <i className="metismenu-icon" />
                     Thông báo

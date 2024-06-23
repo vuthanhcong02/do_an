@@ -18,19 +18,29 @@ class AuthService extends BaseService
 
     public function login($data)
     {
-        if (isset($data['email']) && isset($data['password'])) {
-            $credentials = ['email' => $data['email'], 'password' => $data['password']];
+        if (isset($data['password'])) {
+            $credentials = ['password' => $data['password']];
+
+            if (isset($data['email'])) {
+                $credentials['email'] = $data['email'];
+            } elseif (isset($data['phone'])) {
+                $credentials['phone'] = $data['phone'];
+            } elseif (isset($data['id_card'])) {
+                $credentials['id_card'] = $data['id_card'];
+            } else {
+                return false;
+            }
 
             if (!Auth::attempt($credentials)) {
                 return false;
             }
-
 
             return auth()->user();
         }
 
         return false;
     }
+
 
 
     public function register($data)
