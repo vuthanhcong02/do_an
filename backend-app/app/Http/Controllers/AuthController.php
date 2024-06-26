@@ -158,4 +158,31 @@ class AuthController extends Controller
             'success' => true,
         ], 200);
     }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+        $id = $user->id;
+        $data = $request->all();
+        if (isset($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        $user = $this->authService->update($id, $data);
+        if (!$user) {
+            return $this->customResponse(401, false, null, 'Update failed', null);
+        }
+        return $this->customResponse(200, true, $user, null, null);
+    }
+
+    public function changePassword(Request $request)
+    {
+        $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
+        $user = auth()->user();
+        $user = $this->authService->update($user->id, $data);
+        if (!$user) {
+            return $this->customResponse(401, false, null, 'Change password failed', null);
+        }
+        return $this->customResponse(200, true, $user, null, null);
+    }
 }

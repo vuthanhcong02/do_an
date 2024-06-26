@@ -36,3 +36,17 @@ export const userInfo = () => {
   ] = `Bearer ${localStorage.getItem("token")}`;
   return httpClient.get("/auth/user-profile");
 };
+
+export const updateProfile = (data) => {
+  httpClient.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${localStorage.getItem("token")}`;
+  return httpClient.post("/auth/update-profile", data);
+};
+
+export const changePassword = (data) => {
+  httpClient.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${localStorage.getItem("token")}`;
+  return httpClient.post("/auth/change-pass", data);
+};

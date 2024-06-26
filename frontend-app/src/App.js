@@ -56,6 +56,7 @@ import { PageNotFound } from "./pages/PageNotFound/PageNotFound.js";
 import LoginAdmin from "./pages/Admin/Login/LoginAdmin.js";
 import ManagerContact from "./pages/Admin/Contact/ManagerContact.js";
 import EditContact from "./pages/Admin/Contact/EditContact.js";
+import ChangePassword from "./pages/ChangePassword/ChangePassword.js";
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="user/*" element={<UserLayout />}>
               <Route path="profile" element={<UserProfile />} />
+              <Route path="change-password" element={<ChangePassword />} />
               <Route path="dashboard" element={<UserDashboard />} />
             </Route>
             <Route index element={<Home />} />

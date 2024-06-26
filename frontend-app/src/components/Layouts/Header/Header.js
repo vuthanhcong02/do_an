@@ -96,9 +96,15 @@ export default function Header() {
                 <NavDropdown.Item as={NavLink} to="user/profile">
                   Thông tin cá nhân
                 </NavDropdown.Item>
+
                 <NavDropdown.Item as={NavLink} to="user/dashboard">
                   Khóa học của bạn
                 </NavDropdown.Item>
+
+                <NavDropdown.Item as={NavLink} to="user/change-password">
+                  Đổi mật khẩu
+                </NavDropdown.Item>
+
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout}>
                   Đăng xuất

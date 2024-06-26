@@ -3,7 +3,9 @@ import { Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Userprofile.scss";
-import { userInfo } from "../../services/AuthService";
+import { userInfo, updateProfile } from "../../services/AuthService";
+import { toast } from "react-toastify";
+
 export default function UserProfile() {
   const [user, setUser] = useState({});
   const {
@@ -42,8 +44,23 @@ export default function UserProfile() {
     }
   }, [user]);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    // console.log(data);
+    const dataUpdate = {
+      full_name: data?.full_name,
+      phone: data?.phone,
+      email: data?.email,
+      address: data?.address,
+      id_card: data?.id_card,
+      gender: data?.gender,
+      object_type: data?.object_type,
+      date_of_birthday: data?.date_of_birthday,
+    };
+    const { success } = await updateProfile(dataUpdate);
+    if (success) {
+      toast.success("Cập nhật thành công");
+      fetchUserInfo();
+    }
   };
   return (
     <div className="UserProfile-container container">
@@ -123,47 +140,19 @@ export default function UserProfile() {
                 </select>
               </Col>
             </Form.Group>
-            <Form.Group
+            {/* <Form.Group
               as={Row}
               className="mb-3"
               controlId="formHorizontalPassword"
             >
               <Form.Label column sm={3}>
-                Mật khẩu hiện tại
-                <span className="text-danger">(*)</span>
-              </Form.Label>
-              <Col sm={8}>
-                <Form.Control
-                  type="password"
-                  placeholder="Mật khẩu hiện tại"
-                  {...register("password_old", {
-                    minLength: {
-                      value: 6,
-                      message: "Mật khẩu phải có ít nhất 8 ký tự",
-                    },
-                  })}
-                />
-              </Col>
-            </Form.Group>
-            <Form.Group
-              as={Row}
-              className="mb-3"
-              controlId="formHorizontalPassword"
-            >
-              <Form.Label column sm={3}>
-                Mật khẩu mới<span className="text-danger">(*)</span>
+                Mật khẩu mới
               </Form.Label>
               <Col sm={8}>
                 <Form.Control
                   type="password"
                   placeholder="Mật khẩu mới"
-                  {...register("password_new", {
-                    required: true,
-                    minLength: {
-                      value: 6,
-                      message: "Mật khẩu phải có ít nhất 6 ký tự",
-                    },
-                  })}
+                  {...register("password_new")}
                 />
                 {errors.password && (
                   <span className="text-danger">{errors.password.message}</span>
@@ -176,25 +165,16 @@ export default function UserProfile() {
               controlId="formHorizontalConfirmPassword"
             >
               <Form.Label column sm={3}>
-                Nhập lại mật khẩu mới<span className="text-danger">(*)</span>
+                Nhập lại mật khẩu mới
               </Form.Label>
               <Col sm={8}>
                 <Form.Control
                   type="password"
                   placeholder="Nhập lại mật khẩu mới"
-                  {...register("confirm_password_new", {
-                    required: true,
-                    validate: (value) =>
-                      value === password || "Mật khẩu không khớp",
-                  })}
+                  {...register("confirm_password_new")}
                 />
-                {errors.confirm_password && (
-                  <span className="text-danger">
-                    {errors.confirm_password.message}
-                  </span>
-                )}
               </Col>
-            </Form.Group>
+            </Form.Group> */}
           </Col>
 
           <Col sm={6}>
