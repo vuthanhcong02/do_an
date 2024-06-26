@@ -2,8 +2,11 @@ import React from "react";
 import "./Login.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { login } from "../../services/AuthService";
+import { login, loginWithSocial } from "../../services/AuthService";
 import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
+import { GoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -51,6 +54,28 @@ export default function Login() {
       toast.error("Tài khoản hoặc mật khẩu không chính xác!");
     }
   };
+
+  const onLoginSuccess = async (resp) => {
+    console.log(resp);
+    let decoded = jwtDecode(resp?.credential);
+    console.log(decoded);
+    // setIsLoading(true);
+    await handleLoginWithGoogle(decoded);
+    // setIsLoading(false);
+  };
+
+  const handleLoginWithGoogle = async (data) => {
+    const { success, data: user, access_token } = await loginWithSocial(data);
+    if (success) {
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", access_token);
+      // toast.success("Đăng nhập thành công");
+      window.location.href = "/";
+      // navigate("/");
+    } else {
+      toast.error("Tài khoản hoặc mật này không chính xác!");
+    }
+  };
   return (
     <div className="App-login">
       <h4 className="App-login-title">Login</h4>
@@ -58,7 +83,7 @@ export default function Login() {
       <div className="App-login-form">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
-            <label htmlFor="username">Email</label>
+            <label htmlFor="username">Tài khoản</label>
             <input
               type="text"
               className="form-control"
@@ -79,6 +104,17 @@ export default function Login() {
           </div>
           <div className="btn-login-container">
             <button className="btn-login">Login</button>
+            <div className="or">or</div>
+            <GoogleLogin
+              type="standard"
+              text="Login with Google"
+              onSuccess={onLoginSuccess}
+              onError={() => {
+                toast.error("Đăng nhập thất bại");
+              }}
+              useOneTap
+            />
+            {/* <button onClick={() => login()}>Sign in with Google 🚀</button>; */}
             <div className="d-flex justify-content-center align-items-center mt-3">
               <span className="mr-2">Don't have an account? </span>
               <NavLink to="/register" className="text-primary">

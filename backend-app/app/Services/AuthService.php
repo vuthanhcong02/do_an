@@ -76,4 +76,26 @@ class AuthService extends BaseService
         }
         return false;
     }
+
+    public function loginWithSocial($data)
+    {
+        $user = $this->model->where('email', $data['email'])->first();
+        if (!$user) {
+            $user = $this->model->create([
+                'full_name' => $data['name'] ?? null,
+                'email' => $data['email'] ?? null,
+                'password' => bcrypt(Str::random(8)),
+                'phone' => $data['phone'] ?? null,
+                'address' => $data['address'] ?? null,
+                'object_type' => $data['object_type'] ?? null,
+                'date_of_birthday' => $data['date_of_birthday'] ?? null,
+                'id_card' => $data['id_card'] ?? null,
+            ]);
+        }
+        if ($user) {
+            Auth::login($user);
+            return $user;
+        }
+        return false;
+    }
 }

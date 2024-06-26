@@ -4,6 +4,10 @@ export const login = (data) => {
   return httpClient.post("/auth/login", data);
 };
 
+export const loginWithSocial = (data) => {
+  return httpClient.post("/auth/social-login", data);
+};
+
 export const adminLogin = (data) => {
   return httpClient.post("/auth/admin/login", data);
 };

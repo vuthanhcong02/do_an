@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function __construct(AuthService $authService)
     {
         $this->authService = $authService;
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'adminLogin']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'adminLogin', 'loginWithSocial']]);
     }
 
     /**
@@ -44,6 +44,19 @@ class AuthController extends Controller
             return $this->customResponse(401, false, null, 'Email or password not correct', null);
         }
 
+        return $this->createNewToken($token);
+    }
+
+    public function loginWithSocial(Request $request)
+    {
+        $user = $this->authService->loginWithSocial($request);
+        if (!$user) {
+            return $this->customResponse(401, false, null, 'Email or password not correct', null);
+        }
+
+        if (!$token = auth()->login($user)) {
+            return $this->customResponse(401, false, null, 'Email or password not correct', null);
+        }
         return $this->createNewToken($token);
     }
 

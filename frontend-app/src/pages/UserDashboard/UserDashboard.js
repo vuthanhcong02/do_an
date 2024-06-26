@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import "./UserDashboard.scss";
 import { getRegistrationByUser } from "../../services/RegistrationService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload, faSave } from "@fortawesome/free-solid-svg-icons";
 export default function UserDashboard() {
   const [courses, setCourses] = useState([]);
 
@@ -26,8 +28,24 @@ export default function UserDashboard() {
             style={{ width: "100%" }}
             className="card-register-course"
           >
-            <Card.Header as="h4">
+            <Card.Header as="h4" className="d-flex justify-content-between">
               Tên lớp: {course?.schedule?.class?.name}
+              <div className="d-flex justify-content-end">
+                <Button
+                  style={{
+                    backgroundColor: "#273272",
+                    color: "white",
+                    border: "none",
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faDownload}
+                    className="icon-save mr-2"
+                    size="sm"
+                  />
+                  Thẻ thành viên
+                </Button>
+              </div>
             </Card.Header>
             <Card.Body>
               <Card.Title as="h5">

@@ -7,6 +7,8 @@ import {
 import { baseUrl } from "../../../config";
 import { getSummary } from "../../../utils/function";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 export default function ManagerSchedule() {
   const [schedules, setSchedules] = useState([]);
 
@@ -99,11 +101,11 @@ export default function ManagerSchedule() {
                 <thead>
                   <tr>
                     <th className="text-center">ID</th>
-                    <th className="text-center">Khóa học</th>
-                    <th className="text-center">Lớp</th>
-                    <th className="text-center">Phòng học</th>
-                    <th className="text-center">Ngày học</th>
-                    <th className="text-center">Người phụ trách</th>
+                    <th className="">Khóa học</th>
+                    <th className="">Lớp</th>
+                    <th className="">Phòng học</th>
+                    <th className="">Ngày học</th>
+                    <th className="">Người phụ trách</th>
                     <th className="text-center">Actions</th>
                   </tr>
                 </thead>
@@ -111,20 +113,25 @@ export default function ManagerSchedule() {
                   {schedules.map((item, index) => (
                     <tr key={index}>
                       <td className="text-center text-muted">{index + 1}</td>
-                      <td className="text-center">{item.course?.name}</td>
-                      <td className="text-center">{item.class?.name}</td>
-                      <td className="text-center">{item.classroom?.name}</td>
-                      <td className="text-center">
+                      <td className="">{item.course?.name}</td>
+                      <td className="">{item.class?.name}</td>
+                      <td className="">{item.classroom?.name}</td>
+                      <td className="">
                         Thứ {item?.day_of_week} ({item?.start_end_time})
                       </td>
-                      <td className="text-center">{item.teacher?.full_name}</td>
+                      <td className="">{item.teacher?.full_name}</td>
 
                       <td className="text-center">
                         <NavLink
                           to={`/${item.id}`}
                           className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
                         >
-                          Details
+                          <FontAwesomeIcon
+                            icon={faDownload}
+                            size="sm"
+                            className="mr-2"
+                          />
+                          Xuất danh sách
                         </NavLink>
                         <NavLink
                           to={`${item.id}/edit`}

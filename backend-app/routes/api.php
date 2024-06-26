@@ -23,6 +23,7 @@ Route::group([
     'prefix' => 'auth'
 
 ], function ($router) {
+    Route::post('/social-login', [AuthController::class, 'loginWithSocial']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/admin/login', [AuthController::class, 'adminLogin']);
     Route::post('/admin/logout', [AuthController::class, 'adminLogout']);
