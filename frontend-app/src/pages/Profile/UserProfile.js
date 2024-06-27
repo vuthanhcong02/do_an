@@ -1,23 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Image, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Userprofile.scss";
 import { userInfo, updateProfile } from "../../services/AuthService";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { baseUrlImage } from "../../config";
 
 export default function UserProfile() {
   const [user, setUser] = useState({});
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    watch,
-  } = useForm();
-  const navigate = useNavigate();
-  const password = watch("password_new");
-  const confirmPassword = watch("confirm_password_new");
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const { register, handleSubmit, setValue } = useForm();
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file && (file instanceof Blob || file instanceof File)) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+      setSelectedImage(file);
+    } else {
+      console.error("The selected file is not a valid Blob or File.");
+    }
+  };
 
   useEffect(() => {
     fetchUserInfo();
@@ -44,28 +54,56 @@ export default function UserProfile() {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (user && user.avatar) {
+      setImagePreview(`${baseUrlImage}${user.avatar}`);
+    } else {
+      setImagePreview(null);
+    }
+  }, [user, selectedImage]);
   const onSubmit = async (data) => {
     // console.log(data);
-    const dataUpdate = {
-      full_name: data?.full_name,
-      phone: data?.phone,
-      email: data?.email,
-      address: data?.address,
-      id_card: data?.id_card,
-      gender: data?.gender,
-      object_type: data?.object_type,
-      date_of_birthday: data?.date_of_birthday,
-    };
-    const { success } = await updateProfile(dataUpdate);
-    if (success) {
-      toast.success("Cập nhật thành công");
-      fetchUserInfo();
+    const formData = new FormData();
+    formData.append("_method", "PUT");
+    formData.append("full_name", data?.full_name);
+    formData.append("phone", data?.phone);
+    formData.append("id_card", data?.id_card);
+    formData.append("gender", data?.gender);
+    formData.append("object_type", data?.object_type);
+    formData.append("date_of_birthday", data?.date_of_birthday);
+    formData.append("address", data?.address);
+    formData.append("email", data?.email);
+    if (selectedImage) {
+      formData.append("avatar", selectedImage);
+    }
+
+    try {
+      const response = await axios.post(
+        "http://api.ngoaingutinhoc.tech.com/api/auth/update-profile",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.data.success) {
+        toast.success("Cập nhật user thành công");
+      }
+    } catch (error) {
+      console.error("Error uploading data", error);
+      toast.error("Cập nhật user thất bại");
     }
   };
   return (
     <div className="UserProfile-container container">
       <h4 className="UserProfile-title">Thông tin cá nhân</h4>
-      <form className="col-12" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="col-12"
+        onSubmit={handleSubmit(onSubmit)}
+        encType="multipart/form-data"
+      >
         <Form className="mt-4" as={Row}>
           <Col sm={6}>
             <Form.Group
@@ -140,44 +178,7 @@ export default function UserProfile() {
                 </select>
               </Col>
             </Form.Group>
-            {/* <Form.Group
-              as={Row}
-              className="mb-3"
-              controlId="formHorizontalPassword"
-            >
-              <Form.Label column sm={3}>
-                Mật khẩu mới
-              </Form.Label>
-              <Col sm={8}>
-                <Form.Control
-                  type="password"
-                  placeholder="Mật khẩu mới"
-                  {...register("password_new")}
-                />
-                {errors.password && (
-                  <span className="text-danger">{errors.password.message}</span>
-                )}
-              </Col>
-            </Form.Group>
-            <Form.Group
-              as={Row}
-              className="mb-3"
-              controlId="formHorizontalConfirmPassword"
-            >
-              <Form.Label column sm={3}>
-                Nhập lại mật khẩu mới
-              </Form.Label>
-              <Col sm={8}>
-                <Form.Control
-                  type="password"
-                  placeholder="Nhập lại mật khẩu mới"
-                  {...register("confirm_password_new")}
-                />
-              </Col>
-            </Form.Group> */}
-          </Col>
 
-          <Col sm={6}>
             <Form.Group
               as={Row}
               className="mb-3"
@@ -191,6 +192,7 @@ export default function UserProfile() {
                   type="email"
                   placeholder="Email"
                   {...register("email", { required: true })}
+                  readOnly
                 />
               </Col>
             </Form.Group>
@@ -247,6 +249,31 @@ export default function UserProfile() {
                   {...register("phone", { required: true })}
                 />
               </Col>
+            </Form.Group>
+          </Col>
+
+          <Col
+            sm={6}
+            className="d-flex flex-column justify-content-start align-items-center"
+          >
+            <Image
+              src={imagePreview ? imagePreview : `/_default-user.png`}
+              roundedCircle
+              height={220}
+              width={220}
+              className="object-fit-cover"
+            />
+            <Form.Group controlId="formFileSm" className="mb-3">
+              <Form.Label className="mt-3 d-flex justify-content-center">
+                Ảnh đại diện
+              </Form.Label>
+              <Form.Control
+                type="file"
+                size="sm"
+                className="mt-3"
+                {...register("avatar")}
+                onChange={handleImageChange}
+              />
             </Form.Group>
           </Col>
 

@@ -32,7 +32,7 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'user_profile']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);
-    Route::post('/update-profile', [AuthController::class, 'updateProfile']);
+    Route::put('/update-profile', [AuthController::class, 'updateProfile']);
 });
 
 Route::group(['prefix' => '/banners'], function () {

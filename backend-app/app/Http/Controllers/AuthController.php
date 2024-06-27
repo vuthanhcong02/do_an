@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Services\AuthService;
+use App\Services\ImageUploadService;
 use Validator;
 
 class AuthController extends Controller
@@ -17,11 +18,12 @@ class AuthController extends Controller
      *
      * @return void
      */
-    protected $authService;
+    protected $authService, $imageUploadService;
 
-    public function __construct(AuthService $authService)
+    public function __construct(AuthService $authService, ImageUploadService $imageUploadService)
     {
         $this->authService = $authService;
+        $this->imageUploadService = $imageUploadService;
         $this->middleware('auth:api', ['except' => ['login', 'register', 'adminLogin', 'loginWithSocial']]);
     }
 
@@ -164,8 +166,16 @@ class AuthController extends Controller
         $user = auth()->user();
         $id = $user->id;
         $data = $request->all();
-        if (isset($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+
+            $path = $this->imageUploadService->uploadImage($avatar, 'avatars');
+
+            if ($user->avatar) {
+                $this->imageUploadService->deleteImage($user->avatar);
+            }
+
+            $data['avatar'] = $path;
         }
         $user = $this->authService->update($id, $data);
         if (!$user) {
