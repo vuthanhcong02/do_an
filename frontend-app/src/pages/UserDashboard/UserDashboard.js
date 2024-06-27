@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Modal } from "react-bootstrap";
 import "./UserDashboard.scss";
 import { getRegistrationByUser } from "../../services/RegistrationService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faSave } from "@fortawesome/free-solid-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { MyDocument } from "./RegisterInfor";
 export default function UserDashboard() {
   const [courses, setCourses] = useState([]);
+  const [courseInfo, setCourseInfo] = useState({});
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     fetchRegistrationByUser();
   }, []);
-
+  console.log("courseInfo", courseInfo);
   const fetchRegistrationByUser = async () => {
     const { success, data } = await getRegistrationByUser();
     if (success) {
       setCourses(data.data);
       console.log(data.data);
     }
+  };
+
+  const handleShowPdfInfo = (course) => {
+    handleShow();
+    setCourseInfo(course);
+    // setShowPdfInfo(!showPdfInfo);
   };
   return (
     <div className="UserDashboard-container">
@@ -37,6 +49,7 @@ export default function UserDashboard() {
                     color: "white",
                     border: "none",
                   }}
+                  onClick={() => handleShowPdfInfo(course)}
                 >
                   <FontAwesomeIcon
                     icon={faDownload}
@@ -76,6 +89,11 @@ export default function UserDashboard() {
           </Card>
         ))}
       </div>
+      <Modal show={show} onHide={handleClose} size="lg">
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <MyDocument course={courseInfo} />
+        </div>
+      </Modal>
     </div>
   );
 }
