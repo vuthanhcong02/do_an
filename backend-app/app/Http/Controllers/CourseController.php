@@ -21,7 +21,7 @@ class CourseController extends Controller
     public function index()
     {
 
-        $courses = $this->courseService->getAll();
+        $courses = $this->courseService->getAllCourse();
         if (!$courses) {
             return $this->customResponse(404, false, null, 'Course not found', null);
         }

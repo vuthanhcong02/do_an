@@ -29,4 +29,9 @@ class Course extends Model
         'discount_type',
         'featured',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

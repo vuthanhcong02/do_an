@@ -74,7 +74,6 @@ export default function ManagerEvents() {
                     id="search"
                     placeholder="Search everything"
                     className="form-control"
-                    defaultValue
                   />
                   <span className="input-group-append">
                     <button type="submit" className="btn btn-primary">
@@ -135,12 +134,12 @@ export default function ManagerEvents() {
                         </span>
                       </td>
                       <td className="text-center">
-                        <NavLink
+                        {/* <NavLink
                           to={`/${item.id}`}
                           className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
                         >
                           Details
-                        </NavLink>
+                        </NavLink> */}
                         <NavLink
                           to={`${item.id}/edit`}
                           data-toggle="tooltip"

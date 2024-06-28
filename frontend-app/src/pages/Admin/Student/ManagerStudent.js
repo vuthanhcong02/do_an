@@ -129,14 +129,6 @@ export default function ManagerStudent() {
                       <td className="text-center">{user?.phone}</td>
                       <td className="text-center">{user?.date_of_birthday}</td>
                       <td className="text-center">
-                        <NavLink>
-                          <button
-                            // to={`/${item.id}`}
-                            className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
-                          >
-                            Details
-                          </button>
-                        </NavLink>
                         <NavLink
                           to={`${user.id}/edit`}
                           data-toggle="tooltip"

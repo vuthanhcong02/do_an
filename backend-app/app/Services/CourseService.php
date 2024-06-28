@@ -13,6 +13,11 @@ class CourseService extends BaseService
         parent::__construct($course);
     }
 
+    public function getAllCourse()
+    {
+        return $this->model::with('category')->orderBy('id', 'desc')->paginate(10);
+    }
+
     public function getCourseOrderById()
     {
         $courses = $this->model->orderBy('id', 'desc')->limit(6)->get();

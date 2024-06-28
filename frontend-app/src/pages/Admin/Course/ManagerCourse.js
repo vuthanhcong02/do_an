@@ -74,7 +74,6 @@ export default function ManagerCourse() {
                       id="search"
                       placeholder="Search everything"
                       className="form-control"
-                      defaultValue
                     />
                     <span className="input-group-append">
                       <button type="submit" className="btn btn-primary">
@@ -97,7 +96,7 @@ export default function ManagerCourse() {
                     <tr>
                       <th className="text-center">ID</th>
                       <th className="text-center">Hỉnh ảnh</th>
-                      <th className="text-center">Tên khóa học</th>
+                      <th className="">Tên khóa học</th>
                       <th className="text-center">Subject</th>
                       <th className="text-center">Ngày bắt đầu</th>
                       <th className="text-center">Status</th>
@@ -120,8 +119,10 @@ export default function ManagerCourse() {
                             alt=""
                           />
                         </td>
-                        <td className="text-center">{course?.name}</td>
-                        <td className="text-center">{course?.category_id}</td>
+                        <td>{course?.name}</td>
+                        <td className="text-center">
+                          {course?.category?.name}
+                        </td>
                         <td className="text-center">
                           {moment(course?.created_at).format("DD/MM/YYYY")}
                         </td>
@@ -145,12 +146,12 @@ export default function ManagerCourse() {
                         </td>
 
                         <td className="text-center">
-                          <NavLink
+                          {/* <NavLink
                             to="show"
                             className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
                           >
                             Details
-                          </NavLink>
+                          </NavLink> */}
                           <NavLink
                             to={`${course?.id}/edit`}
                             data-toggle="tooltip"

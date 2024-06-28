@@ -74,7 +74,6 @@ export default function ManagerTeacher() {
                       id="search"
                       placeholder="Search everything"
                       className="form-control"
-                      defaultValue
                     />
                     <span className="input-group-append">
                       <button type="submit" className="btn btn-primary">
@@ -125,13 +124,13 @@ export default function ManagerTeacher() {
                           {teacher?.category?.name}
                         </td>
                         <td className="text-center">
-                          <NavLink
+                          {/* <NavLink
                             to={`${teacher.id}`}
                             class="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
                             style={{ textDecoration: "none" }}
                           >
                             Details
-                          </NavLink>
+                          </NavLink> */}
                           <NavLink
                             to={`${teacher.id}/edit`}
                             data-toggle="tooltip"
