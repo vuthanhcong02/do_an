@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-bootstrap";
-import { getUsers } from "../../../services/UserService";
+import { NavLink } from "react-router-dom";
+import { deleteUser, getUsers } from "../../../services/UserService";
+import { baseUrlImage } from "../../../config";
+import { toast } from "react-toastify";
 
 export default function ManagerStudent() {
   const [users, setUsers] = useState([]);
@@ -16,6 +18,21 @@ export default function ManagerStudent() {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Bạn có chắc chắn muốn xóa bản ghi này?"
+    );
+    if (confirmDelete) {
+      const { success, data } = await deleteUser(id);
+      if (success) {
+        const newUsers = users.filter((item) => item.id !== id);
+        setUsers(newUsers);
+        toast.success("Xóa bản ghi thành công");
+      } else {
+        toast.error("Xoá bản ghi thất bại");
+      }
+    }
+  };
   return (
     <div className="app-main__inner">
       <div className="app-page-title">
@@ -77,6 +94,7 @@ export default function ManagerStudent() {
                 <thead>
                   <tr>
                     <th className="text-center">ID</th>
+                    <th className="text-center">Hình ảnh</th>
                     <th className="text-center">Họ và tên</th>
                     <th className="text-center">Email</th>
                     <th className="text-center">Giới tính</th>
@@ -90,6 +108,18 @@ export default function ManagerStudent() {
                   {users.map((user, index) => (
                     <tr>
                       <td className="text-center text-muted">{index + 1}</td>
+                      <td className="text-center">
+                        <img
+                          src={
+                            user?.avatar
+                              ? `${baseUrlImage}${user.avatar}`
+                              : "/_default-user.png"
+                          }
+                          width="50"
+                          height="50"
+                          alt=""
+                        />
+                      </td>
                       <td className="text-center">{user?.full_name}</td>
                       <td className="text-center">{user?.email}</td>
                       <td className="text-center">
@@ -107,18 +137,16 @@ export default function ManagerStudent() {
                             Details
                           </button>
                         </NavLink>
-                        <NavLink>
-                          <button
-                            // to={`${item.id}/edit`}
-                            data-toggle="tooltip"
-                            title="Edit"
-                            data-placement="bottom"
-                            className="btn btn-outline-warning border-0 btn-sm"
-                          >
-                            <span className="btn-icon-wrapper opacity-8">
-                              <i className="fa fa-edit fa-w-20" />
-                            </span>
-                          </button>
+                        <NavLink
+                          to={`${user.id}/edit`}
+                          data-toggle="tooltip"
+                          title="Edit"
+                          data-placement="bottom"
+                          className="btn btn-outline-warning border-0 btn-sm"
+                        >
+                          <span className="btn-icon-wrapper opacity-8">
+                            <i className="fa fa-edit fa-w-20" />
+                          </span>
                         </NavLink>
                         <button
                           className="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
@@ -126,7 +154,7 @@ export default function ManagerStudent() {
                           data-toggle="tooltip"
                           title="Delete"
                           data-placement="bottom"
-                          //   onClick={() => handleDelete(item.id)}
+                          onClick={() => handleDelete(user.id)}
                         >
                           <span className="btn-icon-wrapper opacity-8">
                             <i className="fa fa-trash fa-w-20" />

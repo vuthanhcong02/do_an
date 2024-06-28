@@ -110,15 +110,16 @@ export default function EditCategory() {
                 </div>
                 <div class="position-relative row form-group mb-1">
                   <div class="col-md-9 col-xl-8 offset-md-2">
-                    <button
-                      onClick={() => navigate(-1)}
-                      class="border-0 btn btn-outline-danger mr-1"
+                    <NavLink
+                      // onClick={() => navigate(-1)}
+                      to="/admin/categories"
+                      className="border-0 btn btn-outline-danger mr-1"
                     >
-                      <span class="btn-icon-wrapper pr-1 opacity-8">
-                        <i class="fa fa-times fa-w-20"></i>
+                      <span className="btn-icon-wrapper pr-1 opacity-8">
+                        <i className="fa fa-times fa-w-20"></i>
                       </span>
                       <span>Cancel</span>
-                    </button>
+                    </NavLink>
 
                     <button
                       type="submit"

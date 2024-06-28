@@ -24,7 +24,7 @@ export default function ManagerClassRoom() {
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this item?"
+      "Bạn có chắc chắn muốn xóa bản ghi này?"
     );
     if (confirmDelete) {
       const { success } = await deleteClassRoom(id);

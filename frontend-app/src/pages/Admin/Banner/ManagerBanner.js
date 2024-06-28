@@ -19,16 +19,16 @@ export default function ManagerBanner() {
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this item?"
+      "Bạn có chắc chắn muốn xóa bản ghi này?"
     );
     if (confirmDelete) {
       const { success, data } = await deleteBanner(id);
       if (success) {
         const newBanners = banners.filter((item) => item.id !== id);
         setBanners(newBanners);
-        toast.success("Xóa banner thành công");
+        toast.success("Xóa banner thành công");
       } else {
-        toast.error("Xoa banner that bai");
+        toast.error("Xoá banner thất bại");
       }
     }
   };

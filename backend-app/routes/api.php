@@ -128,6 +128,9 @@ Route::group(['prefix' => '/contacts'], function () {
 });
 Route::group(['prefix' => '/users'], function () {
     Route::get('/', [\App\Http\Controllers\UserController::class, 'getAll']);
+    Route::get('/{id}', [\App\Http\Controllers\UserController::class, 'show']);
+    Route::put('/{id}', [\App\Http\Controllers\UserController::class, 'updateUser']);
+    Route::delete('/{id}', [\App\Http\Controllers\UserController::class, 'destroy']);
 });
 
 Route::group(['prefix' => '/registrations'], function () {
