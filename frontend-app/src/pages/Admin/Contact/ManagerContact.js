@@ -116,20 +116,14 @@ export default function ManagerContact() {
                       <td className="text-center">
                         <span
                           className={`badge badge-${
-                            item?.status === 1 ? "success" : "danger"
+                            item?.is_read === 1 ? "success" : "danger"
                           }`}
                         >
-                          {item?.status === 1 ? "Đã xử lý" : "Chưa xử lý"}
+                          {item?.is_read === 1 ? "Đã xử lý" : "Chưa xử lý"}
                         </span>
                       </td>
 
                       <td className="text-center">
-                        <NavLink
-                          to={`/${item.id}`}
-                          className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
-                        >
-                          Details
-                        </NavLink>
                         <NavLink
                           to={`${item.id}/edit`}
                           data-toggle="tooltip"
