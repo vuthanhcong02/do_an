@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 
 use App\Services\CourseService;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    protected $courseService;
+    protected $courseService, $imageUploadService;
 
-    public function __construct(CourseService $courseService)
+    public function __construct(CourseService $courseService, ImageUploadService $imageUploadService)
     {
         $this->courseService = $courseService;
+        $this->imageUploadService = $imageUploadService;
     }
 
 
@@ -34,14 +36,16 @@ class CourseController extends Controller
     public function createCourse(Request $request)
     {
         $data = $request->all();
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $file = $request->file('image');
-            $fileName = Str::random(32) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/courses'), $fileName);
-            $data['image'] = 'uploads/courses/' . $fileName;
-        } else {
-            $data['image'] = null;
+
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            $path = $this->imageUploadService->uploadImage($image, 'courses');
+
+            $data['image'] = $path;
         }
+
         // dd($data);
         $course = $this->courseService->create($data);
         if (!$course) {
@@ -63,12 +67,24 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $file = $request->file('image');
-            $fileName = Str::random(32) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/courses'), $fileName);
-            $data['image'] = 'uploads/courses/' . $fileName;
+        $course = $this->courseService->find($id);
+        if (!$course) {
+            return $this->customResponse(404, false, null, 'Course not found', null);
         }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            $path = $this->imageUploadService->uploadImage($image, 'courses');
+
+            if ($course->image) {
+                $this->imageUploadService->deleteImage($course->image);
+            }
+
+            $data['image'] = $path;
+        }
+
+
         $course = $this->courseService->update($id, $data);
         if (!$course) {
             return $this->customResponse(false, 'Course not updated', 404);
@@ -82,6 +98,9 @@ class CourseController extends Controller
         $course = $this->courseService->delete($id);
         if (!$course) {
             return $this->customResponse(404, false, null, 'Course not deleted', null);
+        }
+        if ($course->image) {
+            $this->imageUploadService->deleteImage($course->image);
         }
         return $this->customResponse(200, true, $course);
     }

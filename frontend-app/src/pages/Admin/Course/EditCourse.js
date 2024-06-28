@@ -8,7 +8,7 @@ import httpClient from "../../../utils/axiosCustom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import ReactQuill from "react-quill";
-import { baseUrl } from "../../../config";
+import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
 
 export default function EditCourse() {
@@ -85,7 +85,7 @@ export default function EditCourse() {
   }, [course]);
   useEffect(() => {
     if (course && course.image) {
-      setImagePreview(`${baseUrl}${course.image}`);
+      setImagePreview(`${baseUrlImage}${course?.image}`);
     } else {
       setImagePreview(null);
     }

@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 use App\Services\NewsService;
 use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
-    protected $newsService;
+    protected $newsService, $imageUploadService;
 
-    public function __construct(NewsService $newsService)
+    public function __construct(NewsService $newsService, ImageUploadService $imageUploadService)
     {
         $this->newsService = $newsService;
+        $this->imageUploadService = $imageUploadService;
     }
 
     //
@@ -29,14 +31,17 @@ class NewsController extends Controller
     public function create(Request $request)
     {
         $data = $request->all();
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $file = $request->file('image');
-            $fileName = Str::random(32) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/news'), $fileName);
-            $data['image'] = 'uploads/news/' . $fileName;
-        } else {
-            $data['image'] = null;
+
+
+        if ($request->hasFile('image')) {
+            $avatar = $request->file('image');
+
+            $path = $this->imageUploadService->uploadImage($avatar, 'news');
+
+            $data['image'] = $path;
         }
+
+
         $new = $this->newsService->create($data);
         if (!$new) {
             return $this->customResponse(400, false, null, 'News not created', null);
@@ -58,12 +63,24 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $file = $request->file('image');
-            $fileName = Str::random(32) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/news'), $fileName);
-            $data['image'] = 'uploads/news/' . $fileName;
+        $news = $this->newsService->find($id);
+        if (!$news) {
+            return $this->customResponse(404, false, null, 'News not found', null);
         }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            $path = $this->imageUploadService->uploadImage($image, 'news');
+
+            if ($news->image) {
+                $this->imageUploadService->deleteImage($news->image);
+            }
+
+            $data['image'] = $path;
+        }
+
+
         $news = $this->newsService->update($id, $data);
         if (!$news) {
             return $this->customResponse(404, false, null, 'News not found', null);
@@ -97,7 +114,9 @@ class NewsController extends Controller
         if (!$news) {
             return $this->customResponse(404, false, null, 'News not found', null);
         }
-
+        if ($news->image) {
+            $this->imageUploadService->deleteImage($news->image);
+        }
         return $this->customResponse(200, true, $news);
     }
 }

@@ -10,7 +10,7 @@ import { getSummary } from "../../utils/function";
 import { getNewsOrderById, getNewByFeatured } from "../../services/NewsService";
 import { getCourseOrderById } from "../../services/CourseService";
 import { getEventsByFeatured } from "../../services/EventService";
-import { baseUrl } from "../../config";
+import { baseUrl, baseUrlImage } from "../../config";
 import NewList from "../../components/NewList/NewList";
 import EventList from "../../components/EventItem/EventList";
 export default function Home() {
@@ -93,7 +93,7 @@ export default function Home() {
               <Carousel.Item key={idx}>
                 <img
                   className="d-block w-100"
-                  src={`${baseUrl}${banner.image}`}
+                  src={`${baseUrlImage}${banner.image}`}
                   alt={`Slide ${idx}`}
                 />
                 <Carousel.Caption>

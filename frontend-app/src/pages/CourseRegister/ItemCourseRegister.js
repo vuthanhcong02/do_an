@@ -1,6 +1,6 @@
 import React from "react";
 import "./CourseRegister.scss";
-import { baseUrl } from "../../config";
+import { baseUrl, baseUrlImage } from "../../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faCircleRight } from "@fortawesome/free-regular-svg-icons";
@@ -22,7 +22,7 @@ export default function ItemCourseRegister({
         <div className="ItemCourseRegister-content-description row mt-4">
           <div className="ItemCourseRegister-content-description-item col-4">
             <img
-              src={`${baseUrl}${course?.image}`}
+              src={`${baseUrlImage}${course?.image}`}
               alt=""
               style={{
                 width: "100%",

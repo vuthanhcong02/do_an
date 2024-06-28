@@ -4,7 +4,6 @@ import {
   getSchedules,
   deleteSchedule,
 } from "../../../services/ScheduleService";
-import { baseUrl } from "../../../config";
 import { getSummary } from "../../../utils/function";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

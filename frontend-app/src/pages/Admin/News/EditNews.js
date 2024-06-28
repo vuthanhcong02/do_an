@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import { getNewsById } from "../../../services/NewsService";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
-import { baseUrl } from "../../../config";
+import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
 
 export default function EditNews() {
@@ -51,7 +51,7 @@ export default function EditNews() {
 
   useEffect(() => {
     if (news && news.image) {
-      setImagePreview(`${baseUrl}${news.image}`);
+      setImagePreview(`${baseUrlImage}${news?.image}`);
     } else {
       setImagePreview(null);
     }

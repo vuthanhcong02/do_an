@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Services\EventService;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 
 class EventController extends Controller
 {
-    protected $eventService;
-    public function __construct(EventService $eventService)
+    protected $eventService, $imageUploadService;
+    public function __construct(EventService $eventService, ImageUploadService $imageUploadService)
     {
+        $this->imageUploadService = $imageUploadService;
         $this->eventService = $eventService;
     }
     //
@@ -36,13 +38,13 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $file = $request->file('image');
-            $fileName = Str::random(32) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/events'), $fileName);
-            $data['image'] = 'uploads/events/' . $fileName;
-        } else {
-            $data['image'] = null;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            $path = $this->imageUploadService->uploadImage($image, 'events');
+
+            $data['image'] = $path;
         }
 
         $banner = $this->eventService->create($data);
@@ -58,18 +60,28 @@ class EventController extends Controller
     {
         $data = $request->all();
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = Str::random(32) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/events'), $fileName);
-            $data['image'] = 'uploads/events/' . $fileName;
-        } else {
+        $event = $this->eventService->find($id);
+        if (!$event) {
+            return $this->customResponse(404, false, null, 'Event not found', null);
         }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            $path = $this->imageUploadService->uploadImage($image, 'events');
+
+            if ($event->image) {
+                $this->imageUploadService->deleteImage($event->image);
+            }
+
+            $data['image'] = $path;
+        }
+
 
         $banner = $this->eventService->update($id, $data);
 
         if (!$banner) {
-            return $this->customResponse(404, false, null, 'Banner not found', null);
+            return $this->customResponse(404, false, null, 'Banner not updated', null);
         }
 
         return $this->customResponse(200, true, $banner, null, null);
@@ -89,6 +101,9 @@ class EventController extends Controller
         $banner = $this->eventService->delete($id);
         if (!$banner) {
             return $this->customResponse(404, false, null, 'Banner not found', null);
+        }
+        if ($banner->image) {
+            $this->imageUploadService->deleteImage($banner->image);
         }
         return $this->customResponse(200, true, $banner, null, null);
     }

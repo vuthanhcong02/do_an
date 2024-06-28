@@ -3,7 +3,7 @@ import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { createBanner, showBanner } from "../../../services/BannerService";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { baseUrl } from "../../../config";
+import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
 
 export default function EditBanner() {
@@ -46,7 +46,7 @@ export default function EditBanner() {
 
   useEffect(() => {
     if (banner && banner.image) {
-      setImagePreview(`${baseUrl}${banner.image}`);
+      setImagePreview(`${baseUrlImage}${banner?.image}`);
     } else {
       setImagePreview(null);
     }

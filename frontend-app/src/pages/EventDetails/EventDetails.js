@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import CourseItem from "../../components/CourseItem/CourseItem";
 import { Link, NavLink, useParams } from "react-router-dom";
-import { getNewsById, getNewByFeatured } from "../../services/NewsService";
 import {
   getEventsById,
   getEventsByFeatured,
 } from "../../services/EventService";
-import { baseUrl } from "../../config";
+import { baseUrlImage } from "../../config";
 export default function EventDetails() {
   const { id } = useParams();
   const [events, setEvents] = useState([]);
@@ -48,7 +46,7 @@ export default function EventDetails() {
             {eventDetails?.location}
           </p>
           <img
-            src={`${baseUrl}${eventDetails.image}`}
+            src={`${baseUrlImage}${eventDetails.image}`}
             alt=""
             style={{
               width: "100%",
@@ -77,7 +75,7 @@ export default function EventDetails() {
             key={item?.id}
           >
             <div className="CourseDetails-more-item-image col-5">
-              <img src={`${baseUrl}${item?.image}`} alt="" />
+              <img src={`${baseUrlImage}${item?.image}`} alt="" />
             </div>
             <div className="CourseDetails-more-item-content col-7">
               <span className="CourseDetails-more-item-title">

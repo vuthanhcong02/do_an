@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { getBanners, deleteBanner } from "../../../services/BannerService";
-import { baseUrl } from "../../../config";
+import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
 export default function ManagerBanner() {
   const [banners, setBanners] = useState([]);
@@ -107,7 +107,8 @@ export default function ManagerBanner() {
                         <td className="text-center text-muted">{index + 1}</td>
                         <td className="text-center">
                           <img
-                            src={`${baseUrl}${banner?.image}`}
+                            src={`${baseUrlImage}${banner?.image}`}
+                            alt=""
                             style={{
                               width: "100px",
                               height: "70px",

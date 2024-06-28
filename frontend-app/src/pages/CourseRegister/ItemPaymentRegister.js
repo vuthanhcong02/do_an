@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { baseUrl } from "../../config";
+import { baseUrl, baseUrlImage } from "../../config";
 
 export default function ItemPaymentRegister({ course, schedule, user }) {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ export default function ItemPaymentRegister({ course, schedule, user }) {
         <div className="ItemCourseRegister-content-description row mt-4">
           <div className="ItemCourseRegister-content-description-item col-4">
             <img
-              src={`${baseUrl}${course?.image}`}
+              src={`${baseUrlImage}${course?.image}`}
               alt=""
               style={{
                 width: "100%",

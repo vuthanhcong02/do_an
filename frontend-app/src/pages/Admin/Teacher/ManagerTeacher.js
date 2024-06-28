@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { getTeachers, deleteTeacher } from "../../../services/TeacherService";
-import { baseUrl } from "../../../config";
+import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
 
 export default function ManagerTeacher() {
@@ -110,10 +110,10 @@ export default function ManagerTeacher() {
                         <td className="text-center text-muted">{index + 1}</td>
                         <td className="text-center">
                           <img
-                            src={`${baseUrl}${teacher?.image}`}
+                            src={`${baseUrlImage}${teacher?.image}`}
                             width={70}
                             height={70}
-                            alt
+                            alt=""
                           />
                         </td>
                         <td className="text-center">{teacher?.full_name}</td>

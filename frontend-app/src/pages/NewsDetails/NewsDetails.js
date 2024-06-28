@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CourseItem from "../../components/CourseItem/CourseItem";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { getNewsById, getNewByFeatured } from "../../services/NewsService";
-import { baseUrl } from "../../config";
+import { baseUrl, baseUrlImage } from "../../config";
 import "./NewsDetails.scss";
 export default function NewsDetails() {
   const { id } = useParams();
@@ -45,7 +45,7 @@ export default function NewsDetails() {
             {newsDetails.sub_description}
           </p>
           <img
-            src={`${baseUrl}${newsDetails.image}`}
+            src={`${baseUrlImage}${newsDetails.image}`}
             alt=""
             style={{
               width: "100%",
@@ -74,7 +74,7 @@ export default function NewsDetails() {
             key={item?.id}
           >
             <div className="CourseDetails-more-item-image col-5">
-              <img src={`${baseUrl}${item?.image}`} alt="" />
+              <img src={`${baseUrlImage}${item?.image}`} alt="" />
             </div>
             <div className="CourseDetails-more-item-content col-7">
               <span className="CourseDetails-more-item-title">

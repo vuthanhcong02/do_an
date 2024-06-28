@@ -72,7 +72,6 @@ export default function ManagerStudent() {
                     id="search"
                     placeholder="Search everything"
                     className="form-control"
-                    defaultValue
                   />
                   <span className="input-group-append">
                     <button type="submit" className="btn btn-primary">

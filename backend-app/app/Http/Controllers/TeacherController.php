@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ImageUploadService;
 use App\Services\TeacherService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -11,10 +12,11 @@ class TeacherController extends Controller
 {
     //
 
-    protected $teacherService;
-    public function __construct(TeacherService $teacherService)
+    protected $teacherService, $imageUploadService;
+    public function __construct(TeacherService $teacherService, ImageUploadService $imageUploadService)
     {
         $this->teacherService = $teacherService;
+        $this->imageUploadService = $imageUploadService;
     }
 
 
@@ -31,14 +33,15 @@ class TeacherController extends Controller
     public function createTeacher(Request $request)
     {
         $data = $request->all();
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $file = $request->file('image');
-            $fileName = Str::random(32) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/teachers/avatar'), $fileName);
-            $data['image'] = 'uploads/teachers/avatar/' . $fileName;
-        } else {
-            $data['image'] = null;
+
+        if ($request->hasFile('image')) {
+            $avatar = $request->file('image');
+
+            $path = $this->imageUploadService->uploadImage($avatar, 'avatars');
+
+            $data['image'] = $path;
         }
+
         $teacher = $this->teacherService->create($data);
         if (!$teacher) {
             return $this->customResponse(400, false, null, 'Teacher not created', null);
@@ -59,12 +62,21 @@ class TeacherController extends Controller
     public function updateTeacher(Request $request, $id)
     {
         $data = $request->all();
+
+        $teacher = $this->teacherService->find($id);
+        if (!$teacher) {
+            return $this->customResponse(404, false, null, 'Teacher not found', null);
+        }
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = Str::random(32) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/teachers/avatar'), $fileName);
-            $data['image'] = 'uploads/teachers/avatar/' . $fileName;
-        } else {
+            $avatar = $request->file('image');
+
+            $path = $this->imageUploadService->uploadImage($avatar, 'avatars');
+
+            if ($teacher->image) {
+                $this->imageUploadService->deleteImage($teacher->image);
+            }
+
+            $data['image'] = $path;
         }
 
         $teacher = $this->teacherService->update($id, $data);
@@ -80,6 +92,10 @@ class TeacherController extends Controller
         $teacher = $this->teacherService->delete($id);
         if (!$teacher) {
             return $this->customResponse(400, false, null, 'Teacher not deleted', null);
+        }
+
+        if ($teacher->image) {
+            $this->imageUploadService->deleteImage($teacher->image);
         }
 
         return $this->customResponse(200, true, $teacher, null, null);

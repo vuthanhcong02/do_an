@@ -55,7 +55,7 @@ export default function EditStudent() {
 
   useEffect(() => {
     if (user && user.avatar) {
-      setImagePreview(`${baseUrlImage}${user.avatar}`);
+      setImagePreview(`${baseUrlImage}${user?.avatar}`);
     } else {
       setImagePreview(`/_default-user.png`);
     }

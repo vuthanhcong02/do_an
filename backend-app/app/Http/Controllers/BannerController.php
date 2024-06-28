@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\BannerService;
+use App\Services\ImageUploadService;
 use Illuminate\Support\Str;
 
 
@@ -13,10 +14,11 @@ class BannerController extends Controller
      * Display a listing of the resource.
      */
 
-    protected $bannerService;
-    public function __construct(BannerService $bannerService)
+    protected $bannerService, $imageUploadService;
+    public function __construct(BannerService $bannerService, ImageUploadService $imageUploadService)
     {
         $this->bannerService = $bannerService;
+        $this->imageUploadService = $imageUploadService;
     }
     public function getAll()
     {
@@ -44,13 +46,13 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $file = $request->file('image');
-            $fileName = Str::random(32) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/banners'), $fileName);
-            $data['image'] = 'uploads/banners/' . $fileName;
-        } else {
-            $data['image'] = null;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            $path = $this->imageUploadService->uploadImage($image, 'banners');
+
+            $data['image'] = $path;
         }
 
         $banner = $this->bannerService->create($data);
@@ -86,12 +88,22 @@ class BannerController extends Controller
     {
         $data = $request->all();
 
+
+        $banner = $this->bannerService->find($id);
+        if (!$banner) {
+            return $this->customResponse(404, false, null, 'Banner not found', null);
+        }
+
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = Str::random(32) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/banners'), $fileName);
-            $data['image'] = 'uploads/banners/' . $fileName;
-        } else {
+            $image = $request->file('image');
+
+            $path = $this->imageUploadService->uploadImage($image, 'banners');
+
+            if ($banner->image) {
+                $this->imageUploadService->deleteImage($banner->image);
+            }
+
+            $data['image'] = $path;
         }
 
         $banner = $this->bannerService->update($id, $data);
@@ -114,14 +126,11 @@ class BannerController extends Controller
             return $this->customResponse(404, false, null, 'Banner not found', null);
         }
         if ($banner->image) {
-            $imagePath = public_path($banner->image);
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
+            $this->imageUploadService->deleteImage($banner->image);
         }
         $banner = $this->bannerService->delete($id);
         if (!$banner) {
-            return $this->customResponse(404, false, null, 'Banner not found', null);
+            return $this->customResponse(404, false, null, 'Banner not deleted', null);
         }
         return $this->customResponse(200, true, $banner, null, null);
     }

@@ -4,7 +4,7 @@ import { getCategories } from "../../../services/CategoryService";
 import { getTeacherById } from "../../../services/TeacherService";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { baseUrl } from "../../../config";
+import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
 
 export default function EditTeacher() {
@@ -64,7 +64,7 @@ export default function EditTeacher() {
 
   useEffect(() => {
     if (teacher && teacher.image) {
-      setImagePreview(`${baseUrl}${teacher.image}`);
+      setImagePreview(`${baseUrlImage}${teacher?.image}`);
     } else {
       setImagePreview(null);
     }

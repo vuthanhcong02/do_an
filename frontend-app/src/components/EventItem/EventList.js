@@ -1,6 +1,6 @@
 import React from "react";
 import "./EventItem.scss";
-import { baseUrl } from "../../config";
+import { baseUrl, baseUrlImage } from "../../config";
 import { getSummary } from "../../utils/function";
 import moment from "moment";
 import { NavLink } from "react-router-dom";
@@ -8,7 +8,7 @@ export default function EventList({ event }) {
   return (
     <div className="EventItem-container">
       <div className="EventItem-image">
-        <img src={`${baseUrl}${event?.image}`} alt="" />
+        <img src={`${baseUrlImage}${event?.image}`} alt="" />
       </div>
       <div className="EventItem-content">
         <div className="EventItem-title d-flex flex-column">

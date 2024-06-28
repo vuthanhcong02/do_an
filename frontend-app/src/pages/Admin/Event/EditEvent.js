@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import { getEventsById } from "../../../services/EventService";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
-import { baseUrl } from "../../../config";
+import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
 
 export default function EditEvent() {
@@ -48,13 +48,13 @@ export default function EditEvent() {
       setValue("end_time", event.end_time);
       setValue("slug", event.slug);
       setDescription(event.description);
-      setValue("featured", event.featured ? 1 : 0);
+      setValue("status", event.status ? 1 : 0);
     }
   }, [event]);
 
   useEffect(() => {
     if (event && event.image) {
-      setImagePreview(`${baseUrl}${event.image}`);
+      setImagePreview(`${baseUrlImage}${event?.image}`);
     } else {
       setImagePreview(null);
     }
@@ -72,12 +72,12 @@ export default function EditEvent() {
     formData.append("start_time", data.start_time);
     formData.append("end_time", data.end_time);
     formData.append("slug", data.slug);
-    formData.append("status", data.featured ? 1 : 0);
+    formData.append("status", data.status ? 1 : 0);
 
     // console.log(data, content);
     try {
       const response = await axios.post(
-        "http://api.ngoaingutinhoc.tech.com/api/news/" + id,
+        "http://api.ngoaingutinhoc.tech.com/api/events/" + id,
 
         formData,
         {
@@ -87,7 +87,7 @@ export default function EditEvent() {
         }
       );
       if (response.data.success) {
-        navigate("/admin/news");
+        navigate("/admin/events");
         toast.success("Cập nhật event này thành công");
       }
     } catch (error) {
@@ -270,6 +270,18 @@ export default function EditEvent() {
                       className="form-control"
                       {...register("slug")}
                     />
+                  </div>
+                </div>
+
+                <div className="position-relative row form-group d-flex align-items-center">
+                  <label
+                    htmlFor="status"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Nổi bật
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <input {...register("status")} type="checkbox" />
                   </div>
                 </div>
 

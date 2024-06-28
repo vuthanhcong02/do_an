@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { getEvents, deleteEvent } from "../../../services/EventService";
-import { baseUrl } from "../../../config";
+import { baseUrl, baseUrlImage } from "../../../config";
 import { getSummary } from "../../../utils/function";
 import { toast } from "react-toastify";
 export default function ManagerEvents() {
@@ -110,10 +110,10 @@ export default function ManagerEvents() {
                       <td className="text-center text-muted">{index + 1}</td>
                       <td className="text-center">
                         <img
-                          src={`${baseUrl}${item?.image}`}
+                          src={`${baseUrlImage}${item?.image}`}
                           width={100}
                           height={70}
-                          alt
+                          alt=""
                         />
                       </td>
                       <td className="text-center">{item.name}</td>

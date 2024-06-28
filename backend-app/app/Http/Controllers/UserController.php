@@ -42,6 +42,9 @@ class UserController extends Controller
     {
         $data = $request->all();
         $user = $this->userService->find($id);
+        if (!$user) {
+            return $this->customResponse(404, false, null, 'User not found', null);
+        }
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
 
@@ -55,7 +58,7 @@ class UserController extends Controller
         }
         $user = $this->userService->update($id, $data);
         if (!$user) {
-            return $this->customResponse(404, false, null, 'User not found', null);
+            return $this->customResponse(404, false, null, 'User not updated', null);
         }
         return $this->customResponse(200, true, $user, null, null);
     }

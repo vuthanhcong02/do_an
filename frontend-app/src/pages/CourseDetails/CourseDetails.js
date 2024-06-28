@@ -6,7 +6,7 @@ import {
   getCourseByFeatured,
 } from "../../services/CourseService";
 import { getSchedulesByCourseId } from "../../services/ScheduleService";
-import { baseUrl } from "../../config";
+import { baseUrl, baseUrlImage } from "../../config";
 import TableSchedule from "../../components/TableSchedule/TableSchedule";
 export default function CourseDetails() {
   const { id } = useParams();
@@ -62,7 +62,7 @@ export default function CourseDetails() {
             {courseDetails.sub_description}
           </p>
           <img
-            src={`${baseUrl}${courseDetails.image}`}
+            src={`${baseUrlImage}${courseDetails?.image}`}
             alt=""
             style={{
               width: "100%",
@@ -95,7 +95,7 @@ export default function CourseDetails() {
             key={course?.id}
           >
             <div className="CourseDetails-more-item-image col-5">
-              <img src={`${baseUrl}${course?.image}`} alt="" />
+              <img src={`${baseUrlImage}${course?.image}`} alt="" />
             </div>
             <div className="CourseDetails-more-item-content col-7">
               <span className="CourseDetails-more-item-title">

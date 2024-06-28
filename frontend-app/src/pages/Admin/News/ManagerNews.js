@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { getNews, deleteNews } from "../../../services/NewsService";
-import { baseUrl } from "../../../config";
+import { baseUrl, baseUrlImage } from "../../../config";
 import { getSummary } from "../../../utils/function";
 import { toast } from "react-toastify";
 export default function ManagerNews() {
@@ -108,10 +108,10 @@ export default function ManagerNews() {
                       <td className="text-center text-muted">{index + 1}</td>
                       <td className="text-center">
                         <img
-                          src={`${baseUrl}${item?.image}`}
+                          src={`${baseUrlImage}${item?.image}`}
+                          alt=""
                           width={100}
                           height={70}
-                          alt
                         />
                       </td>
                       <td className="text-center">{item.title}</td>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { getCourses, deleteCourse } from "../../../services/CourseService";
 import moment from "moment";
-import { baseUrl } from "../../../config";
+import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
 export default function ManagerCourse() {
   const [courses, setCourses] = useState([]);
@@ -110,7 +110,7 @@ export default function ManagerCourse() {
                         <td className="text-center text-muted">{index + 1}</td>
                         <td className="text-center">
                           <img
-                            src={`${baseUrl}${course?.image}`}
+                            src={`${baseUrlImage}${course?.image}`}
                             style={{
                               width: 100,
                               height: 70,
