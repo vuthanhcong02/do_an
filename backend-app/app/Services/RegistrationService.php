@@ -134,4 +134,16 @@ class RegistrationService extends BaseService
 
         return $vnp_Url;
     }
+
+    public function updateRegistration($data)
+    {
+        $registration = Registration::find($data['id']);
+
+        if ($registration) {
+            $registration->update($data);
+            return $registration;
+        }
+
+        return false;
+    }
 }

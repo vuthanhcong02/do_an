@@ -1,20 +1,65 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { getRegistrations } from "../../../services/RegistrationService";
+import {
+  getRegistrations,
+  deleteRegistration,
+} from "../../../services/RegistrationService";
 import moment from "moment";
-export default function ManagerRegistration() {
-  const [registrations, setRegistrations] = useState([]);
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useForm } from "react-hook-form";
 
+export default function ManagerRegistration() {
+  const { register, handleSubmit, setValue } = useForm();
+  const [registrations, setRegistrations] = useState([]);
   useEffect(() => {
     fetchRegistrations();
   }, []);
 
+  useEffect(() => {
+    setValue("status", registrations?.status);
+  }, [registrations]);
   const fetchRegistrations = async () => {
     const { success, data } = await getRegistrations();
     if (success) {
       setRegistrations(data?.data);
     }
   };
+
+  const handleUpdate = async (id, newStatus) => {
+    // Gọi API để cập nhật trạng thái
+    try {
+      const response = await axios.put(
+        `http://api.ngoaingutinhoc.tech.com/api/registrations/${id}`,
+        {
+          status: newStatus,
+        }
+      );
+      if (response.data.success) {
+        window.location.href = "/admin/registrations";
+        toast.success("Status updated successfully");
+      } else {
+        toast.error("Failed to update status");
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(" có chắc chắn muốn xóa bản ghi này?");
+    if (confirmDelete) {
+      const { success } = await deleteRegistration(id);
+      if (success) {
+        const newRegistrations = registrations.filter((item) => item.id !== id);
+        setRegistrations(newRegistrations);
+        toast.success("Xóa bản ghi thành công");
+      } else {
+        toast.error("Xóa bản ghi thất bại");
+      }
+    }
+  };
+
   return (
     <div className="app-main__inner">
       <div className="app-page-title">
@@ -55,7 +100,6 @@ export default function ManagerRegistration() {
                     id="search"
                     placeholder="Search everything"
                     className="form-control"
-                    defaultValue
                   />
                   <span className="input-group-append">
                     <button type="submit" className="btn btn-primary">
@@ -104,23 +148,31 @@ export default function ManagerRegistration() {
                       <td className="text-center">1.000.000 VND</td>
                       <td className="text-center">{item?.payment_type}</td>
 
-                      <td className="text-center">
-                        <span
+                      <td className="text-center ">
+                        <select
+                          value={item?.status}
+                          className={`form-control-sm badge ${
+                            item.status === "success"
+                              ? "badge-success"
+                              : "badge-danger"
+                          }`}
+                          onChange={(e) =>
+                            handleUpdate(item.id, e.target.value)
+                          }
+                        >
+                          <option value="pending">Đang xử lí</option>
+                          <option value="success">Thành công</option>
+                        </select>
+                        {/* <span
                           className={`badge badge-${
                             item?.status === "success" ? "success" : "danger"
                           }`}
                         >
                           {item?.status === "pending" ? "Pending" : "Success"}
-                        </span>
+                        </span> */}
                       </td>
                       <td className="text-center">
-                        <button
-                          to={`/${item.id}`}
-                          className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
-                        >
-                          Details
-                        </button>
-                        <button
+                        {/* <NavLink
                           to={`${item.id}/edit`}
                           data-toggle="tooltip"
                           title="Edit"
@@ -130,14 +182,14 @@ export default function ManagerRegistration() {
                           <span className="btn-icon-wrapper opacity-8">
                             <i className="fa fa-edit fa-w-20" />
                           </span>
-                        </button>
+                        </NavLink> */}
                         <button
                           className="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
                           type="submit"
                           data-toggle="tooltip"
                           title="Delete"
                           data-placement="bottom"
-                          //   onClick={() => handleDelete(item.id)}
+                          onClick={() => handleDelete(item.id)}
                         >
                           <span className="btn-icon-wrapper opacity-8">
                             <i className="fa fa-trash fa-w-20" />

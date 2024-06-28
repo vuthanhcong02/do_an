@@ -77,4 +77,39 @@ class RegistrationController extends Controller
             }
         }
     }
+
+    public function getRegistrationById($id)
+    {
+        $registration = $this->registrationService->find($id);
+        if (!$registration) {
+            return $this->customResponse(404, false, null, 'Registration not found', null);
+        }
+        return $this->customResponse(200, true, $registration, null, null);
+    }
+
+    public function updateRegistration(Request $request, $id)
+    {
+        $data = $request->all();
+        $registration = $this->registrationService->find($id);
+        if (!$registration) {
+            return $this->customResponse(404, false, null, 'Registration not found', null);
+        }
+
+        $data['status'] = $request->get('status');
+        $registration = $this->registrationService->update($registration->id, $data);
+        if (!$registration) {
+            return $this->customResponse(404, false, null, 'Registration not found', null);
+        }
+        return $this->customResponse(200, true, $registration, null, null);
+    }
+
+    public function deleteRegistration($id)
+    {
+        $registration = $this->registrationService->find($id);
+        if (!$registration) {
+            return $this->customResponse(404, false, null, 'Registration not found', null);
+        }
+        $registration->delete();
+        return $this->customResponse(200, true, $registration, null, null);
+    }
 }
