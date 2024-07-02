@@ -1,7 +1,7 @@
 import httpClient from "../utils/axiosCustom";
 
-export const getEvents = () => {
-  return httpClient.get("/events");
+export const getEvents = (page) => {
+  return httpClient.get("/events?page=" + page);
 };
 
 export const getEventsByFeatured = () => {

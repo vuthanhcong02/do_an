@@ -1,7 +1,7 @@
 import httpClient from "../utils/axiosCustom";
 
-export const getBanners = () => {
-  return httpClient.get("/banners");
+export const getBanners = (page) => {
+  return httpClient.get("/banners?page=" + page);
 };
 
 export const createBanner = (data) => {

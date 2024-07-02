@@ -1,7 +1,7 @@
 import httpClient from "../utils/axiosCustom";
 
-export const getSchedules = () => {
-  return httpClient.get("/schedules");
+export const getSchedules = (page) => {
+  return httpClient.get("/schedules?page=" + page);
 };
 
 export const getScheduleById = (id) => {

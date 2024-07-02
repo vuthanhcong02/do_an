@@ -1,7 +1,7 @@
 import httpClient from "../utils/axiosCustom";
 
-export const getContacts = () => {
-  return httpClient.get("/contacts");
+export const getContacts = (page) => {
+  return httpClient.get("/contacts?page=" + page);
 };
 
 export const getContactById = (id) => {

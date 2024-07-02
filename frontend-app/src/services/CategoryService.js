@@ -1,7 +1,7 @@
 import httpClient from "../utils/axiosCustom";
 
-export const getCategories = () => {
-  return httpClient.get("/categories");
+export const getCategories = (page) => {
+  return httpClient.get("/categories?page=" + page);
 };
 
 export const createCategory = (data) => {

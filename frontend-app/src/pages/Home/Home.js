@@ -13,6 +13,7 @@ import { getEventsByFeatured } from "../../services/EventService";
 import { baseUrl, baseUrlImage } from "../../config";
 import NewList from "../../components/NewList/NewList";
 import EventList from "../../components/EventItem/EventList";
+import { NavLink } from "react-router-dom";
 export default function Home() {
   const [index, setIndex] = useState(0);
   const [banners, setBanners] = useState([]);
@@ -114,7 +115,9 @@ export default function Home() {
                   <CourseItem key={idx} course={course} />
                 ))}
                 <div className="Home-content-courses-more">
-                  <span>Xem thêm </span>
+                  <span>
+                    <NavLink to="/english-courses">Xem thêm </NavLink>
+                  </span>
                 </div>
               </div>
             </div>
@@ -127,7 +130,9 @@ export default function Home() {
                   <NewsItem key={idx} news={news} />
                 ))}
                 <div className="Home-content-news-more">
-                  <span>Xem thêm </span>
+                  <span>
+                    <NavLink to="/news">Xem thêm</NavLink>
+                  </span>
                 </div>
               </div>
             </div>
@@ -141,7 +146,9 @@ export default function Home() {
                 <EventList key={idx} event={event} />
               ))}
               <div className="Home-content-events-more">
-                <span>Xem thêm </span>
+                <span>
+                  <NavLink to="/events">Xem thêm</NavLink>
+                </span>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import httpClient from "../utils/axiosCustom";
 
-export const getClasses = () => {
-  return httpClient.get("/classes");
+export const getClasses = (page) => {
+  return httpClient.get("/classes?page=" + page);
 };
 
 export const getClassById = (id) => {

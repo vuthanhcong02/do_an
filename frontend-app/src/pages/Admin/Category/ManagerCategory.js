@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   getCategories,
   deleteCategory,
 } from "../../../services/CategoryService";
 import { toast } from "react-toastify";
+import Paginate from "../../../components/Paginate/Paginate";
 
 export default function ManagerCategory() {
   const [categories, setCategories] = useState([]);
-
+  const [pageCount, setPageCount] = useState(1);
+  const navigate = useNavigate();
   useEffect(() => {
     fetchCategories();
   }, []);
 
-  const fetchCategories = async () => {
-    const { success, data } = await getCategories();
+  const fetchCategories = async (page) => {
+    const { success, data } = await getCategories(page || 1);
     if (success) {
       console.log(data);
       setCategories(data.data);
+      setPageCount(data.last_page);
+      navigate(`/admin/categories?page=${page || 1}`);
     }
   };
 
@@ -35,6 +39,11 @@ export default function ManagerCategory() {
         toast.error("Xóa category thất bại");
       }
     }
+  };
+
+  const handlePageClick = async (data) => {
+    const currentPage = data.selected + 1;
+    fetchCategories(currentPage);
   };
   return (
     <div className="app-main__inner">
@@ -140,7 +149,12 @@ export default function ManagerCategory() {
               </table>
             </div>
 
-            <div className="d-block card-footer"></div>
+            <div className="d-flex card-footer justify-content-end">
+              <Paginate
+                pageCount={pageCount}
+                handlePageClick={handlePageClick}
+              />
+            </div>
           </div>
         </div>
       </div>

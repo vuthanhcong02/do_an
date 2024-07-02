@@ -1,7 +1,7 @@
 import httpClient from "../utils/axiosCustom";
 
-export const getCourses = () => {
-  return httpClient.get("/courses");
+export const getCourses = (page) => {
+  return httpClient.get("/courses?page=" + page);
 };
 
 export const getCourseOrderById = () => {
@@ -19,10 +19,12 @@ export const deleteCourse = (id) => {
   return httpClient.delete(`/courses/${id}`);
 };
 
-export const getCourseByEnglishCategory = () => {
-  return httpClient.get("/courses/get-course-by-english-category");
+export const getCourseByEnglishCategory = (page) => {
+  return httpClient.get("/courses/get-course-by-english-category?page=" + page);
 };
 
-export const getCourseByInformationCategory = () => {
-  return httpClient.get("/courses/get-course-by-information-category");
+export const getCourseByInformationCategory = (page) => {
+  return httpClient.get(
+    "/courses/get-course-by-information-category?page=" + page
+  );
 };

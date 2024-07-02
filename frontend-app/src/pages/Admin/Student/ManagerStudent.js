@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { deleteUser, getUsers } from "../../../services/UserService";
 import { baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
+import Paginate from "../../../components/Paginate/Paginate";
 
 export default function ManagerStudent() {
   const [users, setUsers] = useState([]);
-
+  const navigate = useNavigate();
+  const [pageCount, setPageCount] = useState(1);
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    const { success, data } = await getUsers();
+  const fetchUsers = async (page) => {
+    const { success, data } = await getUsers(page || 1);
     if (success) {
       setUsers(data.data);
+      setPageCount(data.last_page);
+      navigate(`/admin/users?page=${page || 1}`);
     }
   };
 
@@ -32,6 +36,13 @@ export default function ManagerStudent() {
         toast.error("Xoá bản ghi thất bại");
       }
     }
+  };
+
+  const handlePageClick = async (data) => {
+    console.log(data);
+    const currentPage = data.selected + 1;
+    fetchUsers(currentPage);
+    navigate(`/admin/users?page=${currentPage}`);
   };
   return (
     <div className="app-main__inner">
@@ -157,15 +168,12 @@ export default function ManagerStudent() {
                 </tbody>
               </table>
             </div>
-            {/* {"{"}
-        {"{"}--{" "} */}
-            {/* <div className="d-block card-footer">
-          {"{"}
-          {"{"} $posts-&gt;links('pagination::bootstrap-5') {"}"}
-          {"}"}
-        </div>{" "}
-        --{"}"}
-        {"}"} */}
+            <div className="d-flex align-items-center card-footer justify-content-end">
+              <Paginate
+                pageCount={pageCount}
+                handlePageClick={handlePageClick}
+              />
+            </div>
           </div>
         </div>
       </div>

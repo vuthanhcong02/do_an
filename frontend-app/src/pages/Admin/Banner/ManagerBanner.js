@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { getBanners, deleteBanner } from "../../../services/BannerService";
 import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
+import Paginate from "../../../components/Paginate/Paginate";
 export default function ManagerBanner() {
   const [banners, setBanners] = useState([]);
-
+  const navigate = useNavigate();
+  const [pageCount, setPageCount] = useState(1);
   useEffect(() => {
-    const fetchBanners = async () => {
-      const { success, data } = await getBanners();
-      if (success) {
-        console.log(data);
-        setBanners(data.data);
-      }
-    };
     fetchBanners();
   }, []);
+
+  const fetchBanners = async (page) => {
+    const { success, data } = await getBanners(page);
+    if (success) {
+      console.log(data);
+      setBanners(data.data);
+      setPageCount(data.last_page);
+      navigate(`/admin/banners?page=${page || 1}`);
+    }
+  };
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
@@ -31,6 +36,11 @@ export default function ManagerBanner() {
         toast.error("Xoá banner thất bại");
       }
     }
+  };
+
+  const handlePageClick = async (data) => {
+    const currentPage = data.selected + 1;
+    fetchBanners(currentPage);
   };
   return (
     <div className="app-main__inner">
@@ -158,9 +168,11 @@ export default function ManagerBanner() {
               </table>
             </div>
 
-            <div className="d-block card-footer">
-              {/* {"{"}
-              {"{"} $posts-&gt;links('pagination::bootstrap-5') {"}"} */}
+            <div className="d-flex align-items-center card-footer justify-content-end">
+              <Paginate
+                pageCount={pageCount}
+                handlePageClick={handlePageClick}
+              />
             </div>
           </div>
         </div>

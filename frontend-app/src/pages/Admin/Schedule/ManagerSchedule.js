@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   getSchedules,
   deleteSchedule,
@@ -10,19 +10,25 @@ import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { CSVLink } from "react-csv";
+import Paginate from "../../../components/Paginate/Paginate";
 
 export default function ManagerSchedule() {
   const [dataExport, setDataExport] = useState([]);
   const [schedules, setSchedules] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchSchedules();
   }, []);
 
-  const fetchSchedules = async () => {
-    const { success, data } = await getSchedules();
+  const fetchSchedules = async (page) => {
+    const { success, data } = await getSchedules(page || 1);
     if (success) {
       console.log(data);
       setSchedules(data?.data);
+      navigate(`/admin/schedules?page=${page || 1}`);
     }
   };
 
@@ -58,6 +64,11 @@ export default function ManagerSchedule() {
   //     setDataExport(data);
   //   }
   // };
+
+  const handlePageClick = async (data) => {
+    const currentPage = data.selected + 1;
+    fetchSchedules(currentPage);
+  };
   return (
     <div className="app-main__inner">
       <div className="app-page-title">
@@ -197,15 +208,12 @@ export default function ManagerSchedule() {
                 </tbody>
               </table>
             </div>
-            {/* {"{"}
-            {"{"}--{" "} */}
-            {/* <div className="d-block card-footer">
-              {"{"}
-              {"{"} $posts-&gt;links('pagination::bootstrap-5') {"}"}
-              {"}"}
-            </div>{" "}
-            --{"}"}
-            {"}"} */}
+            <div className="d-flex justify-content-end card-footer">
+              <Paginate
+                pageCount={pageCount}
+                handlePageClick={handlePageClick}
+              />
+            </div>
           </div>
         </div>
       </div>

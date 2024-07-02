@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { getEvents, deleteEvent } from "../../../services/EventService";
 import { baseUrl, baseUrlImage } from "../../../config";
 import { getSummary } from "../../../utils/function";
 import { toast } from "react-toastify";
+import Paginate from "../../../components/Paginate/Paginate";
 export default function ManagerEvents() {
   const [events, setEvents] = useState([]);
-
+  const [pageCount, setPageCount] = useState(1);
+  const navigate = useNavigate();
   useEffect(() => {
     fetchNews();
   }, []);
 
-  const fetchNews = async () => {
-    const { success, data } = await getEvents();
+  const fetchNews = async (page) => {
+    const { success, data } = await getEvents(page || 1);
     if (success) {
       console.log(data);
       setEvents(data.data);
+      setPageCount(data.last_page);
+      navigate(`/admin/events?page=${page || 1}`);
     }
   };
 
@@ -33,6 +37,11 @@ export default function ManagerEvents() {
         toast.error("Xóa event thất bại");
       }
     }
+  };
+
+  const handlePageClick = (data) => {
+    const currentPage = data.selected + 1;
+    fetchNews(currentPage);
   };
   return (
     <div className="app-main__inner">
@@ -169,15 +178,12 @@ export default function ManagerEvents() {
                 </tbody>
               </table>
             </div>
-            {/* {"{"}
-            {"{"}--{" "} */}
-            {/* <div className="d-block card-footer">
-              {"{"}
-              {"{"} $posts-&gt;links('pagination::bootstrap-5') {"}"}
-              {"}"}
-            </div>{" "}
-            --{"}"}
-            {"}"} */}
+            <div className="d-flex justify-content-end card-footer">
+              <Paginate
+                pageCount={pageCount}
+                handlePageClick={handlePageClick}
+              />
+            </div>
           </div>
         </div>
       </div>

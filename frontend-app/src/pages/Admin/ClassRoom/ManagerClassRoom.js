@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import {
   getClassRooms,
   deleteClassRoom,
 } from "../../../services/ClassRoomService";
 import { toast } from "react-toastify";
+import Paginate from "../../../components/Paginate/Paginate";
 
 export default function ManagerClassRoom() {
+  const navigate = useNavigate();
   const [classrooms, setClassrooms] = useState([]);
-
+  const [pageCount, setPageCount] = useState(1);
   useEffect(() => {
     fetchClassrooms();
   }, []);
@@ -19,6 +21,8 @@ export default function ManagerClassRoom() {
     if (success) {
       console.log(data);
       setClassrooms(data.data);
+      setPageCount(data.last_page);
+      navigate(`/admin/classrooms?page=1`);
     }
   };
 
@@ -36,6 +40,11 @@ export default function ManagerClassRoom() {
         toast.error("Xóa classroom thất bại");
       }
     }
+  };
+
+  const handlePageClick = (data) => {
+    const currentPage = data.selected + 1;
+    fetchClassrooms(currentPage);
   };
   return (
     <div className="app-main__inner">
@@ -138,7 +147,12 @@ export default function ManagerClassRoom() {
               </table>
             </div>
 
-            <div className="d-block card-footer"></div>
+            <div className="d-flex justify-content-end card-footer">
+              <Paginate
+                pageCount={pageCount}
+                handlePageClick={handlePageClick}
+              />
+            </div>
           </div>
         </div>
       </div>

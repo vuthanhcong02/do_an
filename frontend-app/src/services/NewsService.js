@@ -1,7 +1,7 @@
 import httpClient from "../utils/axiosCustom";
 
-export const getNews = () => {
-  return httpClient.get("/news");
+export const getNews = (page) => {
+  return httpClient.get("/news?page=" + page);
 };
 
 export const getNewByFeatured = () => {

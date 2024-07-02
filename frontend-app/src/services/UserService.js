@@ -1,7 +1,7 @@
 import httpClient from "../utils/axiosCustom";
 
-export const getUsers = () => {
-  return httpClient.get("/users");
+export const getUsers = (page) => {
+  return httpClient.get("/users?page=" + page);
 };
 
 export const getUser = (id) => {

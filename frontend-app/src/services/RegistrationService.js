@@ -1,7 +1,7 @@
 import httpClient from "../utils/axiosCustom";
 
-export const getRegistrations = () => {
-  return httpClient.get("/registrations");
+export const getRegistrations = (page) => {
+  return httpClient.get("/registrations?page=" + page);
 };
 
 export const createRegistration = (data) => {

@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { getClasses, deleteClass } from "../../../services/ClassService";
 import { toast } from "react-toastify";
+import Paginate from "../../../components/Paginate/Paginate";
 
 export default function ManagerClass() {
   const [classes, setClasses] = useState([]);
-
+  const [pageCount, setPageCount] = useState(1);
+  const navigate = useNavigate();
   useEffect(() => {
     fetchClasses();
   }, []);
 
-  const fetchClasses = async () => {
-    const { success, data } = await getClasses();
+  const fetchClasses = async (page) => {
+    const { success, data } = await getClasses(page || 1);
     if (success) {
       console.log(data);
       setClasses(data.data);
+      setPageCount(data.last_page);
+      navigate(`/admin/classes?page=${page || 1}`);
     }
   };
 
@@ -35,6 +39,12 @@ export default function ManagerClass() {
       }
     }
   };
+
+  const handlePageClick = async (data) => {
+    const currentPage = data.selected + 1;
+    fetchClasses(currentPage);
+  };
+
   return (
     <div className="app-main__inner">
       <div className="app-page-title">
@@ -156,7 +166,12 @@ export default function ManagerClass() {
               </table>
             </div>
 
-            <div className="d-block card-footer"></div>
+            <div className="d-flex card-footer justify-content-end">
+              <Paginate
+                pageCount={pageCount}
+                handlePageClick={handlePageClick}
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { getCourses, deleteCourse } from "../../../services/CourseService";
 import moment from "moment";
 import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
+import Paginate from "../../../components/Paginate/Paginate";
 export default function ManagerCourse() {
   const [courses, setCourses] = useState([]);
-
+  const [pageCount, setPageCount] = useState(1);
+  const navigate = useNavigate();
   useEffect(() => {
     fetchCourses();
   }, []);
 
-  const fetchCourses = async () => {
-    const { success, data } = await getCourses();
+  const fetchCourses = async (page) => {
+    const { success, data } = await getCourses(page || 1);
     if (success) {
       setCourses(data.data);
+      setPageCount(data.last_page);
+      navigate(`/admin/courses?page=${page || 1}`);
     }
   };
 
@@ -32,6 +36,11 @@ export default function ManagerCourse() {
         toast.error("Xóa course thất bại");
       }
     }
+  };
+
+  const handlePageClick = async (data) => {
+    const currentPage = data.selected + 1;
+    fetchCourses(currentPage);
   };
   return (
     <div>
@@ -181,7 +190,12 @@ export default function ManagerCourse() {
                 </table>
               </div>
 
-              <div className="d-block card-footer"></div>
+              <div className="d-flex justify-content-end card-footer">
+                <Paginate
+                  pageCount={pageCount}
+                  handlePageClick={handlePageClick}
+                />
+              </div>
             </div>
           </div>
         </div>

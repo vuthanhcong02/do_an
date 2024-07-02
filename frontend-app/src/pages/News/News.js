@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./News.scss";
 import NewsItem from "../../components/NewsItem/NewsItem";
 import EventItem from "../../components/EventItem/EventList";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getNews, getNewByFeatured } from "../../services/NewsService";
 import NewList from "../../components/NewList/NewList";
+import Paginate from "../../components/Paginate/Paginate";
 export default function News() {
   const [news, setNews] = useState([]);
   const [newsFeatured, setNewsFeatured] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNewsFeatured = async () => {
@@ -21,15 +24,22 @@ export default function News() {
   }, []);
 
   useEffect(() => {
-    const fetchNews = async () => {
-      const res = await getNews();
-      if (res.success === true) {
-        console.log(res.data);
-        setNews(res.data.data);
-      }
-    };
     fetchNews();
   }, []);
+  const fetchNews = async (page) => {
+    const res = await getNews(page || 1);
+    if (res.success === true) {
+      console.log(res.data);
+      setNews(res.data.data);
+      setPageCount(res.data.last_page);
+      navigate(`/news?page=${page || 1}`);
+    }
+  };
+
+  const handlePageClick = (data) => {
+    const currentPage = data.selected + 1;
+    fetchNews(currentPage);
+  };
   return (
     <div className="News-container row">
       <div className="News-content col-md-9">
@@ -43,36 +53,10 @@ export default function News() {
 
           <div className="News-content-pagination mt-3">
             <ul class="pagination justify-content-end">
-              <li class="page-item disabled">
-                <Link
-                  class="page-link"
-                  href="#"
-                  tabindex="-1"
-                  aria-disabled="true"
-                >
-                  &#60;
-                </Link>
-              </li>
-              <li class="page-item active">
-                <Link class="page-link" href="#">
-                  1
-                </Link>
-              </li>
-              <li class="page-item">
-                <Link class="page-link" href="#">
-                  2
-                </Link>
-              </li>
-              <li class="page-item">
-                <Link class="page-link" href="#">
-                  3
-                </Link>
-              </li>
-              <li class="page-item">
-                <Link class="page-link" href="#">
-                  &#62;
-                </Link>
-              </li>
+              <Paginate
+                pageCount={pageCount}
+                handlePageClick={handlePageClick}
+              />
             </ul>
           </div>
         </div>

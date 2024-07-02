@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, NavLinkk, useNavigate } from "react-router-dom";
 import { getSummary } from "../../../utils/function";
 import { getContacts, deleteContact } from "../../../services/ContactService";
 import { toast } from "react-toastify";
+import Paginate from "../../../components/Paginate/Paginate";
 export default function ManagerContact() {
+  const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
 
   useEffect(() => {
     fetchContacts();
   }, []);
 
-  const fetchContacts = async () => {
-    const { success, data } = await getContacts();
+  const fetchContacts = async (page) => {
+    const { success, data } = await getContacts(page || 1);
     if (success) {
       console.log(data);
       setContacts(data?.data);
+      setPageCount(data?.last_page);
+      navigate(`/admin/contacts?page=${page || 1}`);
     }
   };
 
@@ -32,6 +37,11 @@ export default function ManagerContact() {
         toast.error("Xóa contact thất bại");
       }
     }
+  };
+
+  const handlePageClick = (data) => {
+    const currentPage = data.selected + 1;
+    fetchContacts(currentPage);
   };
   return (
     <div className="app-main__inner">
@@ -152,15 +162,12 @@ export default function ManagerContact() {
                 </tbody>
               </table>
             </div>
-            {/* {"{"}
-            {"{"}--{" "} */}
-            {/* <div className="d-block card-footer">
-              {"{"}
-              {"{"} $posts-&gt;links('pagination::bootstrap-5') {"}"}
-              {"}"}
-            </div>{" "}
-            --{"}"}
-            {"}"} */}
+            <div className="d-flex justify-content-end card-footer">
+              <Paginate
+                pageCount={pageCount}
+                handlePageClick={handlePageClick}
+              />
+            </div>
           </div>
         </div>
       </div>

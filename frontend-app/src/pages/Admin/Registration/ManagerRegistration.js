@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   getRegistrations,
   deleteRegistration,
@@ -8,8 +8,11 @@ import moment from "moment";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import Paginate from "../../../components/Paginate/Paginate";
 
 export default function ManagerRegistration() {
+  const [pageCount, setPageCount] = useState(1);
+  const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm();
   const [registrations, setRegistrations] = useState([]);
   useEffect(() => {
@@ -19,10 +22,12 @@ export default function ManagerRegistration() {
   useEffect(() => {
     setValue("status", registrations?.status);
   }, [registrations]);
-  const fetchRegistrations = async () => {
-    const { success, data } = await getRegistrations();
+  const fetchRegistrations = async (page) => {
+    const { success, data } = await getRegistrations(page || 1);
     if (success) {
       setRegistrations(data?.data);
+      setPageCount(data?.last_page);
+      navigate(`/admin/registrations?page=${page || 1}`);
     }
   };
 
@@ -60,6 +65,10 @@ export default function ManagerRegistration() {
     }
   };
 
+  const handlePageClick = async (data) => {
+    const currentPage = data.selected + 1;
+    fetchRegistrations(currentPage);
+  };
   return (
     <div className="app-main__inner">
       <div className="app-page-title">
@@ -201,15 +210,12 @@ export default function ManagerRegistration() {
                 </tbody>
               </table>
             </div>
-            {/* {"{"}
-        {"{"}--{" "} */}
-            {/* <div className="d-block card-footer">
-          {"{"}
-          {"{"} $posts-&gt;links('pagination::bootstrap-5') {"}"}
-          {"}"}
-        </div>{" "}
-        --{"}"}
-        {"}"} */}
+            <div className="d-flex justify-content-end card-footer">
+              <Paginate
+                pageCount={pageCount}
+                handlePageClick={handlePageClick}
+              />
+            </div>
           </div>
         </div>
       </div>

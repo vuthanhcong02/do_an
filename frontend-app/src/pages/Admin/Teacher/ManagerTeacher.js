@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { getTeachers, deleteTeacher } from "../../../services/TeacherService";
 import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
+import Paginate from "../../../components/Paginate/Paginate";
 
 export default function ManagerTeacher() {
   const [teachers, setTeachers] = useState();
-
+  const [pageCount, setPageCount] = useState(1);
+  const navigate = useNavigate();
   useEffect(() => {
     fetchTeachers();
   }, []);
 
-  const fetchTeachers = async () => {
-    const { success, data } = await getTeachers();
+  const fetchTeachers = async (page) => {
+    const { success, data } = await getTeachers(page || 1);
     if (success) {
       setTeachers(data.data);
+      setPageCount(data.last_page);
+      navigate(`/admin/teachers?page=${page || 1}`);
     }
   };
 
@@ -33,6 +37,12 @@ export default function ManagerTeacher() {
       }
     }
   };
+
+  const handlePageClick = async (data) => {
+    const currentPage = data.selected + 1;
+    fetchTeachers(currentPage);
+  };
+
   return (
     <div>
       <div className="app-main__inner">
@@ -161,7 +171,12 @@ export default function ManagerTeacher() {
                 </table>
               </div>
 
-              <div className="d-block card-footer"></div>
+              <div className="d-flex align-items-center card-footer justify-content-end">
+                <Paginate
+                  pageCount={pageCount}
+                  handlePageClick={handlePageClick}
+                />
+              </div>
             </div>
           </div>
         </div>
