@@ -111,6 +111,7 @@ Route::group(['prefix' => '/classes'], function () {
 });
 
 Route::group(['prefix' => '/schedules'], function () {
+    Route::get('/{id}/students', [\App\Http\Controllers\ScheduleController::class, 'getAllStudentsByScheduleId']);
     Route::get('/course/{id}', [\App\Http\Controllers\ScheduleController::class, 'getScheduleByCourseId']);
     Route::get('/', [\App\Http\Controllers\ScheduleController::class, 'getAll']);
     Route::get('/{id}', [\App\Http\Controllers\ScheduleController::class, 'getScheduleById']);

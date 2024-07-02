@@ -23,3 +23,7 @@ export const deleteSchedule = (id) => {
 export const getSchedulesByCourseId = (id) => {
   return httpClient.get(`/schedules/course/${id}`);
 };
+
+export const getSchedulesByScheduleId = (id) => {
+  return httpClient.get(`schedules/${id}/students`);
+};

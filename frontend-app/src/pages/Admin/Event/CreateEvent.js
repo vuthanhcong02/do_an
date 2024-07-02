@@ -251,15 +251,16 @@ export default function CreateEvent() {
                 </div>
                 <div className="position-relative row form-group mb-1">
                   <div className="col-md-9 col-xl-8 offset-md-2">
-                    <button
-                      onClick={() => navigate(-1)}
+                    <NavLink
+                      // onClick={() => navigate(-1)}
+                      to="/admin/events"
                       className="border-0 btn btn-outline-danger mr-1"
                     >
                       <span className="btn-icon-wrapper pr-1 opacity-8">
                         <i className="fa fa-times fa-w-20"></i>
                       </span>
-                      <span>Cancel</span>
-                    </button>
+                      <span>Hủy</span>
+                    </NavLink>
 
                     <button
                       type="submit"
@@ -268,7 +269,7 @@ export default function CreateEvent() {
                       <span className="btn-icon-wrapper pr-2 opacity-8">
                         <i className="fa fa-download fa-w-20"></i>
                       </span>
-                      <span>Save</span>
+                      <span>Lưu</span>
                     </button>
                   </div>
                 </div>

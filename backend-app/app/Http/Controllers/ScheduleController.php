@@ -78,4 +78,13 @@ class ScheduleController extends Controller
         }
         return $this->customResponse(200, true, $schedule, null, null);
     }
+
+    public function getAllStudentsByScheduleId($id)
+    {
+        $students = $this->scheduleService->getAllStudentsByScheduleId($id);
+        if (!$students) {
+            return $this->customResponse(404, false, null, 'Student not found', null);
+        }
+        return $this->customResponse(200, true, $students, null, null);
+    }
 }

@@ -3,14 +3,17 @@ import { NavLink } from "react-router-dom";
 import {
   getSchedules,
   deleteSchedule,
+  getSchedulesByScheduleId,
 } from "../../../services/ScheduleService";
 import { getSummary } from "../../../utils/function";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
-export default function ManagerSchedule() {
-  const [schedules, setSchedules] = useState([]);
+import { CSVLink } from "react-csv";
 
+export default function ManagerSchedule() {
+  const [dataExport, setDataExport] = useState([]);
+  const [schedules, setSchedules] = useState([]);
   useEffect(() => {
     fetchSchedules();
   }, []);
@@ -38,6 +41,23 @@ export default function ManagerSchedule() {
       }
     }
   };
+  const headers = [
+    { label: "Họ và tên", key: "user_name" },
+    { label: "Số CCCD", key: "user_id_card" },
+    { label: "Giới tính", key: "user_gender" },
+    { label: "Ngày sinh", key: "user_date_of_birthday" },
+    { label: "Email", key: "user_email" },
+    { label: "Số điện thoại", key: "user_phone" },
+    { label: "Địa chỉ", key: "user_address" },
+    { label: "Ngày đăng kí", key: "date_of_registration" },
+  ];
+  // const fetchData = async (id) => {
+  //   // console.log("schedule", id);
+  //   const { success, data } = await getSchedulesByScheduleId(id);
+  //   if (success) {
+  //     setDataExport(data);
+  //   }
+  // };
   return (
     <div className="app-main__inner">
       <div className="app-page-title">
@@ -120,17 +140,34 @@ export default function ManagerSchedule() {
                       <td className="">{item.teacher?.full_name}</td>
 
                       <td className="text-center">
-                        <NavLink
-                          to={`/${item.id}`}
-                          className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
+                        <CSVLink
+                          data={dataExport}
+                          asyncOnClick={true}
+                          headers={headers}
+                          filename={`Danh sách học viên lớp ${item.class?.name} ca ${item.day_of_week}(${item.start_end_time}).csv`}
+                          onClick={async (event, done) => {
+                            const { success, data } =
+                              await getSchedulesByScheduleId(item.id);
+                            if (success) {
+                              setDataExport(data);
+                            }
+                            done();
+                          }}
                         >
-                          <FontAwesomeIcon
-                            icon={faDownload}
-                            size="sm"
-                            className="mr-2"
-                          />
-                          Xuất danh sách
-                        </NavLink>
+                          <button
+                            // to={`/${item.id}`}
+                            // onClick={() => handleExportStudents(item.id)}
+                            className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
+                          >
+                            <FontAwesomeIcon
+                              icon={faDownload}
+                              size="sm"
+                              className="mr-2"
+                            />
+                            Xuất danh sách
+                          </button>
+                        </CSVLink>
+
                         <NavLink
                           to={`${item.id}/edit`}
                           data-toggle="tooltip"

@@ -301,7 +301,7 @@ export default function EditTeacher() {
                       <span className="btn-icon-wrapper pr-1 opacity-8">
                         <i className="fa fa-times fa-w-20" />
                       </span>
-                      <span>Cancel</span>
+                      <span>Hủy</span>
                     </NavLink>
                     <button
                       type="submit"
@@ -310,7 +310,7 @@ export default function EditTeacher() {
                       <span className="btn-icon-wrapper pr-2 opacity-8">
                         <i className="fa fa-download fa-w-20" />
                       </span>
-                      <span>Save</span>
+                      <span>Lưu</span>
                     </button>
                   </div>
                 </div>

@@ -76,14 +76,14 @@
                                 <span class="btn-icon-wrapper pr-1 opacity-8">
                                     <i class="fa fa-times fa-w-20"></i>
                                 </span>
-                                <span>Cancel</span>
+                                <span>Hủy</span>
                             </a>
 
                             <button type="submit" class="btn-shadow btn-hover-shine btn btn-primary">
                                 <span class="btn-icon-wrapper pr-2 opacity-8">
                                     <i class="fa fa-download fa-w-20"></i>
                                 </span>
-                                <span>Save</span>
+                                <span>Lưu</span>
                             </button>
                         </div>
                     </div>

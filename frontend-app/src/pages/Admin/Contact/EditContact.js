@@ -187,7 +187,7 @@ export default function EditContact() {
                       <span className="btn-icon-wrapper pr-1 opacity-8">
                         <i className="fa fa-times fa-w-20"></i>
                       </span>
-                      <span>Cancel</span>
+                      <span>Hủy</span>
                     </NavLink>
 
                     <button
@@ -197,7 +197,7 @@ export default function EditContact() {
                       <span className="btn-icon-wrapper pr-2 opacity-8">
                         <i className="fa fa-download fa-w-20"></i>
                       </span>
-                      <span>Save</span>
+                      <span>Lưu</span>
                     </button>
                   </div>
                 </div>

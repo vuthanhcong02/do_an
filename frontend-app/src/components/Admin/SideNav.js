@@ -61,7 +61,7 @@ export default function SideNav() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="banners" className=" nav-link">
+                  <NavLink to="banners" className="nav-link">
                     <i className="metismenu-icon" />
                     Banner
                   </NavLink>
@@ -85,59 +85,59 @@ export default function SideNav() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="courses" className=" nav-link">
+                  <NavLink to="courses" className="nav-link">
                     <i className="metismenu-icon" />
                     Khóa học
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="teachers" className=" nav-link">
+                  <NavLink to="teachers" className="nav-link">
                     <i className="metismenu-icon" />
                     Giảng viên
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="users" className=" nav-link">
+                  <NavLink to="users" className="nav-link">
                     <i className="metismenu-icon" />
                     Người dùng
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="registrations" className=" nav-link">
+                  <NavLink to="registrations" className="nav-link">
                     <i className="metismenu-icon" />
                     Đăng kí học
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="classes" className=" nav-link">
+                  <NavLink to="classes" className="nav-link">
                     <i className="metismenu-icon" />
                     Lớp học
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to="classrooms" className=" nav-link">
+                  <NavLink to="classrooms" className="nav-link">
                     <i className="metismenu-icon" />
                     Phòng học
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to="schedules" className=" nav-link">
+                  <NavLink to="schedules" className="nav-link">
                     <i className="metismenu-icon" />
                     Thời khóa biểu
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to="contacts" className=" nav-link">
+                  <NavLink to="contacts" className="nav-link">
                     <i className="metismenu-icon" />
                     Liên hệ
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink className=" nav-link">
+                  <NavLink className="nav-link">
                     <i className="metismenu-icon" />
                     Thông báo
                   </NavLink>
