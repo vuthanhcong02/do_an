@@ -4,19 +4,22 @@ import "./CourseDetails.scss";
 import {
   getCourseById,
   getCourseByFeatured,
+  getCourses,
 } from "../../services/CourseService";
 import { getSchedulesByCourseId } from "../../services/ScheduleService";
 import { baseUrl, baseUrlImage } from "../../config";
 import TableSchedule from "../../components/TableSchedule/TableSchedule";
 export default function CourseDetails() {
   const { id } = useParams();
-  const [courses, setCourses] = useState([]);
+  // const [courses, setCourses] = useState([]);
+  const [courseOther, setCourseOther] = useState([]);
   const [courseDetails, setCourseDetails] = useState({});
   const [schedules, setSchedules] = useState([]);
   //   console.log(course);
 
   useEffect(() => {
     fetchCourseDetails();
+    fetchCourses();
   }, [id]);
 
   const fetchCourseDetails = async () => {
@@ -26,14 +29,13 @@ export default function CourseDetails() {
     }
   };
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
+  useEffect(() => {}, []);
 
   const fetchCourses = async () => {
-    const { success, data } = await getCourseByFeatured();
+    const { success, data } = await getCourses();
     if (success) {
-      setCourses(data);
+      const dataOther = data.data.filter((item) => item.id !== parseInt(id));
+      setCourseOther(dataOther);
     }
   };
 
@@ -87,7 +89,7 @@ export default function CourseDetails() {
         <div className="CourseDetails-more-title">
           <span>Các khóa học khác</span>
         </div>
-        {courses.map((course, index) => (
+        {courseOther.map((course, index) => (
           <NavLink
             to={`/courses/${course?.id}`}
             style={{ textDecoration: "none" }}

@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import CourseItem from "../../components/CourseItem/CourseItem";
 import { Link, NavLink, useParams } from "react-router-dom";
-import { getNewsById, getNewByFeatured } from "../../services/NewsService";
+import {
+  getNewsById,
+  getNewByFeatured,
+  getNews,
+} from "../../services/NewsService";
 import { baseUrl, baseUrlImage } from "../../config";
 import "./NewsDetails.scss";
 export default function NewsDetails() {
   const { id } = useParams();
-  const [news, setNews] = useState([]);
   const [newsDetails, setNewsDetails] = useState({});
+  const [newsOther, setNewsOther] = useState([]);
   //   console.log(course);
 
   useEffect(() => {
     fetchNewsDetails();
+    fetchNews();
   }, [id]);
 
   const fetchNewsDetails = async () => {
@@ -21,14 +26,11 @@ export default function NewsDetails() {
     }
   };
 
-  useEffect(() => {
-    fetchNews();
-  }, []);
-
   const fetchNews = async () => {
-    const { success, data } = await getNewByFeatured();
+    const { success, data } = await getNews();
     if (success) {
-      setNews(data);
+      const dataOther = data.data.filter((item) => item.id !== parseInt(id));
+      setNewsOther(dataOther);
     }
   };
   return (
@@ -66,7 +68,7 @@ export default function NewsDetails() {
         <div className="CourseDetails-more-title">
           <span>Các tin tức khác</span>
         </div>
-        {news.map((item, index) => (
+        {newsOther.map((item, index) => (
           <NavLink
             to={`/news/${item?.id}`}
             style={{ textDecoration: "none" }}

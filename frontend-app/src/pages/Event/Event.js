@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import "../News/News.scss";
 import NewsItem from "../../components/NewsItem/NewsItem";
 import { Link, useNavigate } from "react-router-dom";
-import { getNews, getNewByFeatured } from "../../services/NewsService";
-import { getEvents } from "../../services/EventService";
+import { getEvents, getEventsByFeatured } from "../../services/EventService";
 import NewList from "../../components/NewList/NewList";
 import EventList from "../../components/EventItem/EventList";
 import Paginate from "../../components/Paginate/Paginate";
 export default function Event() {
   const [events, setEvents] = useState([]);
-  const [newsFeatured, setNewsFeatured] = useState([]);
+  const [eventsFeatured, setEventsFeatured] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const navigate = useNavigate();
   useEffect(() => {
@@ -18,10 +17,10 @@ export default function Event() {
   }, []);
 
   const fetchNewsFeatured = async () => {
-    const res = await getNewByFeatured();
+    const res = await getEventsByFeatured();
     if (res.success === true) {
       console.log("Featured", res?.data);
-      setNewsFeatured(res?.data);
+      setEventsFeatured(res?.data);
     }
   };
 
@@ -66,7 +65,7 @@ export default function Event() {
           <span>Nổi bật</span>
         </div>
         <div className="News-content-feature-item">
-          {newsFeatured.map((news, idx) => (
+          {eventsFeatured.map((news, idx) => (
             <NewsItem key={idx} news={news} />
           ))}
           {/* <NewsItem /> */}

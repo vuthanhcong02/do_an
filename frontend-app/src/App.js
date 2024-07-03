@@ -63,6 +63,7 @@ import EditNotification from "./pages/Admin/Notification/EditNotification.js";
 import ManagerNotificationType from "./pages/Admin/Notification/ManagerNotificationType.js";
 import CreateNotificationType from "./pages/Admin/Notification/CreateNotificationType.js";
 import EditNotificationType from "./pages/Admin/Notification/EditNotificationType.js";
+import NotificationDetail from "./pages/NotificationDetail/NotificationDetail.js";
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
             <Route path="/events" element={<Event />} />
             <Route path="/contacts" element={<Contact />} />
             <Route path="/notifications" element={<Notification />} />
+            <Route path="/notifications/:id" element={<NotificationDetail />} />
             <Route path="/english-courses" element={<EnglishCourse />} />
             <Route path="/information-courses" element={<ITCourse />} />
             <Route path="/courses/:id" element={<CourseDetails />} />

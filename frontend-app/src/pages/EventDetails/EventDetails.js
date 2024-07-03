@@ -3,16 +3,18 @@ import { Link, NavLink, useParams } from "react-router-dom";
 import {
   getEventsById,
   getEventsByFeatured,
+  getEvents,
 } from "../../services/EventService";
 import { baseUrlImage } from "../../config";
 export default function EventDetails() {
   const { id } = useParams();
-  const [events, setEvents] = useState([]);
+  const [eventOther, setEventOther] = useState([]);
   const [eventDetails, setEventDetails] = useState({});
   //   console.log(course);
 
   useEffect(() => {
     fetchNewsDetails();
+    fetchEvents();
   }, [id]);
 
   const fetchNewsDetails = async () => {
@@ -22,14 +24,11 @@ export default function EventDetails() {
     }
   };
 
-  useEffect(() => {
-    fetchNews();
-  }, []);
-
-  const fetchNews = async () => {
-    const { success, data } = await getEventsByFeatured();
+  const fetchEvents = async () => {
+    const { success, data } = await getEvents();
     if (success) {
-      setEvents(data);
+      const dataOther = data.data.filter((item) => item.id !== parseInt(id));
+      setEventOther(dataOther);
     }
   };
   return (
@@ -67,9 +66,9 @@ export default function EventDetails() {
         <div className="CourseDetails-more-title">
           <span>Các sự kiện khác</span>
         </div>
-        {events.map((item, index) => (
+        {eventOther.map((item, index) => (
           <NavLink
-            to={`/news/${item?.id}`}
+            to={`/events/${item?.id}`}
             style={{ textDecoration: "none" }}
             className="CourseDetails-more-item row"
             key={item?.id}
