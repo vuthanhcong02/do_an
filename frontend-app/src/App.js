@@ -57,6 +57,12 @@ import LoginAdmin from "./pages/Admin/Login/LoginAdmin.js";
 import ManagerContact from "./pages/Admin/Contact/ManagerContact.js";
 import EditContact from "./pages/Admin/Contact/EditContact.js";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.js";
+import ManagerNotification from "./pages/Admin/Notification/ManagerNotification.js";
+import CreateNotification from "./pages/Admin/Notification/CreateNotification.js";
+import EditNotification from "./pages/Admin/Notification/EditNotification.js";
+import ManagerNotificationType from "./pages/Admin/Notification/ManagerNotificationType.js";
+import CreateNotificationType from "./pages/Admin/Notification/CreateNotificationType.js";
+import EditNotificationType from "./pages/Admin/Notification/EditNotificationType.js";
 
 function App() {
   return (
@@ -138,6 +144,23 @@ function App() {
 
           <Route path="registrations" element={<ManagerRegistration />} />
           <Route path="registrations/:id/edit" element={<EditRegistration />} />
+
+          <Route
+            path="notifications/types"
+            element={<ManagerNotificationType />}
+          />
+          <Route
+            path="notifications/types/create"
+            element={<CreateNotificationType />}
+          />
+          <Route
+            path="notifications/types/:id/edit"
+            element={<EditNotificationType />}
+          />
+
+          <Route path="notifications" element={<ManagerNotification />} />
+          <Route path="notifications/create" element={<CreateNotification />} />
+          <Route path="notifications/:id/edit" element={<EditNotification />} />
         </Route>
       </Routes>
       <ToastContainer />

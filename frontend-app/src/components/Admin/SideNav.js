@@ -137,28 +137,21 @@ export default function SideNav() {
                 </li>
 
                 <li>
-                  <NavLink className="nav-link">
+                  <NavLink to="" className="nav-link">
                     <i className="metismenu-icon" />
                     Thông báo
                   </NavLink>
                   <ul>
                     <li>
-                      <a
-                        href="notifications/exam-schedules"
-                        className=" nav-link"
-                      >
-                        <i className="metismenu-icon" />
-                        Lịch thi
-                      </a>
+                      <NavLink to="notifications/types" className=" nav-link">
+                        Loại thông báo
+                      </NavLink>
                     </li>
                     <li>
-                      <a
-                        href="notifications/exam-results"
-                        className=" nav-link"
-                      >
+                      <NavLink to="notifications" className=" nav-link">
                         <i className="metismenu-icon" />
-                        Kết quả thi
-                      </a>
+                        Danh sách thông báo
+                      </NavLink>
                     </li>
                   </ul>
                 </li>

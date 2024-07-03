@@ -143,6 +143,22 @@ Route::group(['prefix' => '/registrations'], function () {
     Route::delete('/{id}', [\App\Http\Controllers\RegistrationController::class, 'deleteRegistration']);
     Route::get('/vnpay/return', [\App\Http\Controllers\RegistrationController::class, 'handleVNPayReturn'])->name('vnpay.return');
 });
+Route::group(['prefix' => '/notifications'], function () {
+    Route::get('/', [\App\Http\Controllers\NotificationController::class, 'index']);
+    Route::post('/', [\App\Http\Controllers\NotificationController::class, 'create']);
+    Route::get('/{id}', [\App\Http\Controllers\NotificationController::class, 'show']);
+    Route::put('/{id}', [\App\Http\Controllers\NotificationController::class, 'update']);
+    Route::delete('/{id}', [\App\Http\Controllers\NotificationController::class, 'destroy']);
+});
+
+Route::group(['prefix' => '/notification-types'], function () {
+    Route::get('/', [\App\Http\Controllers\NotificationTypeController::class, 'index']);
+    Route::post('/', [\App\Http\Controllers\NotificationTypeController::class, 'create']);
+    Route::get('/{id}', [\App\Http\Controllers\NotificationTypeController::class, 'show']);
+    Route::put('/{id}', [\App\Http\Controllers\NotificationTypeController::class, 'update']);
+    Route::delete('/{id}', [\App\Http\Controllers\NotificationTypeController::class, 'destroy']);
+});
+
 Route::fallback(function () {
     return response()->json([
         'message' => 'Page Not Found. If error persists, contact info@website.com'
