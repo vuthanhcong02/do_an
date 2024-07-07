@@ -1,47 +1,46 @@
 import React, { useEffect, useState } from "react";
+import Paginate from "../../../components/Paginate/Paginate";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
-  getRegistrations,
-  deleteRegistration,
-} from "../../../services/RegistrationService";
-import moment from "moment";
+  deleteExamRegister,
+  getExamRegisters,
+} from "../../../services/ExamRegisterService";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useForm } from "react-hook-form";
-import Paginate from "../../../components/Paginate/Paginate";
 
-export default function ManagerRegistration() {
-  const [pageCount, setPageCount] = useState(1);
+export default function ManagerExamRegister() {
   const navigate = useNavigate();
-  const { register, handleSubmit, setValue } = useForm();
-  const [registrations, setRegistrations] = useState([]);
+  const [examRegister, setExamRegister] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+
   useEffect(() => {
-    fetchRegistrations();
+    fetchExamRegisters();
   }, []);
 
-  useEffect(() => {
-    setValue("status", registrations?.status);
-  }, [registrations]);
-  const fetchRegistrations = async (page) => {
-    const { success, data } = await getRegistrations(page || 1);
+  const fetchExamRegisters = async (page) => {
+    const { success, data } = await getExamRegisters(page || 1);
     if (success) {
-      setRegistrations(data?.data);
-      setPageCount(data?.last_page);
-      navigate(`/admin/registrations?page=${page || 1}`);
+      setExamRegister(data.data);
+      setPageCount(data.last_page);
+      navigate(`/admin/exams/registrations?page=${page || 1}`);
     }
+  };
+  const handlePageClick = (data) => {
+    const currentPage = data.selected + 1;
+    fetchExamRegisters(currentPage);
   };
 
   const handleUpdate = async (id, newStatus) => {
-    // Gọi API để cập nhật trạng thái
+    console.log(id, newStatus);
     try {
       const response = await axios.put(
-        `http://api.ngoaingutinhoc.tech.com/api/registrations/${id}`,
+        `http://api.ngoaingutinhoc.tech.com/api/exam-registers/${id}`,
         {
           status: newStatus,
         }
       );
       if (response.data.success) {
-        window.location.href = "/admin/registrations";
+        window.location.href = "/admin/exams/registrations";
         toast.success("Cập nhật trạng thái thành công");
       } else {
         toast.error("Cập nhật trạng thái thất bại");
@@ -54,20 +53,15 @@ export default function ManagerRegistration() {
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(" có chắc chắn muốn xóa bản ghi này?");
     if (confirmDelete) {
-      const { success } = await deleteRegistration(id);
+      const { success } = await deleteExamRegister(id);
       if (success) {
-        const newRegistrations = registrations.filter((item) => item.id !== id);
-        setRegistrations(newRegistrations);
-        toast.success("Xóa bản ghi thành công");
+        const newExamRegister = examRegister.filter((item) => item.id !== id);
+        setExamRegister(newExamRegister);
+        toast.success("Xoa thanh cong");
       } else {
-        toast.error("Xóa bản ghi thất bại");
+        toast.error("Xoa that bai");
       }
     }
-  };
-
-  const handlePageClick = async (data) => {
-    const currentPage = data.selected + 1;
-    fetchRegistrations(currentPage);
   };
   return (
     <div className="app-main__inner">
@@ -78,7 +72,7 @@ export default function ManagerRegistration() {
               <i className="pe-7s-ticket icon-gradient bg-mean-fruit" />
             </div>
             <div>
-              Registrations
+              Exam Register
               <div className="page-title-subheading">
                 View, create, update, delete and manage.
               </div>
@@ -130,34 +124,24 @@ export default function ManagerRegistration() {
                 <thead>
                   <tr>
                     <th className="text-center">ID</th>
-                    <th className="text-center">Họ và tên</th>
-                    <th className="text-center">Khóa học</th>
-                    <th className="text-center">Lớp</th>
-                    <th className="text-center">Ngày đăng kí</th>
-                    <th className="text-center">Tổng tiền</th>
+                    <th className="text-center">Lịch thi</th>
+                    <th className="text-center">Người đăng kí</th>
+                    <th className="text-center">Ngày diễn ra</th>
                     <th className="text-center">Hình thức thanh toán</th>
-                    <th className="text-center">Trạng thái</th>
+                    <th className="text-center">Status</th>
                     <th className="text-center">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {registrations.map((item, index) => (
+                  {examRegister.map((item, index) => (
                     <tr key={index}>
                       <td className="text-center text-muted">{index + 1}</td>
-                      <td className="text-center">{item?.user?.full_name}</td>
-                      <td className="text-center">
-                        {item?.schedule?.course?.name}
-                      </td>
-                      <td className="text-center">
-                        {item?.schedule?.class?.name}
-                      </td>
-                      <td className="text-center">
-                        {moment(item?.created_at).format("DD/MM/YYYY")}
-                      </td>
-                      <td className="text-center">1.000.000 VND</td>
-                      <td className="text-center">{item?.payment_type}</td>
 
-                      <td className="text-center ">
+                      <td className="text-center">{item?.exam?.name}</td>
+                      <td className="text-center">{item?.user?.full_name}</td>
+                      <td className="text-center">{item?.exam?.date}</td>
+                      <td className="text-center">{item?.payment_type}</td>
+                      <td className="text-center">
                         <select
                           value={item?.status}
                           className={`form-control-sm badge ${
@@ -172,26 +156,8 @@ export default function ManagerRegistration() {
                           <option value="pending">Đang xử lí</option>
                           <option value="success">Thành công</option>
                         </select>
-                        {/* <span
-                          className={`badge badge-${
-                            item?.status === "success" ? "success" : "danger"
-                          }`}
-                        >
-                          {item?.status === "pending" ? "Pending" : "Success"}
-                        </span> */}
                       </td>
                       <td className="text-center">
-                        {/* <NavLink
-                          to={`${item.id}/edit`}
-                          data-toggle="tooltip"
-                          title="Edit"
-                          data-placement="bottom"
-                          className="btn btn-outline-warning border-0 btn-sm"
-                        >
-                          <span className="btn-icon-wrapper opacity-8">
-                            <i className="fa fa-edit fa-w-20" />
-                          </span>
-                        </NavLink> */}
                         <button
                           className="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
                           type="submit"

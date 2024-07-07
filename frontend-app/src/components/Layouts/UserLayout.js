@@ -32,14 +32,28 @@ export default function UserLayout() {
               <Nav.Item>
                 <Nav.Link
                   as={NavLink}
-                  to="dashboard"
+                  to="my-courses"
                   className={
-                    location.pathname === "/user/dashboard"
+                    location.pathname === "/user/my-courses"
                       ? "active-link-custom mt-2"
                       : "nav-link-custom mt-2"
                   }
                 >
                   Khóa học của bạn
+                </Nav.Link>
+              </Nav.Item>
+
+              <Nav.Item>
+                <Nav.Link
+                  as={NavLink}
+                  to="my-exams"
+                  className={
+                    location.pathname === "/user/my-exams"
+                      ? "active-link-custom mt-2"
+                      : "nav-link-custom mt-2"
+                  }
+                >
+                  Lịch thi của bạn
                 </Nav.Link>
               </Nav.Item>
 

@@ -143,6 +143,26 @@ Route::group(['prefix' => '/registrations'], function () {
     Route::delete('/{id}', [\App\Http\Controllers\RegistrationController::class, 'deleteRegistration']);
     Route::get('/vnpay/return', [\App\Http\Controllers\RegistrationController::class, 'handleVNPayReturn'])->name('vnpay.return');
 });
+
+Route::group(['prefix' => '/exams'], function () {
+    Route::get('/active', [\App\Http\Controllers\ExamController::class, 'getExamActive']);
+    Route::get('/', [\App\Http\Controllers\ExamController::class, 'getAll']);
+    Route::get('/{id}', [\App\Http\Controllers\ExamController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\ExamController::class, 'store']);
+    Route::put('/{id}', [\App\Http\Controllers\ExamController::class, 'update']);
+    Route::delete('/{id}', [\App\Http\Controllers\ExamController::class, 'destroy']);
+});
+
+
+Route::group(['prefix' => '/exam-registers'], function () {
+    Route::get('/get-registrations-by-user', [\App\Http\Controllers\ExamRegisterController::class, 'getRegistrationByUserId']);
+    Route::get('/', [\App\Http\Controllers\ExamRegisterController::class, 'getAllRegistrations']);
+    Route::get('/{id}', [\App\Http\Controllers\ExamRegisterController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\ExamRegisterController::class, 'createExamRegister']);
+    Route::put('/{id}', [\App\Http\Controllers\ExamRegisterController::class, 'updateRegistration']);
+    Route::delete('/{id}', [\App\Http\Controllers\ExamRegisterController::class, 'destroy']);
+});
+
 Route::group(['prefix' => '/notifications'], function () {
     Route::get('/', [\App\Http\Controllers\NotificationController::class, 'index']);
     Route::post('/', [\App\Http\Controllers\NotificationController::class, 'create']);
@@ -158,6 +178,8 @@ Route::group(['prefix' => '/notification-types'], function () {
     Route::put('/{id}', [\App\Http\Controllers\NotificationTypeController::class, 'update']);
     Route::delete('/{id}', [\App\Http\Controllers\NotificationTypeController::class, 'destroy']);
 });
+
+
 
 Route::fallback(function () {
     return response()->json([

@@ -1,0 +1,34 @@
+.Exam-container{
+    padding: 20px 100px;
+    display: flex;
+    .Exam-content{
+        width: 100%;
+        background-color: white;
+        padding: 0 10px 100px 10px;
+        border-right: 1px solid #d9d9d9;
+        .Exam-content-title{
+            margin-top: 10px;
+            background-color: #273272;
+            color: white;
+            padding: 10px;
+        }
+
+        .Exam-content-item{
+            .Exam-content-schedule{
+                width: 100%;
+                
+            }
+            .active>.page-link, .page-link.active {
+                background-color: #273272;
+                color: white;
+                border-color: #273272;
+            }
+        }
+    }
+}
+.table-bordered thead th{
+    background-color: white !important;
+    font-size: 14px;
+    font-weight: 400;
+    color:#273272;
+}

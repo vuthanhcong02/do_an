@@ -130,6 +130,20 @@ export default function SideNav() {
                 </li>
 
                 <li>
+                  <NavLink to="exams" className="nav-link">
+                    <i className="metismenu-icon" />
+                    Lịch thi
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="exams/registrations" className="nav-link">
+                    <i className="metismenu-icon" />
+                    Đăng kí thi
+                  </NavLink>
+                </li>
+
+                <li>
                   <NavLink to="contacts" className="nav-link">
                     <i className="metismenu-icon" />
                     Liên hệ

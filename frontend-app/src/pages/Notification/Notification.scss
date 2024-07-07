@@ -26,8 +26,13 @@
             }
             .Notification-content-item-content{
                 padding: 10px 0;
+                
             }
         }
     }
-    
+    .active>.page-link, .page-link.active {
+        background-color: #273272;
+        color: white;
+        border-color: #273272;
+    }
 }

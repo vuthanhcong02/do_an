@@ -1,74 +1,46 @@
 import React, { useEffect, useState } from "react";
+import Paginate from "../../../components/Paginate/Paginate";
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-  getRegistrations,
-  deleteRegistration,
-} from "../../../services/RegistrationService";
+import { getExams, deleteExam } from "../../../services/ExamService";
 import moment from "moment";
 import { toast } from "react-toastify";
-import axios from "axios";
-import { useForm } from "react-hook-form";
-import Paginate from "../../../components/Paginate/Paginate";
-
-export default function ManagerRegistration() {
-  const [pageCount, setPageCount] = useState(1);
+export default function ManagerExam() {
   const navigate = useNavigate();
-  const { register, handleSubmit, setValue } = useForm();
-  const [registrations, setRegistrations] = useState([]);
+  const [exams, setExams] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
   useEffect(() => {
-    fetchRegistrations();
+    fetchExams();
   }, []);
 
-  useEffect(() => {
-    setValue("status", registrations?.status);
-  }, [registrations]);
-  const fetchRegistrations = async (page) => {
-    const { success, data } = await getRegistrations(page || 1);
+  const fetchExams = async (page) => {
+    const { success, data } = await getExams(page || 1);
     if (success) {
-      setRegistrations(data?.data);
-      setPageCount(data?.last_page);
-      navigate(`/admin/registrations?page=${page || 1}`);
+      setExams(data.data);
+      setPageCount(data.last_page);
+      navigate(`/admin/exams?page=${page || 1}`);
     }
   };
-
-  const handleUpdate = async (id, newStatus) => {
-    // Gọi API để cập nhật trạng thái
-    try {
-      const response = await axios.put(
-        `http://api.ngoaingutinhoc.tech.com/api/registrations/${id}`,
-        {
-          status: newStatus,
-        }
-      );
-      if (response.data.success) {
-        window.location.href = "/admin/registrations";
-        toast.success("Cập nhật trạng thái thành công");
-      } else {
-        toast.error("Cập nhật trạng thái thất bại");
-      }
-    } catch (error) {
-      console.error("Error updating status:", error);
-    }
+  const handlePageClick = (data) => {
+    const currentPage = data.selected + 1;
+    fetchExams(currentPage);
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(" có chắc chắn muốn xóa bản ghi này?");
+    const confirmDelete = window.confirm(
+      "Bạn có chắc chắn muốn xóa bản ghi này?"
+    );
     if (confirmDelete) {
-      const { success } = await deleteRegistration(id);
+      const { success } = await deleteExam(id);
       if (success) {
-        const newRegistrations = registrations.filter((item) => item.id !== id);
-        setRegistrations(newRegistrations);
-        toast.success("Xóa bản ghi thành công");
+        const newExams = exams.filter((item) => item.id !== id);
+        setExams(newExams);
+        toast.success("Xóa exam thành công");
       } else {
-        toast.error("Xóa bản ghi thất bại");
+        toast.error("Xóa exam thất bại");
       }
     }
   };
 
-  const handlePageClick = async (data) => {
-    const currentPage = data.selected + 1;
-    fetchRegistrations(currentPage);
-  };
   return (
     <div className="app-main__inner">
       <div className="app-page-title">
@@ -78,7 +50,7 @@ export default function ManagerRegistration() {
               <i className="pe-7s-ticket icon-gradient bg-mean-fruit" />
             </div>
             <div>
-              Registrations
+              Exam
               <div className="page-title-subheading">
                 View, create, update, delete and manage.
               </div>
@@ -130,58 +102,44 @@ export default function ManagerRegistration() {
                 <thead>
                   <tr>
                     <th className="text-center">ID</th>
-                    <th className="text-center">Họ và tên</th>
-                    <th className="text-center">Khóa học</th>
-                    <th className="text-center">Lớp</th>
-                    <th className="text-center">Ngày đăng kí</th>
-                    <th className="text-center">Tổng tiền</th>
-                    <th className="text-center">Hình thức thanh toán</th>
-                    <th className="text-center">Trạng thái</th>
+                    <th className="text-center">Tên</th>
+                    <th className="text-center">Thời gian</th>
+                    <th className="text-center">Ngày diễn ra</th>
+                    <th className="text-center">Phòng thi</th>
+                    <th className="text-center">Lệ phí</th>
+                    <th className="text-center">Hạn đăng kí</th>
+                    <th className="text-center">Status</th>
                     <th className="text-center">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {registrations.map((item, index) => (
+                  {exams.map((item, index) => (
                     <tr key={index}>
                       <td className="text-center text-muted">{index + 1}</td>
-                      <td className="text-center">{item?.user?.full_name}</td>
+                      <td className="text-center">{item.name}</td>
                       <td className="text-center">
-                        {item?.schedule?.course?.name}
+                        {item?.start_at}-{item?.end_at}
                       </td>
                       <td className="text-center">
-                        {item?.schedule?.class?.name}
+                        {moment(item?.date).format("DD-MM-YYYY")}
+                      </td>
+                      <td className="text-center">{item?.classroom?.name}</td>
+                      <td className="text-center">{item?.fee} VND</td>
+                      <td className="text-center">
+                        {moment(item?.deadline_date).format("DD-MM-YYYY")}
                       </td>
                       <td className="text-center">
-                        {moment(item?.created_at).format("DD/MM/YYYY")}
-                      </td>
-                      <td className="text-center">1.000.000 VND</td>
-                      <td className="text-center">{item?.payment_type}</td>
-
-                      <td className="text-center ">
-                        <select
-                          value={item?.status}
-                          className={`form-control-sm badge ${
-                            item.status === "success"
-                              ? "badge-success"
-                              : "badge-danger"
-                          }`}
-                          onChange={(e) =>
-                            handleUpdate(item.id, e.target.value)
-                          }
-                        >
-                          <option value="pending">Đang xử lí</option>
-                          <option value="success">Thành công</option>
-                        </select>
-                        {/* <span
+                        {" "}
+                        <span
                           className={`badge badge-${
-                            item?.status === "success" ? "success" : "danger"
+                            item?.status === 1 ? "success" : "danger"
                           }`}
                         >
-                          {item?.status === "pending" ? "Pending" : "Success"}
-                        </span> */}
+                          {item?.status === 1 ? "Active" : "Inactive"}
+                        </span>
                       </td>
                       <td className="text-center">
-                        {/* <NavLink
+                        <NavLink
                           to={`${item.id}/edit`}
                           data-toggle="tooltip"
                           title="Edit"
@@ -191,7 +149,7 @@ export default function ManagerRegistration() {
                           <span className="btn-icon-wrapper opacity-8">
                             <i className="fa fa-edit fa-w-20" />
                           </span>
-                        </NavLink> */}
+                        </NavLink>
                         <button
                           className="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
                           type="submit"

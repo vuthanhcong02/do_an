@@ -97,8 +97,12 @@ export default function Header() {
                   Thông tin cá nhân
                 </NavDropdown.Item>
 
-                <NavDropdown.Item as={NavLink} to="user/dashboard">
+                <NavDropdown.Item as={NavLink} to="user/my-courses">
                   Khóa học của bạn
+                </NavDropdown.Item>
+
+                <NavDropdown.Item as={NavLink} to="user/my-exams">
+                  Xem lịch thi
                 </NavDropdown.Item>
 
                 <NavDropdown.Item as={NavLink} to="user/change-password">
@@ -186,6 +190,10 @@ export default function Header() {
                         Tin học
                       </NavLink>
                     </NavDropdown>
+                    <NavLink to="/exams" className="nav-link">
+                      Lịch thi
+                    </NavLink>
+
                     <NavLink to="/notifications" className="nav-link">
                       Thông báo
                     </NavLink>

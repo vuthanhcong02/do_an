@@ -64,6 +64,12 @@ import ManagerNotificationType from "./pages/Admin/Notification/ManagerNotificat
 import CreateNotificationType from "./pages/Admin/Notification/CreateNotificationType.js";
 import EditNotificationType from "./pages/Admin/Notification/EditNotificationType.js";
 import NotificationDetail from "./pages/NotificationDetail/NotificationDetail.js";
+import ManagerExamRegister from "./pages/Admin/ExamResgister/ManagerExamRegister.js";
+import ManagerExam from "./pages/Admin/Exam/ManagerExam.js";
+import CreateExam from "./pages/Admin/Exam/CreateExam.js";
+import EditExam from "./pages/Admin/Exam/EditExam.js";
+import Exam from "./pages/Exam/Exam.js";
+import MyExam from "./pages/MyExam/MyExam.js";
 
 function App() {
   return (
@@ -74,9 +80,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="user/*" element={<UserLayout />}>
+              <Route path="my-exams" element={<MyExam />} />
               <Route path="profile" element={<UserProfile />} />
               <Route path="change-password" element={<ChangePassword />} />
-              <Route path="dashboard" element={<UserDashboard />} />
+              <Route path="my-courses" element={<UserDashboard />} />
             </Route>
             <Route index element={<Home />} />
             <Route path="/news" element={<News />} />
@@ -93,6 +100,7 @@ function App() {
             />
             <Route path="/news/:id" element={<NewsDetails />} />
             <Route path="/events/:id" element={<EventDetails />} />
+            <Route path="exams" element={<Exam />} />
           </Route>
         </Routes>
       </div>
@@ -147,6 +155,11 @@ function App() {
           <Route path="registrations" element={<ManagerRegistration />} />
           <Route path="registrations/:id/edit" element={<EditRegistration />} />
 
+          <Route path="exams" element={<ManagerExam />} />
+          <Route path="exams/create" element={<CreateExam />} />
+          <Route path="exams/:id/edit" element={<EditExam />} />
+
+          <Route path="exams/registrations" element={<ManagerExamRegister />} />
           <Route
             path="notifications/types"
             element={<ManagerNotificationType />}

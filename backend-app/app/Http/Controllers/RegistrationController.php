@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExamRegister;
 use App\Models\Registration;
 use App\Services\RegistrationService;
 use Illuminate\Http\Request;
@@ -61,19 +62,30 @@ class RegistrationController extends Controller
         $vnp_ReponseCode = $request->get('vnp_ResponseCode'); //Mã tham chiếu của giao dịch 00==>thanh cong
         $vnp_TxnRef = $request->get('vnp_TxnRef'); //Mã đơn hàng
         $vnp_Amount = $request->get('vnp_Amount'); //Số tiền thanh toán
+        $vnp_OrderInfo = $request->get('vnp_OrderInfo');
         // Kiểm tra data xem kết quả giao dịch có hợp lệ không
         if ($vnp_ReponseCode != null) {
             if ($vnp_ReponseCode == 00) {
-                //Cập nhật trạng thái đơn hàng
-                $registrationId = $vnp_TxnRef;
-                $registration = Registration::find($registrationId);
-                if ($registration) {
-                    $registration->update(['status' => "success"]);
+                list($orderType, $registrationId) = explode('_', $vnp_TxnRef);
+                if ($orderType == "course") {
+                    //Cập nhật trạng thái đơn hàng
+                    $registration = Registration::find($registrationId);
+                    if ($registration) {
+                        $registration->update(['status' => "success"]);
+                    }
+                    $url = "http://localhost:3000/user/my-courses";
+                    return redirect($url);
+                } else if ($orderType == "exam") {
+                    $registration = ExamRegister::find($registrationId);
+                    if ($registration) {
+                        $registration->update(['status' => "success"]);
+                    }
+                    $url = "http://localhost:3000/user/my-exams";
+                    return redirect($url);
                 }
-                $url = "http://ngoaingutinhoc.tlu.edu.com/registrations/vnpay/success";
-                return $this->customResponse(200, true, $url, null, null);
             } else {
-                return redirect('/payment-fail');
+                $url = "http://localhost:3000/";
+                return redirect($url);
             }
         }
     }

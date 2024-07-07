@@ -32,7 +32,7 @@ export default function ManagerEvents() {
       if (success) {
         const newEvents = events.filter((item) => item.id !== id);
         setEvents(newEvents);
-        toast.succes("Xóa event thành công");
+        toast.success("Xóa event thành công");
       } else {
         toast.error("Xóa event thất bại");
       }
