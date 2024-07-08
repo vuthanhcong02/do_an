@@ -69,16 +69,17 @@ export default function Login() {
     // setIsLoading(false);
   };
 
-  const handleLoginWithGoogle = async (data) => {
+  const handleLoginWithGoogle = async (dataUser) => {
     const {
       success,
       data: user,
       access_token,
       expires_in,
-    } = await loginWithSocial(data);
+    } = await loginWithSocial(dataUser);
     if (success) {
       saveToken(access_token, expires_in);
       localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("social", JSON.stringify(true));
       // toast.success("Đăng nhập thành công");
       window.location.href = "/";
       // navigate("/");

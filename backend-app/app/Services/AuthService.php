@@ -84,7 +84,8 @@ class AuthService extends BaseService
             $user = $this->model->create([
                 'full_name' => $data['name'] ?? null,
                 'email' => $data['email'] ?? null,
-                'password' => bcrypt(Str::random(8)),
+                'password' => null,
+                'gender' => $data['gender'] ?? null,
                 'phone' => $data['phone'] ?? null,
                 'address' => $data['address'] ?? null,
                 'object_type' => $data['object_type'] ?? null,

@@ -49,6 +49,9 @@ export default function Header() {
       setIsLoggedIn(false);
       setUser({});
       localStorage.removeItem("token");
+      localStorage.removeItem("social");
+      localStorage.removeItem("user");
+      localStorage.removeItem("expiry_time");
       window.location.href = "/";
     }
   };
@@ -116,9 +119,11 @@ export default function Header() {
                   Xem lịch thi
                 </NavDropdown.Item>
 
-                <NavDropdown.Item as={NavLink} to="user/change-password">
-                  Đổi mật khẩu
-                </NavDropdown.Item>
+                {localStorage.getItem("social") != "true" && (
+                  <NavDropdown.Item as={NavLink} to="user/change-password">
+                    Đổi mật khẩu
+                  </NavDropdown.Item>
+                )}
 
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout}>
