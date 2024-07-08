@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "../News/News.scss";
 import NewsItem from "../../components/NewsItem/NewsItem";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getEvents, getEventsByFeatured } from "../../services/EventService";
 import NewList from "../../components/NewList/NewList";
 import EventList from "../../components/EventItem/EventList";
 import Paginate from "../../components/Paginate/Paginate";
+import { baseUrlImage } from "../../config";
 export default function Event() {
   const [events, setEvents] = useState([]);
   const [eventsFeatured, setEventsFeatured] = useState([]);
+
   const [pageCount, setPageCount] = useState(1);
   const navigate = useNavigate();
   useEffect(() => {
@@ -40,7 +42,7 @@ export default function Event() {
   };
   return (
     <div className="News-container row">
-      <div className="News-content col-md-9">
+      <div className="News-content col-md-8">
         <div className="News-content-title">
           <span>Sự kiện</span>
         </div>
@@ -60,13 +62,39 @@ export default function Event() {
           </div>
         </div>
       </div>
-      <div className="News-content-feature col-md-3">
+      <div className="News-content-feature col-md-4">
         <div className="News-content-feature-title">
-          <span>Nổi bật</span>
+          <span>Sự kiện khác</span>
         </div>
         <div className="News-content-feature-item">
-          {eventsFeatured.map((news, idx) => (
-            <NewsItem key={idx} news={news} />
+          {eventsFeatured.map((item, idx) => (
+            // <EventList key={idx} event={events} />
+            <NavLink
+              to={`/events/${item?.id}`}
+              style={{ textDecoration: "none" }}
+              className="CourseDetails-more-item row p-2"
+              key={item?.id}
+            >
+              <div className="CourseDetails-more-item-image col-4">
+                <img
+                  src={`${baseUrlImage}${item?.image}`}
+                  alt=""
+                  height={90}
+                  width={120}
+                />
+              </div>
+              <div className="CourseDetails-more-item-content col-8">
+                <span
+                  className="CourseDetails-more-item-title text-black"
+                  style={{
+                    fontSize: "13px",
+                    hover: { textDecoration: "underline" },
+                  }}
+                >
+                  {item?.name}
+                </span>
+              </div>
+            </NavLink>
           ))}
           {/* <NewsItem /> */}
         </div>

@@ -70,6 +70,7 @@ import CreateExam from "./pages/Admin/Exam/CreateExam.js";
 import EditExam from "./pages/Admin/Exam/EditExam.js";
 import Exam from "./pages/Exam/Exam.js";
 import MyExam from "./pages/MyExam/MyExam.js";
+import SearchResult from "./pages/SearchResult/SearchResult.js";
 
 function App() {
   return (
@@ -101,6 +102,7 @@ function App() {
             <Route path="/news/:id" element={<NewsDetails />} />
             <Route path="/events/:id" element={<EventDetails />} />
             <Route path="exams" element={<Exam />} />
+            <Route path="/search" element={<SearchResult />} />
           </Route>
         </Routes>
       </div>

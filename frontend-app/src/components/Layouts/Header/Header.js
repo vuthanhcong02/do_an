@@ -13,10 +13,12 @@ import {
   faYoutube,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { userInfo, logout } from "../../../services/AuthService";
 export default function Header() {
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [user, setUser] = useState({});
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -49,6 +51,15 @@ export default function Header() {
       localStorage.removeItem("token");
       window.location.href = "/";
     }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!searchQuery) {
+      return;
+    }
+    // window.location.href = `/search?query=${searchQuery}`;
+    navigate(`/search?query=${searchQuery}`);
   };
 
   return (
@@ -201,11 +212,15 @@ export default function Header() {
                       Liên hệ
                     </NavLink>
                   </Nav>
-                  <Form className="d-flex App-header-search-input">
+                  <Form
+                    className="d-flex App-header-search-input"
+                    onSubmit={handleSearch}
+                  >
                     <input
                       type="search"
                       placeholder="Tìm kiếm"
                       aria-label="Search"
+                      onChange={(e) => setSearchQuery(e.target.value)}
                     />
                     <button>Tìm kiếm</button>
                   </Form>

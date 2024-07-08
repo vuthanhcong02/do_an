@@ -179,7 +179,9 @@ Route::group(['prefix' => '/notification-types'], function () {
     Route::delete('/{id}', [\App\Http\Controllers\NotificationTypeController::class, 'destroy']);
 });
 
-
+Route::group(['prefix' => '/search'], function () {
+    Route::get('/', [\App\Http\Controllers\SearchController::class, 'search']);
+});
 
 Route::fallback(function () {
     return response()->json([

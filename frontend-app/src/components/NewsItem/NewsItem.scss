@@ -1,14 +1,13 @@
 .NewItems-container {
     display: flex;
-    align-items: center; 
+    align-items: start; 
     justify-content: start;
     border-bottom: 1px solid #d9d9d9;
     padding: 15px 0px;
 
-    .NewItems-dot {
-        width: 8px;
-        background-color: #273272;
-        margin-right: 10px; 
+    .NewItems-image
+    {
+        margin-right: 10px;
     }
 
     .NewItems-title {

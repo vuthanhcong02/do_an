@@ -2,7 +2,7 @@ import React from "react";
 import "./Login.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { login, loginWithSocial } from "../../services/AuthService";
+import { login, loginWithSocial, saveToken } from "../../services/AuthService";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
 import { GoogleLogin } from "@react-oauth/google";
@@ -44,10 +44,15 @@ export default function Login() {
       return;
     }
 
-    const { success, data: user, access_token } = await login(UserData);
+    const {
+      success,
+      data: user,
+      access_token,
+      expires_in,
+    } = await login(UserData);
     if (success) {
+      saveToken(access_token, expires_in);
       localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("token", access_token);
 
       window.location.href = "/";
     } else {
@@ -65,10 +70,15 @@ export default function Login() {
   };
 
   const handleLoginWithGoogle = async (data) => {
-    const { success, data: user, access_token } = await loginWithSocial(data);
+    const {
+      success,
+      data: user,
+      access_token,
+      expires_in,
+    } = await loginWithSocial(data);
     if (success) {
+      saveToken(access_token, expires_in);
       localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("token", access_token);
       // toast.success("Đăng nhập thành công");
       window.location.href = "/";
       // navigate("/");

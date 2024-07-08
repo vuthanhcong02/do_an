@@ -106,7 +106,7 @@ export default function Home() {
         </div>
         <div className="Home-content">
           <div className="Home-content-courses-and-news">
-            <div className="Home-content-courses col-9">
+            <div className="Home-content-courses col-8">
               <div className="Home-content-courses-title">
                 <span>Tuyển sinh khóa học</span>
               </div>
@@ -121,7 +121,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="Home-content-news col-3">
+            <div className="Home-content-news col-4">
               <div className="Home-content-news-title">
                 <span>Tin nổi bật</span>
               </div>

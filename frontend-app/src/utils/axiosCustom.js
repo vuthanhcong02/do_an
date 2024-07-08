@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { getToken } from "../services/AuthService";
 const httpClient = axios.create({
   baseURL: process.env.API_URL || "http://api.ngoaingutinhoc.tech.com/api/",
   headers: {
@@ -13,7 +13,7 @@ const httpClient = axios.create({
 
 httpClient.interceptors.request.use(
   function (config) {
-    const token = localStorage.getItem("token");
+    const token = getToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

@@ -42,7 +42,7 @@ export default function News() {
   };
   return (
     <div className="News-container row">
-      <div className="News-content col-md-9">
+      <div className="News-content col-md-8">
         <div className="News-content-title">
           <span>Tin tức</span>
         </div>
@@ -61,7 +61,7 @@ export default function News() {
           </div>
         </div>
       </div>
-      <div className="News-content-feature col-md-3">
+      <div className="News-content-feature col-md-4">
         <div className="News-content-feature-title">
           <span>Nổi bật</span>
         </div>
