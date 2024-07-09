@@ -87,7 +87,7 @@ Route::group(['prefix' => '/courses'], function () {
     Route::get('/get-course-by-information-category', [\App\Http\Controllers\CourseController::class, 'getCourseByInformationCategory']);
     Route::get('/', [\App\Http\Controllers\CourseController::class, 'index']);
     Route::get('/order-by-id', [\App\Http\Controllers\CourseController::class, 'getCourseOrderById']);
-    Route::get('/{id}', [\App\Http\Controllers\CourseController::class, 'show']);
+    Route::get('/{id}', [\App\Http\Controllers\CourseController::class, 'show'])->name('courses.show');
     Route::post('/', [\App\Http\Controllers\CourseController::class, 'createCourse']);
     Route::put('/{id}', [\App\Http\Controllers\CourseController::class, 'update']);
     Route::delete('/{id}', [\App\Http\Controllers\CourseController::class, 'destroy']);
