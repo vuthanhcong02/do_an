@@ -162,7 +162,7 @@ export default function ManagerCourse() {
                             Details
                           </NavLink> */}
                           <NavLink
-                            to={`${course?.id}/edit`}
+                            to={`${course?.slug}/edit`}
                             data-toggle="tooltip"
                             title="Edit"
                             data-placement="bottom"

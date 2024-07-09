@@ -43,7 +43,7 @@ export default function ItemCourseRegister({
             </div>
             <div className="d-flex row mt-3">
               <span className="col-4">Học phí (tạm tính): </span>
-              <span className="col-6"> {schedule?.course?.price}</span>
+              <span className="col-6"> {schedule?.course?.price} VND</span>
             </div>
             <div className="d-flex row mt-3">
               <span className="col-4">Lịch học: </span>
@@ -59,7 +59,7 @@ export default function ItemCourseRegister({
 
             <div className="d-flex row mt-3">
               <span className="col-4">Tổng học phí (tạm tính): </span>
-              <span className="col-6"> {schedule?.course?.price}</span>
+              <span className="col-6"> {schedule?.course?.price} VND</span>
             </div>
 
             <div className="d-flex row mt-3">

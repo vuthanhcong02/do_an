@@ -11,7 +11,10 @@ export default function NewList({ news }) {
       </div>
       <div className="EventItem-content">
         <div className="EventItem-title d-flex flex-column">
-          <NavLink to={`/news/${news?.id}`} style={{ textDecoration: "none" }}>
+          <NavLink
+            to={`/news/${news?.slug}`}
+            style={{ textDecoration: "none" }}
+          >
             <span>{news?.title}</span>
             <span className="EventItem-date">
               {" "}

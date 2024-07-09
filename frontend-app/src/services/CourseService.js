@@ -8,8 +8,8 @@ export const getCourseOrderById = () => {
   return httpClient.get("/courses/order-by-id");
 };
 
-export const getCourseById = (id) => {
-  return httpClient.get(`/courses/${id}`);
+export const getCourseBySlug = (slug) => {
+  return httpClient.get(`/courses/${slug}`);
 };
 export const getCourseByFeatured = () => {
   return httpClient.get("/courses/featured");

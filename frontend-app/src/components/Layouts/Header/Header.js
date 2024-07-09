@@ -119,7 +119,7 @@ export default function Header() {
                   Xem lịch thi
                 </NavDropdown.Item>
 
-                {localStorage.getItem("social") != "true" && (
+                {localStorage.getItem("social") !== "true" && (
                   <NavDropdown.Item as={NavLink} to="user/change-password">
                     Đổi mật khẩu
                   </NavDropdown.Item>

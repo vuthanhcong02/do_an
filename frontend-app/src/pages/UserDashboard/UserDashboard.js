@@ -66,7 +66,7 @@ export default function UserDashboard() {
               </Card.Title>
               <Card.Text></Card.Text>
               <Card.Text>
-                Học phí (tạm tính): {course?.schedule?.course?.price}
+                Học phí (tạm tính): {course?.schedule?.course?.price} VND
               </Card.Text>
               <Card.Text>
                 Lịch học: Thứ {course?.schedule?.day_of_week}(

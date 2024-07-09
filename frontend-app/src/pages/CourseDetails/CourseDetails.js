@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useParams } from "react-router-dom";
 import "./CourseDetails.scss";
 import {
-  getCourseById,
+  getCourseBySlug,
   getCourseByFeatured,
   getCourses,
 } from "../../services/CourseService";
@@ -10,7 +10,7 @@ import { getSchedulesByCourseId } from "../../services/ScheduleService";
 import { baseUrl, baseUrlImage } from "../../config";
 import TableSchedule from "../../components/TableSchedule/TableSchedule";
 export default function CourseDetails() {
-  const { id } = useParams();
+  const { slug } = useParams();
   // const [courses, setCourses] = useState([]);
   const [courseOther, setCourseOther] = useState([]);
   const [courseDetails, setCourseDetails] = useState({});
@@ -20,10 +20,10 @@ export default function CourseDetails() {
   useEffect(() => {
     fetchCourseDetails();
     fetchCourses();
-  }, [id]);
+  }, [slug]);
 
   const fetchCourseDetails = async () => {
-    const { success, data } = await getCourseById(id);
+    const { success, data } = await getCourseBySlug(slug);
     if (success) {
       setCourseDetails(data);
     }
@@ -34,17 +34,17 @@ export default function CourseDetails() {
   const fetchCourses = async () => {
     const { success, data } = await getCourses();
     if (success) {
-      const dataOther = data.data.filter((item) => item.id !== parseInt(id));
+      const dataOther = data.data.filter((item) => item.slug !== slug);
       setCourseOther(dataOther);
     }
   };
 
   useEffect(() => {
     fetchSchedules();
-  }, [id]);
+  }, [courseDetails.id]);
 
   const fetchSchedules = async () => {
-    const { success, data } = await getSchedulesByCourseId(id);
+    const { success, data } = await getSchedulesByCourseId(courseDetails.id);
     if (success) {
       setSchedules(data);
     }
@@ -91,7 +91,7 @@ export default function CourseDetails() {
         </div>
         {courseOther.map((course, index) => (
           <NavLink
-            to={`/courses/${course?.id}`}
+            to={`/courses/${course?.slug}`}
             style={{ textDecoration: "none" }}
             className="CourseDetails-more-item row"
             key={course?.id}

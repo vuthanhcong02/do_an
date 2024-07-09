@@ -143,7 +143,7 @@ export default function ManagerNews() {
                       </td>
                       <td className="text-center">
                         <NavLink
-                          to={`${item.id}/edit`}
+                          to={`${item.slug}/edit`}
                           data-toggle="tooltip"
                           title="Edit"
                           data-placement="bottom"

@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { createRegistration } from "../../services/RegistrationService";
 import { userInfo } from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ItemUserRegister({
   handleContinue,
@@ -16,7 +17,6 @@ export default function ItemUserRegister({
   const [user, setUser] = useState({});
   const [show, setShow] = useState(false);
   const [dataToSubmit, setDataToSubmit] = useState(null);
-
   const {
     register,
     handleSubmit,
@@ -50,7 +50,6 @@ export default function ItemUserRegister({
   };
   const onSubmit = (data) => {
     const schedule_id = schedule?.id;
-    const total_price = 1000000; ///
     // console.log("total_price: ", total_price);
     const dataCreate = {
       full_name: data.full_name,
@@ -62,8 +61,9 @@ export default function ItemUserRegister({
       object_type: data.object_type,
       payment_type: data.payment_type,
       schedule_id: schedule_id,
-      total_price: total_price,
+      total_price: schedule?.course?.price,
     };
+    console.log("dataCreate: ", dataCreate);
     // console.log(dataCreate);
     setDataToSubmit(dataCreate);
     handleSetUser(dataCreate);
@@ -84,6 +84,8 @@ export default function ItemUserRegister({
         } else {
           window.location.href = data;
         }
+      } else {
+        toast.error("Đăng kí khóa học thất bại");
       }
       setShow(false);
     }
@@ -182,7 +184,7 @@ export default function ItemUserRegister({
                   <Col sm={8}>
                     Học phí:{" "}
                     <span className="text-danger fw-bold">
-                      {schedule?.course?.price}
+                      {schedule?.course?.price} VND
                     </span>
                   </Col>
                 </Form.Group>
@@ -260,7 +262,7 @@ export default function ItemUserRegister({
                       {...register("gender", { required: true })}
                     >
                       <option value="" disabled selected>
-                        Select your gender
+                        Chọn giới tính
                       </option>
                       <option value={1}>Nam</option>
                       <option value={0}>Nữ</option>

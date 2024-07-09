@@ -94,12 +94,12 @@ function App() {
             <Route path="/notifications/:id" element={<NotificationDetail />} />
             <Route path="/english-courses" element={<EnglishCourse />} />
             <Route path="/information-courses" element={<ITCourse />} />
-            <Route path="/courses/:id" element={<CourseDetails />} />
+            <Route path="/courses/:slug" element={<CourseDetails />} />
             <Route
-              path="/courses/:course_id/schedule/:schedule_id/register"
+              path="/courses/:slug/schedule/:schedule_id/register"
               element={<CourseRegister />}
             />
-            <Route path="/news/:id" element={<NewsDetails />} />
+            <Route path="/news/:slug" element={<NewsDetails />} />
             <Route path="/events/:id" element={<EventDetails />} />
             <Route path="exams" element={<Exam />} />
             <Route path="/search" element={<SearchResult />} />
@@ -118,7 +118,7 @@ function App() {
 
           <Route path="news" element={<ManagerNews />} />
           <Route path="news/create" element={<CreateNews />} />
-          <Route path="news/:id/edit" element={<EditNews />} />
+          <Route path="news/:slug/edit" element={<EditNews />} />
 
           <Route path="categories" element={<ManagerCategory />} />
           <Route path="categories/create" element={<CreateCategory />} />
@@ -126,7 +126,7 @@ function App() {
 
           <Route path="courses" element={<ManagerCourse />} />
           <Route path="courses/create" element={<CreateCourse />} />
-          <Route path="courses/:id/edit" element={<EditCourse />} />
+          <Route path="courses/:slug/edit" element={<EditCourse />} />
 
           <Route path="events" element={<ManagerEvents />} />
           <Route path="events/create" element={<CreateEvent />} />

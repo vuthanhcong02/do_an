@@ -53,12 +53,10 @@ export default function CreateCourse() {
     formData.append("image", selectedImage);
     formData.append("name", data.name);
     formData.append("description", description);
-    formData.append("slug", data.slug);
     formData.append("min_student", data.min_student);
     formData.append("max_student", data.max_student);
     formData.append("duration", data.duration);
     formData.append("category_id", data.category_id);
-    formData.append("teacher_id", data.teacher_id);
     formData.append("start_date", data.start_date);
     formData.append("end_date", data.end_date);
     formData.append("price", data.price);
@@ -113,7 +111,7 @@ export default function CreateCourse() {
                     htmlFor="image"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Image
+                    Hình ảnh
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <img
@@ -251,7 +249,7 @@ export default function CreateCourse() {
                     htmlFor="index"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Subject
+                    Category
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <select
@@ -267,32 +265,12 @@ export default function CreateCourse() {
                     </select>
                   </div>
                 </div>
-
-                <div className="position-relative row form-group">
-                  <label
-                    htmlFor="index"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Giáo viên phụ trách
-                  </label>
-                  <div className="col-md-9 col-xl-8">
-                    <select {...register("teacher_id")} className="form-select">
-                      <option value="">Select Teacher</option>
-                      {teachers.map((teacher) => (
-                        <option key={teacher.id} value={teacher.id}>
-                          {teacher.full_name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
                 <div className="position-relative row form-group d-flex align-items-center">
                   <label
                     htmlFor="status"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Duration
+                    Thời gian diễn ra
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -324,7 +302,7 @@ export default function CreateCourse() {
                     htmlFor="status"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Discount
+                    Giảm giá
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -340,23 +318,7 @@ export default function CreateCourse() {
                     htmlFor="status"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Slug
-                  </label>
-                  <div className="col-md-9 col-xl-8">
-                    <input
-                      {...register("slug")}
-                      type="text"
-                      className="form-control"
-                    />
-                  </div>
-                </div>
-
-                <div className="position-relative row form-group d-flex align-items-center">
-                  <label
-                    htmlFor="status"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Status
+                    Trạng thái
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -373,7 +335,7 @@ export default function CreateCourse() {
                     htmlFor="status"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Featured
+                    Nổi bật
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input

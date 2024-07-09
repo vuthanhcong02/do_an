@@ -55,9 +55,9 @@ class CourseController extends Controller
         return $this->customResponse(201, true, $course);
     }
 
-    public function show($id)
+    public function show(string $slug)
     {
-        $course = $this->courseService->find($id);
+        $course = $this->courseService->showDetail($slug);
         if (!$course) {
             return $this->customResponse(404, false, null, 'Course not found', null);
         }

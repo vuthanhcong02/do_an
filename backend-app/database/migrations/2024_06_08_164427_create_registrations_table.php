@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('schedule_id')->constrained('schedules')->onDelete('cascade');
+            $table->bigInteger('total_price');
             $table->string('payment_type');
             $table->string('status')->default('pending');
             $table->softDeletes();

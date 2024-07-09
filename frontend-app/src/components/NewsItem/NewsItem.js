@@ -16,7 +16,7 @@ export default function NewsItem({ news }) {
       </div>
       <div className="NewItems-title">
         <NavLink
-          to={`/news/${news?.id}`}
+          to={`/news/${news?.slug}`}
           style={{ color: "black" }}
           className="NewItems-title-text"
         >

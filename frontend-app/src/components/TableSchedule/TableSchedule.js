@@ -15,8 +15,8 @@ export default function TableSchedule({ course, schedules }) {
         </div>
         <div className="TableSchedule-content-description p-2">
           <span className="fw-bold">Học phí:</span>
-          <span> {course?.price}</span>
-          <ul className="mt-2">
+          <span> {course?.price} VND</span>
+          {/* <ul className="mt-2">
             <li>
               <span className="text-red">
                 <b>Ưu đãi hiện hành:</b>
@@ -89,7 +89,7 @@ export default function TableSchedule({ course, schedules }) {
               </a>
               (Phân tích nâng cao với Power BI và SQL)
             </li>
-          </ul>
+          </ul> */}
         </div>
       </div>
       <Table bordered>
@@ -115,7 +115,7 @@ export default function TableSchedule({ course, schedules }) {
                 <NavLink
                   to={
                     token
-                      ? `/courses/${course?.id}/schedule/${item?.id}/register`
+                      ? `/courses/${course?.slug}/schedule/${item?.id}/register`
                       : "/login"
                   }
                 >

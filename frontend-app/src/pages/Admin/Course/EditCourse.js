@@ -3,7 +3,7 @@ import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { createBanner } from "../../../services/BannerService";
 import { getCategories } from "../../../services/CategoryService";
 import { getTeachers } from "../../../services/TeacherService";
-import { getCourseById } from "../../../services/CourseService";
+import { getCourseBySlug } from "../../../services/CourseService";
 import httpClient from "../../../utils/axiosCustom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -12,7 +12,7 @@ import { baseUrl, baseUrlImage } from "../../../config";
 import { toast } from "react-toastify";
 
 export default function EditCourse() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -55,10 +55,10 @@ export default function EditCourse() {
 
   useEffect(() => {
     fetchCourse();
-  }, [id]);
+  }, [slug]);
 
   const fetchCourse = async () => {
-    const { success, data } = await getCourseById(id);
+    const { success, data } = await getCourseBySlug(slug);
     if (success) {
       setCourse(data);
     }
@@ -66,6 +66,7 @@ export default function EditCourse() {
 
   useEffect(() => {
     if (course) {
+      setValue("id", course.id);
       setValue("image", course.image);
       setValue("name", course.name);
       setValue("slug", course.slug);
@@ -114,7 +115,7 @@ export default function EditCourse() {
 
     try {
       const response = await axios.post(
-        "http://api.ngoaingutinhoc.tech.com/api/courses/" + id,
+        "http://api.ngoaingutinhoc.tech.com/api/courses/" + data.id,
         formData,
         {
           headers: {
@@ -156,6 +157,7 @@ export default function EditCourse() {
                 onSubmit={handleSubmit(onSubmit)}
                 encType="multipart/form-data"
               >
+                <input type="hidden" name="id" {...register("id")} />
                 <div className="position-relative row form-group">
                   <label
                     htmlFor="image"

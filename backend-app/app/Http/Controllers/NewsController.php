@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 use App\Services\NewsService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class NewsController extends Controller
@@ -41,7 +42,6 @@ class NewsController extends Controller
             $data['image'] = $path;
         }
 
-
         $new = $this->newsService->create($data);
         if (!$new) {
             return $this->customResponse(400, false, null, 'News not created', null);
@@ -50,9 +50,9 @@ class NewsController extends Controller
         return $this->customResponse(200, true, $new);
     }
 
-    public function show($id)
+    public function show(string $slug)
     {
-        $news = $this->newsService->find($id);
+        $news = $this->newsService->showDetail($slug);
         if (!$news) {
             return $this->customResponse(404, false, null, 'News not found', null);
         }
@@ -60,6 +60,14 @@ class NewsController extends Controller
         return $this->customResponse(200, true, $news);
     }
 
+    public function showEdit($id)
+    {
+        $news = $this->newsService->find($id);
+        if (!$news) {
+            return $this->customResponse(404, false, null, 'News not found', null);
+        }
+        return $this->customResponse(200, true, $news);
+    }
     public function update(Request $request, $id)
     {
         $data = $request->all();

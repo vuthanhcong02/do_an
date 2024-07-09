@@ -22,4 +22,9 @@ class NewsService extends BaseService
     {
         return $this->model->orderBy('id', 'desc')->limit(5)->get();
     }
+
+    public function showDetail($slug)
+    {
+        return $this->model->where('slug', $slug)->first();
+    }
 }

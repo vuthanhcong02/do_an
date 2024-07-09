@@ -11,10 +11,10 @@ import { faIdCard } from "@fortawesome/free-regular-svg-icons";
 import ItemCourseRegister from "./ItemCourseRegister";
 import ItemUserRegister from "./ItemUserRegister";
 import ItemPaymentRegister from "./ItemPaymentRegister";
-import { getCourseById } from "../../services/CourseService";
+import { getCourseBySlug } from "../../services/CourseService";
 import { getScheduleById } from "../../services/ScheduleService";
 export default function CourseRegister() {
-  const { course_id, schedule_id } = useParams();
+  const { slug, schedule_id } = useParams();
   const [course, setCourse] = useState({});
   const [schedule, setSchedule] = useState({});
   const [activeTab, setActiveTab] = useState("course_information");
@@ -25,15 +25,16 @@ export default function CourseRegister() {
   });
   const [user, setUser] = useState({});
 
+  console.log("course: ", course);
   const handleSetUser = (data) => {
     setUser(data);
   };
   useEffect(() => {
-    fetchCourse(course_id, schedule_id);
+    fetchCourse(slug, schedule_id);
     fetchSchedule();
-  }, [course_id, schedule_id]);
+  }, [slug, schedule_id]);
   const fetchCourse = async () => {
-    const { success, data } = await getCourseById(course_id);
+    const { success, data } = await getCourseBySlug(slug);
     if (success) {
       console.log(data);
       setCourse(data);

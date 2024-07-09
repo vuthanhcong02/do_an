@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import CourseItem from "../../components/CourseItem/CourseItem";
 import { Link, NavLink, useParams } from "react-router-dom";
 import {
-  getNewsById,
+  getNewsBySlug,
   getNewByFeatured,
   getNews,
 } from "../../services/NewsService";
 import { baseUrl, baseUrlImage } from "../../config";
 import "./NewsDetails.scss";
 export default function NewsDetails() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [newsDetails, setNewsDetails] = useState({});
   const [newsOther, setNewsOther] = useState([]);
   //   console.log(course);
@@ -17,10 +17,10 @@ export default function NewsDetails() {
   useEffect(() => {
     fetchNewsDetails();
     fetchNews();
-  }, [id]);
+  }, [slug]);
 
   const fetchNewsDetails = async () => {
-    const { success, data } = await getNewsById(id);
+    const { success, data } = await getNewsBySlug(slug);
     if (success) {
       setNewsDetails(data);
     }
@@ -29,7 +29,7 @@ export default function NewsDetails() {
   const fetchNews = async () => {
     const { success, data } = await getNews();
     if (success) {
-      const dataOther = data.data.filter((item) => item.id !== parseInt(id));
+      const dataOther = data.data.filter((item) => item.slug !== slug);
       setNewsOther(dataOther);
     }
   };
@@ -70,7 +70,7 @@ export default function NewsDetails() {
         </div>
         {newsOther.map((item, index) => (
           <NavLink
-            to={`/news/${item?.id}`}
+            to={`/news/${item?.slug}`}
             style={{ textDecoration: "none" }}
             className="CourseDetails-more-item row"
             key={item?.id}

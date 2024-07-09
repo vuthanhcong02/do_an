@@ -38,11 +38,16 @@ class CourseService extends BaseService
 
     public function getCoursesByEnglishCategory()
     {
-        return  $this->model->where('category_id', 2)->orderBy('id', 'desc')->paginate(10);
+        return  $this->model->where('category_id', 1)->orderBy('id', 'desc')->paginate(10);
     }
 
     public function getCoursesByInformationCategory()
     {
-        return  $this->model->where('category_id', 1)->orderBy('id', 'desc')->paginate(10);
+        return  $this->model->where('category_id', 2)->orderBy('id', 'desc')->paginate(10);
+    }
+
+    public function showDetail($slug)
+    {
+        return $this->model->where('slug', $slug)->first();
     }
 }

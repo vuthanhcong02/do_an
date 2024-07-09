@@ -29,7 +29,6 @@ export default function CreateNews() {
     formData.append("image", selectedImage);
     formData.append("title", data.title);
     formData.append("description", data.description);
-    formData.append("slug", data.slug);
     formData.append("content", content);
     formData.append("featured", data.featured ? 1 : 0);
 
@@ -140,23 +139,6 @@ export default function CreateNews() {
                       type="text"
                       className="form-control"
                       {...register("description")}
-                    />
-                  </div>
-                </div>
-
-                <div className="position-relative row form-group">
-                  <label
-                    htmlFor="title"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Slug
-                  </label>
-                  <div className="col-md-9 col-xl-8">
-                    <input
-                      placeholder="Slug"
-                      type="text"
-                      className="form-control"
-                      {...register("slug")}
                     />
                   </div>
                 </div>

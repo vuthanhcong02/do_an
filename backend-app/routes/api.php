@@ -61,10 +61,14 @@ Route::group(['prefix' => '/categories'], function () {
 });
 
 Route::group(['prefix' => '/news'], function () {
+    Route::get(
+        '/{slug}',
+        [\App\Http\Controllers\NewsController::class, 'show']
+    );
+    Route::get('/{id}', [\App\Http\Controllers\NewsController::class, 'showEdit']);
     Route::get('/featured', [\App\Http\Controllers\NewsController::class, 'getNewsByFeatured']);
     Route::get('/order-by-id', [\App\Http\Controllers\NewsController::class, 'getNewsOrderById']);
     Route::get('/', [\App\Http\Controllers\NewsController::class, 'index']);
-    Route::get('/{id}', [\App\Http\Controllers\NewsController::class, 'show']);
 
     Route::post('/', [\App\Http\Controllers\NewsController::class, 'create']);
     Route::put('/{id}', [\App\Http\Controllers\NewsController::class, 'update']);
@@ -87,7 +91,7 @@ Route::group(['prefix' => '/courses'], function () {
     Route::get('/get-course-by-information-category', [\App\Http\Controllers\CourseController::class, 'getCourseByInformationCategory']);
     Route::get('/', [\App\Http\Controllers\CourseController::class, 'index']);
     Route::get('/order-by-id', [\App\Http\Controllers\CourseController::class, 'getCourseOrderById']);
-    Route::get('/{id}', [\App\Http\Controllers\CourseController::class, 'show'])->name('courses.show');
+    Route::get('/{slug}', [\App\Http\Controllers\CourseController::class, 'show'])->name('courses.show');
     Route::post('/', [\App\Http\Controllers\CourseController::class, 'createCourse']);
     Route::put('/{id}', [\App\Http\Controllers\CourseController::class, 'update']);
     Route::delete('/{id}', [\App\Http\Controllers\CourseController::class, 'destroy']);

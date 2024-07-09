@@ -56,20 +56,21 @@ export default function UserLayout() {
                   Lịch thi của bạn
                 </Nav.Link>
               </Nav.Item>
-
-              <Nav.Item>
-                <Nav.Link
-                  as={NavLink}
-                  to="change-password"
-                  className={
-                    location.pathname === "/user/change-password"
-                      ? "active-link-custom mt-2"
-                      : "nav-link-custom mt-2"
-                  }
-                >
-                  Đổi mật khẩu
-                </Nav.Link>
-              </Nav.Item>
+              {localStorage.getItem("social") !== "true" && (
+                <Nav.Item>
+                  <Nav.Link
+                    as={NavLink}
+                    to="change-password"
+                    className={
+                      location.pathname === "/user/change-password"
+                        ? "active-link-custom mt-2"
+                        : "nav-link-custom mt-2"
+                    }
+                  >
+                    Đổi mật khẩu
+                  </Nav.Link>
+                </Nav.Item>
+              )}
             </Nav>
           </Col>
           <Col

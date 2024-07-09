@@ -16,10 +16,13 @@ export const createNews = (data) => {
   return httpClient.post("/news", data);
 };
 
+export const getNewsBySlug = (slug) => {
+  return httpClient.get(`/news/${slug}`);
+};
+
 export const getNewsById = (id) => {
   return httpClient.get(`/news/${id}`);
 };
-
 export const deleteNews = (id) => {
   return httpClient.delete(`/news/${id}`);
 };

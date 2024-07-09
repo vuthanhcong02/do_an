@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import ReactQuill from "react-quill";
-import { getNewsById } from "../../../services/NewsService";
+import { getNewsBySlug } from "../../../services/NewsService";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { baseUrl, baseUrlImage } from "../../../config";
@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 export default function EditNews() {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { slug } = useParams();
   const [news, setNews] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -32,7 +32,7 @@ export default function EditNews() {
     fetchNews();
   }, []);
   const fetchNews = async () => {
-    const { success, data } = await getNewsById(id);
+    const { success, data } = await getNewsBySlug(slug);
     if (success) {
       console.log(data);
       setNews(data);
@@ -40,6 +40,7 @@ export default function EditNews() {
   };
   useEffect(() => {
     if (news) {
+      setValue("id", news.id);
       setValue("image", news.image);
       setValue("title", news.title);
       setValue("description", news.description);
@@ -59,7 +60,9 @@ export default function EditNews() {
 
   const onSubmit = async (data) => {
     const formData = new FormData();
+    console.log("id", data.id);
     formData.append("_method", "PUT");
+    formData.append("id", data.id);
     if (selectedImage) {
       formData.append("image", selectedImage);
     }
@@ -72,8 +75,7 @@ export default function EditNews() {
     // console.log(data, content);
     try {
       const response = await axios.post(
-        "http://api.ngoaingutinhoc.tech.com/api/news/" + id,
-
+        "http://api.ngoaingutinhoc.tech.com/api/news/" + data.id,
         formData,
         {
           headers: {
@@ -116,6 +118,7 @@ export default function EditNews() {
                 onSubmit={handleSubmit(onSubmit)}
                 encType="multipart/form-data"
               >
+                <input type="hidden" name="id" {...register("id")} />
                 <div className="position-relative row form-group">
                   <label
                     htmlFor="image"
