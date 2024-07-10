@@ -24,9 +24,9 @@ class NotificationController extends Controller
         return $this->customResponse(200, true, $notifications, null, null);
     }
 
-    public function show(string $id)
+    public function show(string $slug)
     {
-        $banner = $this->notificationService->find($id);
+        $banner = $this->notificationService->getNotification($slug);
         if (!$banner) {
             return $this->customResponse(404, false, null, 'Notification not found', null);
         }

@@ -91,7 +91,10 @@ function App() {
             <Route path="/events" element={<Event />} />
             <Route path="/contacts" element={<Contact />} />
             <Route path="/notifications" element={<Notification />} />
-            <Route path="/notifications/:id" element={<NotificationDetail />} />
+            <Route
+              path="/notifications/:slug"
+              element={<NotificationDetail />}
+            />
             <Route path="/english-courses" element={<EnglishCourse />} />
             <Route path="/information-courses" element={<ITCourse />} />
             <Route path="/courses/:slug" element={<CourseDetails />} />
@@ -177,7 +180,10 @@ function App() {
 
           <Route path="notifications" element={<ManagerNotification />} />
           <Route path="notifications/create" element={<CreateNotification />} />
-          <Route path="notifications/:id/edit" element={<EditNotification />} />
+          <Route
+            path="notifications/:slug/edit"
+            element={<EditNotification />}
+          />
         </Route>
       </Routes>
       <ToastContainer />

@@ -170,7 +170,7 @@ Route::group(['prefix' => '/exam-registers'], function () {
 Route::group(['prefix' => '/notifications'], function () {
     Route::get('/', [\App\Http\Controllers\NotificationController::class, 'index']);
     Route::post('/', [\App\Http\Controllers\NotificationController::class, 'create']);
-    Route::get('/{id}', [\App\Http\Controllers\NotificationController::class, 'show']);
+    Route::get('/{slug}', [\App\Http\Controllers\NotificationController::class, 'show']);
     Route::put('/{id}', [\App\Http\Controllers\NotificationController::class, 'update']);
     Route::delete('/{id}', [\App\Http\Controllers\NotificationController::class, 'destroy']);
 });

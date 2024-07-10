@@ -6,7 +6,7 @@ import {
   getNotifications,
 } from "../../services/NotificationService";
 export default function NotificationDetail() {
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const [notification, setNotification] = useState({});
   const [otherNotifications, setOtherNotifications] = useState([]);
@@ -14,9 +14,9 @@ export default function NotificationDetail() {
   useEffect(() => {
     fetchNotificationById();
     fetchAllNotifications();
-  }, [id]);
+  }, [slug]);
   const fetchNotificationById = async () => {
-    const { success, data } = await getNotificationById(id);
+    const { success, data } = await getNotificationById(slug);
     if (success) {
       setNotification(data);
     }
@@ -26,7 +26,7 @@ export default function NotificationDetail() {
     const { success, data } = await getNotifications();
     if (success) {
       const filteredNotifications = data.data.filter(
-        (notif) => notif.id !== parseInt(id)
+        (notif) => notif.slug !== slug
       );
       setOtherNotifications(filteredNotifications);
     }
@@ -62,7 +62,7 @@ export default function NotificationDetail() {
           {otherNotifications.map((item, index) => {
             return (
               <NavLink
-                to={`/notifications/${item.id}`}
+                to={`/notifications/${item.slug}`}
                 key={index}
                 className="NotificationDetails-more-item-title"
               >

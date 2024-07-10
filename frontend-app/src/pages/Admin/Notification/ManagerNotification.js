@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import moment from "moment";
 
 export default function ManagerNotification() {
-  const { id } = useParams();
   const [notifications, setNotifications] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const navigate = useNavigate();
@@ -138,7 +137,7 @@ export default function ManagerNotification() {
 
                       <td className="text-center">
                         <NavLink
-                          to={`${item.id}/edit`}
+                          to={`${item.slug}/edit`}
                           data-toggle="tooltip"
                           title="Edit"
                           data-placement="bottom"

@@ -4,8 +4,8 @@ export const getNotifications = (page) => {
   return httpClient.get("/notifications?page=" + page);
 };
 
-export const getNotificationById = (id) => {
-  return httpClient.get(`/notifications/${id}`);
+export const getNotificationById = (slug) => {
+  return httpClient.get(`/notifications/${slug}`);
 };
 
 export const createNotification = (data) => {

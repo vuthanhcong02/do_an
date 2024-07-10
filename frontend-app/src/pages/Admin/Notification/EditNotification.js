@@ -9,7 +9,7 @@ import { getNotificationById } from "../../../services/NotificationService";
 import { toast } from "react-toastify";
 import axios from "axios";
 export default function EditNotification() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [notificationTypes, setNotificationTypes] = useState([]);
   const [notification, setNotification] = useState({});
   const [content, setContent] = useState("");
@@ -28,7 +28,7 @@ export default function EditNotification() {
   }, []);
 
   const fetchNotificationById = async () => {
-    const { success, data } = await getNotificationById(id);
+    const { success, data } = await getNotificationById(slug);
     if (success) {
       console.log(data);
       setNotification(data);
@@ -53,7 +53,7 @@ export default function EditNotification() {
     };
     try {
       const res = await axios.put(
-        `http://api.ngoaingutinhoc.tech.com/api/notifications/${id}`,
+        `http://api.ngoaingutinhoc.tech.com/api/notifications/${notification?.id}`,
         dataUpdate
       );
       // console.log("success", res);

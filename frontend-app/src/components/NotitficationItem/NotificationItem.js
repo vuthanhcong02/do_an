@@ -11,7 +11,7 @@ export default function NotificationItem({ notification }) {
       <div className="Notification-item-title">
         <div className="Notification-item-title-dot"></div>
         <NavLink
-          to={`/notifications/${notification?.id}`}
+          to={`/notifications/${notification?.slug}`}
           className="text-decoration-none"
         >
           <p className="Notification-item-title-text">{notification?.title}</p>

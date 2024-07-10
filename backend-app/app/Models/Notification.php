@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Notification extends Model
 {
     use HasFactory;
+    use Sluggable;
     use SoftDeletes;
 
     protected $fillable = ['user_id', 'notification_type_id', 'title', 'content', 'is_read'];
@@ -21,5 +23,14 @@ class Notification extends Model
     public function notificationType()
     {
         return $this->belongsTo(NotificationType::class);
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }
