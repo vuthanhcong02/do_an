@@ -131,7 +131,9 @@ export default function Exam() {
                     <td>{moment(item?.date).format("DD-MM-YYYY")}</td>
                     <td>{item?.classroom?.name}</td>
                     <td>{moment(item?.deadline_date).format("DD-MM-YYYY")}</td>
-                    <td>{item?.fee && formatPrice(item?.fee)}</td>
+                    <td>
+                      {item?.fee} <span>Lưu</span>
+                    </td>
                     <td className="text-center">
                       <NavLink
                       // to={token ? `/exams/${item?.id}/register` : "/login"}

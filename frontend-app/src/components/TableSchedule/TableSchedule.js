@@ -2,6 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import "./TableSchedule.scss";
 import { NavLink } from "react-router-dom";
+import { formatPrice } from "../../utils/function";
 export default function TableSchedule({ course, schedules }) {
   const token = localStorage.getItem("token");
   return (
@@ -15,7 +16,7 @@ export default function TableSchedule({ course, schedules }) {
         </div>
         <div className="TableSchedule-content-description p-2">
           <span className="fw-bold">Học phí:</span>
-          <span> {course?.price} VND</span>
+          <span> {course?.price && formatPrice(course?.price)}</span>
           {/* <ul className="mt-2">
             <li>
               <span className="text-red">

@@ -7,6 +7,7 @@ import { createRegistration } from "../../services/RegistrationService";
 import { userInfo } from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { formatPrice } from "../../utils/function";
 
 export default function ItemUserRegister({
   handleContinue,
@@ -184,7 +185,8 @@ export default function ItemUserRegister({
                   <Col sm={8}>
                     Học phí:{" "}
                     <span className="text-danger fw-bold">
-                      {schedule?.course?.price} VND
+                      {schedule?.course?.price &&
+                        formatPrice(schedule?.course?.price)}
                     </span>
                   </Col>
                 </Form.Group>

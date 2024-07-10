@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { getExams, deleteExam } from "../../../services/ExamService";
 import moment from "moment";
 import { toast } from "react-toastify";
+import { formatPrice } from "../../../utils/function";
 export default function ManagerExam() {
   const navigate = useNavigate();
   const [exams, setExams] = useState([]);
@@ -124,7 +125,9 @@ export default function ManagerExam() {
                         {moment(item?.date).format("DD-MM-YYYY")}
                       </td>
                       <td className="text-center">{item?.classroom?.name}</td>
-                      <td className="text-center">{item?.fee} VND</td>
+                      <td className="text-center">
+                        {item?.fee && formatPrice(item?.fee)}
+                      </td>
                       <td className="text-center">
                         {moment(item?.deadline_date).format("DD-MM-YYYY")}
                       </td>

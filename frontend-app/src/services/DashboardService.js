@@ -40,13 +40,13 @@ export const getTotalPriceRegistrationsWithStatusSuccess = () => {
 
 export const getCountExamRegistrationsWithStatusSuccess = () => {
   return httpClient.get(
-    "/dashboard/get-total-price-registrations-with-status-success"
+    "/dashboard/get-count-exam-registrations-with-status-success"
   );
 };
 
 export const getCountExamRegistrationsWithStatusPending = () => {
   return httpClient.get(
-    "/dashboard/get-total-price-registrations-with-status-pending"
+    "/dashboard/get-count-exam-registrations-with-status-pending"
   );
 };
 

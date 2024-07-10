@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Paginate from "../../../components/Paginate/Paginate";
+import { formatPrice } from "../../../utils/function";
 
 export default function ManagerRegistration() {
   const [pageCount, setPageCount] = useState(1);
@@ -154,7 +155,9 @@ export default function ManagerRegistration() {
                       <td className="text-center">
                         {moment(item?.created_at).format("DD/MM/YYYY")}
                       </td>
-                      <td className="text-center">1.000.000 VND</td>
+                      <td className="text-center">
+                        {item?.total_price && formatPrice(item?.total_price)}
+                      </td>
                       <td className="text-center">{item?.payment_type}</td>
 
                       <td className="text-center ">

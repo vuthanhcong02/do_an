@@ -374,7 +374,7 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      {countRegistrationSuccess}
+                      {countExamRegistrationSuccess}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
@@ -402,7 +402,7 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      {countRegistrationPending}
+                      {countExamRegistrationPending}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faCircleRight } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { formatPrice } from "../../utils/function";
 export default function ItemCourseRegister({
   course,
   schedule,
@@ -43,7 +44,11 @@ export default function ItemCourseRegister({
             </div>
             <div className="d-flex row mt-3">
               <span className="col-4">Học phí (tạm tính): </span>
-              <span className="col-6"> {schedule?.course?.price} VND</span>
+              <span className="col-6">
+                {" "}
+                {schedule?.course?.price &&
+                  formatPrice(schedule?.course?.price)}
+              </span>
             </div>
             <div className="d-flex row mt-3">
               <span className="col-4">Lịch học: </span>
@@ -59,7 +64,11 @@ export default function ItemCourseRegister({
 
             <div className="d-flex row mt-3">
               <span className="col-4">Tổng học phí (tạm tính): </span>
-              <span className="col-6"> {schedule?.course?.price} VND</span>
+              <span className="col-6">
+                {" "}
+                {schedule?.course?.price &&
+                  formatPrice(schedule?.course?.price)}
+              </span>
             </div>
 
             <div className="d-flex row mt-3">

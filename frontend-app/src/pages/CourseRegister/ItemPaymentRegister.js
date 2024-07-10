@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { baseUrl, baseUrlImage } from "../../config";
+import { formatPrice } from "../../utils/function";
 
 export default function ItemPaymentRegister({ course, schedule, user }) {
   const navigate = useNavigate();
@@ -54,7 +55,11 @@ export default function ItemPaymentRegister({ course, schedule, user }) {
             </div>
             <div className="d-flex row mt-3">
               <span className="col-4">Học phí (tạm tính): </span>
-              <span className="col-6"> {schedule?.course?.price} VND</span>
+              <span className="col-6">
+                {" "}
+                {schedule?.course?.price &&
+                  formatPrice(schedule?.course?.price)}{" "}
+              </span>
             </div>
             <div className="d-flex row mt-3">
               <span className="col-4">Lịch học: </span>
@@ -70,7 +75,12 @@ export default function ItemPaymentRegister({ course, schedule, user }) {
 
             <div className="d-flex row mt-3">
               <span className="col-4">Tổng học phí (tạm tính): </span>
-              <span className="col-6"> {schedule?.course?.price} VND</span>
+              <span className="col-6">
+                {" "}
+                {schedule?.course?.price &&
+                  formatPrice(schedule?.course?.price)}{" "}
+                <span>Lưu</span>
+              </span>
             </div>
 
             <div className="d-flex row mt-3">

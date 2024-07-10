@@ -5,6 +5,7 @@ import { getRegistrationByUser } from "../../services/RegistrationService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { MyDocument } from "./RegisterInfor";
+import { formatPrice } from "../../utils/function";
 export default function UserDashboard() {
   const [courses, setCourses] = useState([]);
   const [courseInfo, setCourseInfo] = useState({});
@@ -66,7 +67,9 @@ export default function UserDashboard() {
               </Card.Title>
               <Card.Text></Card.Text>
               <Card.Text>
-                Học phí (tạm tính): {course?.schedule?.course?.price} VND
+                Học phí (tạm tính):{" "}
+                {course?.schedule?.course?.price &&
+                  formatPrice(course?.schedule?.course?.price)}
               </Card.Text>
               <Card.Text>
                 Lịch học: Thứ {course?.schedule?.day_of_week}(
