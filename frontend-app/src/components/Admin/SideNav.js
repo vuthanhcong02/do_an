@@ -1,3 +1,21 @@
+import {
+  faBell,
+  faBookOpen,
+  faCalendarCheck,
+  faCalendarDays,
+  faChartSimple,
+  faHouseUser,
+  faLandmark,
+  faMessage,
+  faNewspaper,
+  faSliders,
+  faTableList,
+  faTrophy,
+  faUserPlus,
+  faUsers,
+  faUserTie,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { NavLink } from "react-router-dom";
 export default function SideNav() {
@@ -49,110 +67,157 @@ export default function SideNav() {
             <li className="app-sidebar__heading">Menu</li>
             <li className="mm-active">
               <NavLink to="/admin" className="nav-link">
-                <i className="metismenu-icon pe-7s-plugin" />
                 Danh sách quản lí
                 <i className="metismenu-state-icon pe-7s-angle-down caret-left" />
               </NavLink>
               <ul>
                 <li>
                   <NavLink to="/admin" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faChartSimple}
+                      style={{ marginRight: "10px" }}
+                    />
                     Dashboard
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="banners" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faSliders}
+                      style={{ marginRight: "10px" }}
+                    />
                     Banner
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="news" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faNewspaper}
+                      style={{ marginRight: "10px" }}
+                    />
                     Tin tức
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="events" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faCalendarCheck}
+                      style={{ marginRight: "10px" }}
+                    />
                     Sự kiện
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="categories" className="nav-link">
-                    <i className="metismenu-icon" />
-                    Subject
+                    <FontAwesomeIcon
+                      icon={faTableList}
+                      style={{ marginRight: "10px" }}
+                    />
+                    Chuyên môn
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="courses" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faBookOpen}
+                      style={{ marginRight: "10px" }}
+                    />
                     Khóa học
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="teachers" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faUserTie}
+                      style={{ marginRight: "10px" }}
+                    />
                     Giảng viên
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="users" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faUsers}
+                      style={{ marginRight: "10px" }}
+                    />
                     Người dùng
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="registrations" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faUserPlus}
+                      style={{ marginRight: "10px" }}
+                    />
                     Đăng kí học
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="classes" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faLandmark}
+                      style={{ marginRight: "10px" }}
+                    />
                     Lớp học
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink to="classrooms" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faHouseUser}
+                      style={{ marginRight: "10px" }}
+                    />
                     Phòng học
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink to="schedules" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faCalendarDays}
+                      style={{ marginRight: "10px" }}
+                    />
                     Thời khóa biểu
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink to="exams" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faTrophy}
+                      style={{ marginRight: "10px" }}
+                    />
                     Lịch thi
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink to="exams/registrations" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faUserPlus}
+                      style={{ marginRight: "10px" }}
+                    />
                     Đăng kí thi
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink to="contacts" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faMessage}
+                      style={{ marginRight: "10px" }}
+                    />
                     Liên hệ
                   </NavLink>
                 </li>
 
                 <li>
                   <NavLink to="" className="nav-link">
-                    <i className="metismenu-icon" />
+                    <FontAwesomeIcon
+                      icon={faBell}
+                      style={{ marginRight: "10px" }}
+                    />
                     Thông báo
                   </NavLink>
                   <ul>
