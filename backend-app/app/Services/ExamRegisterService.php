@@ -71,4 +71,19 @@ class ExamRegisterService extends BaseService
 
         return false;
     }
+
+    public function getCountExamRegistrationsWithStatusSuccess()
+    {
+        return $this->model->where('status', 'success')->count();
+    }
+
+    public function getCountExamRegistrationsWithStatusPending()
+    {
+        return $this->model->where('status', 'pending')->count();
+    }
+
+    public function getTotalFeeExamRegistrationsWithStatusSuccess()
+    {
+        return $this->model->where('status', 'success')->sum('total_fee');
+    }
 }

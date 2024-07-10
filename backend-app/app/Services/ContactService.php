@@ -11,4 +11,9 @@ class ContactService extends BaseService
     {
         parent::__construct($contact);
     }
+
+    public function countContact()
+    {
+        return $this->model->count();
+    }
 }

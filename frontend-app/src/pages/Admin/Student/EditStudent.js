@@ -222,6 +222,7 @@ export default function EditStudent() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
+                      required
                       {...register("date_of_birthday")}
                       placeholder="Ngày sinh"
                       type="date"
@@ -239,6 +240,7 @@ export default function EditStudent() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
+                      required
                       {...register("id_card")}
                       placeholder="Số CCCD"
                       type="text"
@@ -256,6 +258,7 @@ export default function EditStudent() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
+                      required
                       {...register("address")}
                       placeholder="Địa chỉ"
                       type="text"

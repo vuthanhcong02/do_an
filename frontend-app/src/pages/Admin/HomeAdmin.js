@@ -10,16 +10,144 @@ import {
   faMoneyBill,
   faNewspaper,
   faSackDollar,
+  faTicket,
   faTrophy,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  getCountContacts,
+  getCountCourses,
+  getCountEvents,
+  getCountExams,
+  getCountNews,
+  getCountRegistrationsWithStatusPending,
+  getCountRegistrationsWithStatusSuccess,
+  getTotalPriceRegistrationsWithStatusSuccess,
+  getCountExamRegistrationsWithStatusSuccess,
+  getCountExamRegistrationsWithStatusPending,
+  getTotalFeeExamRegistrationsWithStatusSuccess,
+} from "../../services/DashboardService";
+import { formatPrice } from "../../utils/function";
 export default function HomeAdmin() {
   const navigate = useNavigate();
+  const [countCourse, setCountCourse] = React.useState(0);
+  const [countNews, setCountNews] = React.useState(0);
+  const [countEvent, setCountEvent] = React.useState(0);
+  const [countExam, setCountExam] = React.useState(0);
+  const [countContact, setCountContact] = React.useState(0);
+  const [countRegistrationSuccess, setCountRegistrationSuccess] =
+    React.useState(0);
+  const [countRegistrationPending, setCountRegistrationPending] =
+    React.useState(0);
+  const [totalPriceRegistration, setTotalPriceRegistration] = React.useState(0);
+  const [countExamRegistrationSuccess, setCountExamRegistrationSuccess] =
+    React.useState(0);
+  const [countExamRegistrationPending, setCountExamRegistrationPending] =
+    React.useState(0);
+  const [totalFeeExamRegistration, setTotalFeeExamRegistration] =
+    React.useState(0);
+
   const token = localStorage.getItem("token");
   useEffect(() => {
     if (!token) {
       navigate("/admin/login");
     }
   }, [token, navigate]);
+
+  useEffect(() => {
+    fetchCountCourse();
+    fetchCountNews();
+    fetchCountEvent();
+    fetchCountExam();
+    fetchCountContact();
+    fetchCountRegistrationSuccess();
+    fetchCountRegistrationPending();
+    fetchTotalPrice();
+    fetchCountExamRegistrationSuccess();
+    fetchCountExamRegistrationPending();
+    fetchTotalFeeExamRegistration();
+  }, []);
+
+  const fetchCountCourse = async () => {
+    const { success, data } = await getCountCourses();
+    if (success) {
+      setCountCourse(data);
+    }
+  };
+
+  const fetchCountNews = async () => {
+    const { success, data } = await getCountNews();
+    if (success) {
+      setCountNews(data);
+    }
+  };
+
+  const fetchCountEvent = async () => {
+    const { success, data } = await getCountEvents();
+    if (success) {
+      setCountEvent(data);
+    }
+  };
+
+  const fetchCountExam = async () => {
+    const { success, data } = await getCountExams();
+    if (success) {
+      setCountExam(data);
+    }
+  };
+
+  const fetchCountContact = async () => {
+    const { success, data } = await getCountContacts();
+    if (success) {
+      setCountContact(data);
+    }
+  };
+
+  const fetchCountRegistrationSuccess = async () => {
+    const { success, data } = await getCountRegistrationsWithStatusSuccess();
+    if (success) {
+      setCountRegistrationSuccess(data);
+    }
+  };
+
+  const fetchCountRegistrationPending = async () => {
+    const { success, data } = await getCountRegistrationsWithStatusPending();
+    if (success) {
+      setCountRegistrationPending(data);
+    }
+  };
+
+  const fetchTotalPrice = async () => {
+    const { success, data } =
+      await getTotalPriceRegistrationsWithStatusSuccess();
+    if (success) {
+      setTotalPriceRegistration(data);
+    }
+  };
+
+  const fetchCountExamRegistrationSuccess = async () => {
+    const { success, data } =
+      await getCountExamRegistrationsWithStatusSuccess();
+    if (success) {
+      setCountExamRegistrationSuccess(data);
+    }
+  };
+
+  const fetchCountExamRegistrationPending = async () => {
+    const { success, data } =
+      await getCountExamRegistrationsWithStatusPending();
+    if (success) {
+      setCountExamRegistrationPending(data);
+    }
+  };
+
+  const fetchTotalFeeExamRegistration = async () => {
+    const { success, data } =
+      await getTotalFeeExamRegistrationsWithStatusSuccess();
+    if (success) {
+      setTotalFeeExamRegistration(data);
+    }
+  };
+
   return (
     <>
       <div className="app-main__inner">
@@ -54,7 +182,7 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {countCourse}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
@@ -71,7 +199,7 @@ export default function HomeAdmin() {
                   style={{ height: "12rem" }}
                 >
                   <Card.Header className="d-flex justify-content-center text-white">
-                    Tổng số bài tin tức
+                    Tổng số bài viết tin tức
                   </Card.Header>
                   <Card.Body className="d-flex justify-content-center text-white p-3">
                     <Card.Text
@@ -81,7 +209,7 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {countNews}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
@@ -99,7 +227,7 @@ export default function HomeAdmin() {
                   style={{ height: "12rem" }}
                 >
                   <Card.Header className="d-flex justify-content-center text-white">
-                    Tổng số bài sự kiện
+                    Tổng số bài viết sự kiện
                   </Card.Header>
                   <Card.Body className="d-flex justify-content-center text-white p-3">
                     <Card.Text
@@ -109,7 +237,7 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {countEvent}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
@@ -136,7 +264,7 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {countExam}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
@@ -164,7 +292,7 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {countContact}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
@@ -192,11 +320,11 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {countRegistrationSuccess}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
-                      <FontAwesomeIcon icon={faSackDollar} />
+                      <FontAwesomeIcon icon={faTicket} />
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -219,7 +347,7 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {countRegistrationPending}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
@@ -246,11 +374,11 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {countRegistrationSuccess}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
-                      <FontAwesomeIcon icon={faSackDollar} />
+                      <FontAwesomeIcon icon={faTicket} />
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -274,7 +402,7 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {countRegistrationPending}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
@@ -301,11 +429,12 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {totalPriceRegistration &&
+                        formatPrice(totalPriceRegistration)}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
-                      <FontAwesomeIcon icon={faMoneyBill} />
+                      <FontAwesomeIcon icon={faSackDollar} />
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -328,11 +457,12 @@ export default function HomeAdmin() {
                         marginRight: "10px",
                       }}
                     >
-                      10
+                      {totalFeeExamRegistration &&
+                        formatPrice(totalFeeExamRegistration)}
                     </Card.Text>
 
                     <Card.Text style={{ fontSize: "30px", fontWeight: "bold" }}>
-                      <FontAwesomeIcon icon={faMoneyBill} />
+                      <FontAwesomeIcon icon={faSackDollar} />
                     </Card.Text>
                   </Card.Body>
                 </Card>

@@ -183,6 +183,20 @@ Route::group(['prefix' => '/notification-types'], function () {
     Route::delete('/{id}', [\App\Http\Controllers\NotificationTypeController::class, 'destroy']);
 });
 
+Route::group(['prefix' => '/dashboard'], function () {
+    Route::get('/get-count-courses', [\App\Http\Controllers\DashboardController::class, 'getCountCourses']);
+    Route::get('/get-count-news', [\App\Http\Controllers\DashboardController::class, 'getCountNews']);
+    Route::get('/get-count-events', [\App\Http\Controllers\DashboardController::class, 'getCountEvents']);
+    Route::get('/get-count-contacts', [\App\Http\Controllers\DashboardController::class, 'getCountContacts']);
+    Route::get('/get-count-exams', [\App\Http\Controllers\DashboardController::class, 'getCountExams']);
+    Route::get('/get-count-registrations-with-status-success', [\App\Http\Controllers\DashboardController::class, 'getCountRegistrationsWithStatusSuccess']);
+    Route::get('/get-count-registrations-with-status-pending', [\App\Http\Controllers\DashboardController::class, 'getCountRegistrationsWithStatusPending']);
+    Route::get('/get-total-price-registrations-with-status-success', [\App\Http\Controllers\DashboardController::class, 'getTotalRegistrationsWithStatusSuccess']);
+    Route::get('/get-count-exam-registrations-with-status-success', [\App\Http\Controllers\DashboardController::class, 'getCountExamRegistrationsWithStatusSuccess']);
+    Route::get('/get-count-exam-registrations-with-status-pending', [\App\Http\Controllers\DashboardController::class, 'getCountExamRegistrationsWithStatusPending']);
+    Route::get('/get-total-price-exam-registrations-with-status-success', [\App\Http\Controllers\DashboardController::class, 'getTotalExamRegistrationsWithStatusSuccess']);
+});
+
 Route::group(['prefix' => '/search'], function () {
     Route::get('/', [\App\Http\Controllers\SearchController::class, 'search']);
 });

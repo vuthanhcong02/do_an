@@ -27,4 +27,9 @@ class NewsService extends BaseService
     {
         return $this->model->where('slug', $slug)->first();
     }
+
+    public function countNews()
+    {
+        return $this->model->count();
+    }
 }

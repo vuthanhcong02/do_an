@@ -27,4 +27,9 @@ class EventService extends BaseService
     {
         return $this->model->where('slug', $slug)->first();
     }
+
+    public function countEvents()
+    {
+        return $this->model->count();
+    }
 }

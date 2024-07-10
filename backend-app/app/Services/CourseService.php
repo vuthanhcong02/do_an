@@ -50,4 +50,9 @@ class CourseService extends BaseService
     {
         return $this->model->where('slug', $slug)->first();
     }
+
+    public function countCourse()
+    {
+        return $this->model->count();
+    }
 }
