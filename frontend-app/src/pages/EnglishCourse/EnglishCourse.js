@@ -6,7 +6,7 @@ import { getCourseByEnglishCategory } from "../../services/CourseService";
 import Paginate from "../../components/Paginate/Paginate";
 export default function EnglishCourse() {
   const [courses, setCourses] = useState([]);
-  const [pageCount, setPageCount] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
   const navigate = useNavigate();
   useEffect(() => {
     fetchCourseByEnglishCategory();

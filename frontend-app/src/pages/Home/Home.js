@@ -108,7 +108,7 @@ export default function Home() {
           <div className="Home-content-courses-and-news">
             <div className="Home-content-courses col-8">
               <div className="Home-content-courses-title">
-                <span>Tuyển sinh khóa học</span>
+                <span>Khóa học</span>
               </div>
               <div className="Home-content-courses-list">
                 {courses.map((course, idx) => (

@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import ReactQuill from "react-quill";
-import { getEventsById } from "../../../services/EventService";
+import { getEventsBySlug } from "../../../services/EventService";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { baseUrl, baseUrlImage } from "../../../config";
@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 export default function EditEvent() {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { slug } = useParams();
   const [event, setEvents] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -29,10 +29,10 @@ export default function EditEvent() {
   };
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
-  const fetchEvents = async () => {
-    const { success, data } = await getEventsById(id);
+    fetchEvent();
+  }, [slug]);
+  const fetchEvent = async () => {
+    const { success, data } = await getEventsBySlug(slug);
     if (success) {
       console.log(data);
       setEvents(data);
@@ -46,7 +46,6 @@ export default function EditEvent() {
       setValue("start_date", event.start_date);
       setValue("start_time", event.start_time);
       setValue("end_time", event.end_time);
-      setValue("slug", event.slug);
       setDescription(event.description);
       setValue("status", event.status ? 1 : 0);
     }
@@ -71,13 +70,12 @@ export default function EditEvent() {
     formData.append("start_date", data.start_date);
     formData.append("start_time", data.start_time);
     formData.append("end_time", data.end_time);
-    formData.append("slug", data.slug);
     formData.append("status", data.status ? 1 : 0);
 
     // console.log(data, content);
     try {
       const response = await axios.post(
-        "http://api.ngoaingutinhoc.tech.com/api/events/" + id,
+        "http://api.ngoaingutinhoc.tech.com/api/events/" + event?.id,
 
         formData,
         {
@@ -126,7 +124,7 @@ export default function EditEvent() {
                     htmlFor="image"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Image
+                    Hình ảnh
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <img
@@ -174,7 +172,7 @@ export default function EditEvent() {
                     htmlFor="content"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Description
+                    Mô tả
                   </label>
                   <div className="col-md-9 col-xl-8 mb-5">
                     <ReactQuill
@@ -193,7 +191,7 @@ export default function EditEvent() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Location
+                    Địa điểm
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -210,7 +208,7 @@ export default function EditEvent() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Start Date
+                    Ngày diễn ra
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -227,7 +225,7 @@ export default function EditEvent() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Start Time
+                    Thời gian bắt đầu
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -244,7 +242,7 @@ export default function EditEvent() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    End Time
+                    Thời gian kết thúc
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -252,23 +250,6 @@ export default function EditEvent() {
                       type="time"
                       className="form-control"
                       {...register("end_time")}
-                    />
-                  </div>
-                </div>
-
-                <div className="position-relative row form-group">
-                  <label
-                    htmlFor="title"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Slug
-                  </label>
-                  <div className="col-md-9 col-xl-8">
-                    <input
-                      placeholder="Slug"
-                      type="text"
-                      className="form-control"
-                      {...register("slug")}
                     />
                   </div>
                 </div>

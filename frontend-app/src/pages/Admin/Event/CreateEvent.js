@@ -33,7 +33,6 @@ export default function CreateEvent() {
     formData.append("start_date", data.start_date);
     formData.append("start_time", data.start_time);
     formData.append("end_time", data.end_time);
-    formData.append("slug", data.slug);
     formData.append("status", data.featured ? 1 : 0);
 
     // console.log(data, content);
@@ -87,7 +86,7 @@ export default function CreateEvent() {
                     htmlFor="image"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Image
+                    Hình ảnh
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <img
@@ -135,7 +134,7 @@ export default function CreateEvent() {
                     htmlFor="content"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Description
+                    Mô tả
                   </label>
                   <div className="col-md-9 col-xl-8 mb-5">
                     <ReactQuill
@@ -153,7 +152,7 @@ export default function CreateEvent() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Location
+                    Địa điểm
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -170,7 +169,7 @@ export default function CreateEvent() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Start Date
+                    Ngày diễn ra
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -187,7 +186,7 @@ export default function CreateEvent() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Start Time
+                    Thời gian bắt đầu
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -204,7 +203,7 @@ export default function CreateEvent() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    End Time
+                    Thời gian kết thúc
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -212,23 +211,6 @@ export default function CreateEvent() {
                       type="time"
                       className="form-control"
                       {...register("end_time")}
-                    />
-                  </div>
-                </div>
-
-                <div className="position-relative row form-group">
-                  <label
-                    htmlFor="title"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Slug
-                  </label>
-                  <div className="col-md-9 col-xl-8">
-                    <input
-                      placeholder="Slug"
-                      type="text"
-                      className="form-control"
-                      {...register("slug")}
                     />
                   </div>
                 </div>

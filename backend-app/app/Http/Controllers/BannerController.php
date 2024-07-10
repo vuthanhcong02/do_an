@@ -125,13 +125,7 @@ class BannerController extends Controller
         if (!$banner) {
             return $this->customResponse(404, false, null, 'Banner not found', null);
         }
-        if ($banner->image) {
-            $this->imageUploadService->deleteImage($banner->image);
-        }
-        $banner = $this->bannerService->delete($id);
-        if (!$banner) {
-            return $this->customResponse(404, false, null, 'Banner not deleted', null);
-        }
+        $banner->delete();
         return $this->customResponse(200, true, $banner, null, null);
     }
 }

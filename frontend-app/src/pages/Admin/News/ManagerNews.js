@@ -33,7 +33,7 @@ export default function ManagerNews() {
       if (success) {
         const newNews = news.filter((item) => item.id !== id);
         setNews(newNews);
-        toast.succes("Xóa news thành công");
+        toast.success("Xóa news thành công");
       } else {
         toast.error("Xóa news thất bại");
       }

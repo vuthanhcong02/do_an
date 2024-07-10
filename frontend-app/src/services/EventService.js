@@ -12,8 +12,8 @@ export const getEventsOrderById = () => {
   return httpClient.get(`/events/order-by-id`);
 };
 
-export const getEventsById = (id) => {
-  return httpClient.get(`/events/${id}`);
+export const getEventsBySlug = (slug) => {
+  return httpClient.get(`/events/${slug}`);
 };
 
 export const deleteEvent = (id) => {

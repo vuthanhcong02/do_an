@@ -70,7 +70,7 @@ export default function Event() {
           {eventsFeatured.map((item, idx) => (
             // <EventList key={idx} event={events} />
             <NavLink
-              to={`/events/${item?.id}`}
+              to={`/events/${item?.slug}`}
               style={{ textDecoration: "none" }}
               className="CourseDetails-more-item row p-2"
               key={item?.id}

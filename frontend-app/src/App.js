@@ -100,7 +100,7 @@ function App() {
               element={<CourseRegister />}
             />
             <Route path="/news/:slug" element={<NewsDetails />} />
-            <Route path="/events/:id" element={<EventDetails />} />
+            <Route path="/events/:slug" element={<EventDetails />} />
             <Route path="exams" element={<Exam />} />
             <Route path="/search" element={<SearchResult />} />
           </Route>
@@ -130,7 +130,7 @@ function App() {
 
           <Route path="events" element={<ManagerEvents />} />
           <Route path="events/create" element={<CreateEvent />} />
-          <Route path="events/:id/edit" element={<EditEvent />} />
+          <Route path="events/:slug/edit" element={<EditEvent />} />
 
           <Route path="teachers" element={<ManagerTeacher />} />
           <Route path="teachers/create" element={<CreateTeacher />} />

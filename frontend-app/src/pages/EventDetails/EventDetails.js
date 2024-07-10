@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useParams } from "react-router-dom";
-import {
-  getEventsById,
-  getEventsByFeatured,
-  getEvents,
-} from "../../services/EventService";
+import { getEventsBySlug, getEvents } from "../../services/EventService";
 import { baseUrlImage } from "../../config";
 export default function EventDetails() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [eventOther, setEventOther] = useState([]);
   const [eventDetails, setEventDetails] = useState({});
   //   console.log(course);
@@ -15,10 +11,10 @@ export default function EventDetails() {
   useEffect(() => {
     fetchNewsDetails();
     fetchEvents();
-  }, [id]);
+  }, [slug]);
 
   const fetchNewsDetails = async () => {
-    const { success, data } = await getEventsById(id);
+    const { success, data } = await getEventsBySlug(slug);
     if (success) {
       setEventDetails(data);
     }
@@ -27,7 +23,7 @@ export default function EventDetails() {
   const fetchEvents = async () => {
     const { success, data } = await getEvents();
     if (success) {
-      const dataOther = data.data.filter((item) => item.id !== parseInt(id));
+      const dataOther = data.data.filter((item) => item.slug !== slug);
       setEventOther(dataOther);
     }
   };
@@ -68,7 +64,7 @@ export default function EventDetails() {
         </div>
         {eventOther.map((item, index) => (
           <NavLink
-            to={`/events/${item?.id}`}
+            to={`/events/${item?.slug}`}
             style={{ textDecoration: "none" }}
             className="CourseDetails-more-item row"
             key={item?.id}

@@ -15,25 +15,25 @@ export default function ItemPaymentRegister({ course, schedule, user }) {
       <div className="ItemCourseRegister-content">
         <div className="ItemCourseRegister-content-title">
           <span>
-            Vui lòng kiểm tra email để xác nhận!
+            Vui lòng kiểm tra email!
             <br />
             Anh/Chị đang chọn đăng ký online khóa học với thông tin như sau:
           </span>
         </div>
-        <div className="ItemCourseRegister-content-description row mt-4">
-          <div className="ItemCourseRegister-content-description-item col-4">
+        <div className="ItemCourseRegister-content-description d-flex justify-content-between align-items-start row mt-4">
+          <div className="ItemCourseRegister-content-description-item col-md-3">
             <img
               src={`${baseUrlImage}${course?.image}`}
               alt=""
               style={{
-                width: "100%",
+                width: "300px",
                 height: "200px",
                 objectFit: "fill",
                 marginTop: "20px",
               }}
             />
           </div>
-          <div className="ItemCourseRegister-content-description-item col-7 mt-4 ml-2">
+          <div className="ItemCourseRegister-content-description-item col-8 mt-4 ml-2 row">
             <div className="d-flex row">
               <span className="col-4">Tên: </span>
               <span className="col-6"> {user?.full_name}</span>
@@ -54,7 +54,7 @@ export default function ItemPaymentRegister({ course, schedule, user }) {
             </div>
             <div className="d-flex row mt-3">
               <span className="col-4">Học phí (tạm tính): </span>
-              <span className="col-6"> {schedule?.course?.price}</span>
+              <span className="col-6"> {schedule?.course?.price} VND</span>
             </div>
             <div className="d-flex row mt-3">
               <span className="col-4">Lịch học: </span>
@@ -70,7 +70,7 @@ export default function ItemPaymentRegister({ course, schedule, user }) {
 
             <div className="d-flex row mt-3">
               <span className="col-4">Tổng học phí (tạm tính): </span>
-              <span className="col-6"> {schedule?.course?.price}</span>
+              <span className="col-6"> {schedule?.course?.price} VND</span>
             </div>
 
             <div className="d-flex row mt-3">

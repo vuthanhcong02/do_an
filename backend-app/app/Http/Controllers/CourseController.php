@@ -95,13 +95,11 @@ class CourseController extends Controller
 
     public function destroy($id)
     {
-        $course = $this->courseService->delete($id);
+        $course = $this->courseService->find($id);
         if (!$course) {
-            return $this->customResponse(404, false, null, 'Course not deleted', null);
+            return $this->customResponse(404, false, null, 'Course not found', null);
         }
-        if ($course->image) {
-            $this->imageUploadService->deleteImage($course->image);
-        }
+        $course->delete();
         return $this->customResponse(200, true, $course);
     }
 

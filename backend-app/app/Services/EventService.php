@@ -22,4 +22,9 @@ class EventService extends BaseService
     {
         return $this->model->orderBy('id', 'desc')->limit(5)->get();
     }
+
+    public function showEvent($slug)
+    {
+        return $this->model->where('slug', $slug)->first();
+    }
 }

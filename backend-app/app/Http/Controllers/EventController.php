@@ -81,30 +81,28 @@ class EventController extends Controller
         $banner = $this->eventService->update($id, $data);
 
         if (!$banner) {
-            return $this->customResponse(404, false, null, 'Banner not updated', null);
+            return $this->customResponse(404, false, null, 'Event not updated', null);
         }
 
         return $this->customResponse(200, true, $banner, null, null);
     }
 
-    public function show(string $id)
+    public function show(string $slug)
     {
-        $banner = $this->eventService->find($id);
+        $banner = $this->eventService->showEvent($slug);
         if (!$banner) {
-            return $this->customResponse(404, false, null, 'Banner not found', null);
+            return $this->customResponse(404, false, null, 'Event not found', null);
         }
         return $this->customResponse(200, true, $banner, null, null);
     }
 
     public function destroy(string $id)
     {
-        $banner = $this->eventService->delete($id);
+        $banner = $this->eventService->find($id);
         if (!$banner) {
-            return $this->customResponse(404, false, null, 'Banner not found', null);
+            return $this->customResponse(404, false, null, 'Event not found', null);
         }
-        if ($banner->image) {
-            $this->imageUploadService->deleteImage($banner->image);
-        }
+        $banner->delete();
         return $this->customResponse(200, true, $banner, null, null);
     }
 }

@@ -150,7 +150,7 @@ export default function ManagerEvents() {
                           Details
                         </NavLink> */}
                         <NavLink
-                          to={`${item.id}/edit`}
+                          to={`${item.slug}/edit`}
                           data-toggle="tooltip"
                           title="Edit"
                           data-placement="bottom"

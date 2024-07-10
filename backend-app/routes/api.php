@@ -78,7 +78,7 @@ Route::group(['prefix' => '/news'], function () {
 Route::group(['prefix' => '/events'], function () {
     Route::get('/featured', [\App\Http\Controllers\EventController::class, 'getEventsByFeatured']);
     Route::get('/', [\App\Http\Controllers\EventController::class, 'index']);
-    Route::get('/{id}', [\App\Http\Controllers\EventController::class, 'show']);
+    Route::get('/{slug}', [\App\Http\Controllers\EventController::class, 'show']);
 
     Route::post('/', [\App\Http\Controllers\EventController::class, 'store']);
     Route::put('/{id}', [\App\Http\Controllers\EventController::class, 'updateEvent']);

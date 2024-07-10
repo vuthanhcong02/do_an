@@ -13,7 +13,7 @@ export default function EventList({ event }) {
       <div className="EventItem-content">
         <div className="EventItem-title d-flex flex-column">
           <NavLink
-            to={`/events/${event?.id}`}
+            to={`/events/${event?.slug}`}
             style={{ textDecoration: "none" }}
           >
             <span>{event?.name}</span>
