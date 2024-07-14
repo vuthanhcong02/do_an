@@ -19,7 +19,9 @@ class Exam extends Model
         'deadline_date',
         'status',
         'fee',
-        'class_room_id'
+        'class_room_id',
+        'max_slot',
+        'exam_code'
     ];
 
     public function classroom()

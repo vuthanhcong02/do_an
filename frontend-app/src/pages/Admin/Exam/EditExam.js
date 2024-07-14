@@ -36,6 +36,8 @@ export default function EditExam() {
       setValue("deadline_date", data?.deadline_date);
       setValue("fee", data?.fee);
       setValue("class_room_id", data?.class_room_id);
+      setValue("max_slot", data?.max_slot);
+      setValue("exam_code", data?.exam_code);
     }
   };
   const onSubmit = async (data) => {
@@ -49,6 +51,8 @@ export default function EditExam() {
       fee: parseInt(data.fee),
       status: data.status,
       class_room_id: parseInt(data.class_room_id),
+      max_slot: data.max_slot,
+      exam_code: data.exam_code,
     };
     try {
       const response = await axios.put(
@@ -102,6 +106,23 @@ export default function EditExam() {
                       placeholder="Tên kì thi"
                       type="text"
                       className="form-control"
+                    />
+                  </div>
+                </div>
+
+                <div className="position-relative row form-group">
+                  <label
+                    htmlFor="title"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Mã cuộc thi
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <input
+                      placeholder="Mã cuộc thi"
+                      type="text"
+                      className="form-control"
+                      {...register("exam_code")}
                     />
                   </div>
                 </div>
@@ -209,6 +230,23 @@ export default function EditExam() {
                       type="text"
                       className="form-control"
                       {...register("fee")}
+                    />
+                  </div>
+                </div>
+
+                <div className="position-relative row form-group">
+                  <label
+                    htmlFor="title"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Số lượng thí sinh tối đa
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <input
+                      placeholder="Số lượng thí sinh tối đa"
+                      type="text"
+                      className="form-control"
+                      {...register("max_slot")}
                     />
                   </div>
                 </div>

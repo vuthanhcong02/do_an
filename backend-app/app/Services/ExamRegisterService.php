@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Exam;
 use Illuminate\Http\Request;
 use App\Models\ExamRegister;
 use App\Utilities\VNPay;
@@ -23,7 +24,13 @@ class ExamRegisterService extends BaseService
             return;
         }
 
-        $registrationNumber = $registrationNumber = ExamRegister::createRegistrationNumber($data['exam_id']);
+        $countRegister = $this->model->where('exam_id', $data['exam_id'])->count();
+        $exam = Exam::find($data['exam_id']);
+        if ($countRegister >= $exam->max_slot) {
+            return;
+        }
+
+        $registrationNumber = ExamRegister::createRegistrationNumber($data['exam_id']);
         $registration = $this->model::create([
             'exam_id' => $data['exam_id'],
             'user_id' => $data['user_id'],

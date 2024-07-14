@@ -30,6 +30,8 @@ export default function CreateExam() {
       fee: parseInt(data.fee),
       status: 1,
       class_room_id: parseInt(data.class_room_id),
+      max_slot: data.max_slot,
+      exam_code: data.exam_code,
     };
     console.log(dataCreate);
     const { success } = await createExam(dataCreate);
@@ -78,6 +80,23 @@ export default function CreateExam() {
                       placeholder="Tên kì thi"
                       type="text"
                       className="form-control"
+                    />
+                  </div>
+                </div>
+
+                <div className="position-relative row form-group">
+                  <label
+                    htmlFor="title"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Mã cuộc thi
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <input
+                      placeholder="Mã cuộc thi"
+                      type="text"
+                      className="form-control"
+                      {...register("exam_code")}
                     />
                   </div>
                 </div>
@@ -188,6 +207,24 @@ export default function CreateExam() {
                     />
                   </div>
                 </div>
+
+                <div className="position-relative row form-group">
+                  <label
+                    htmlFor="title"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Số lượng thí sinh tối đa
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <input
+                      placeholder="Số lượng thí sinh tối đa"
+                      type="text"
+                      className="form-control"
+                      {...register("max_slot")}
+                    />
+                  </div>
+                </div>
+
                 <div className="position-relative row form-group mb-1">
                   <div className="col-md-9 col-xl-8 offset-md-2">
                     <NavLink
