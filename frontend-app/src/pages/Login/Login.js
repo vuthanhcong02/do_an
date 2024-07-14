@@ -89,7 +89,7 @@ export default function Login() {
   };
   return (
     <div className="App-login">
-      <h4 className="App-login-title">Login</h4>
+      <h4 className="App-login-title">Đăng nhập</h4>
       <p>Please login to continue</p>
       <div className="App-login-form">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -114,7 +114,7 @@ export default function Login() {
             />
           </div>
           <div className="btn-login-container">
-            <button className="btn-login">Login</button>
+            <button className="btn-login">Đăng nhập</button>
             <div className="or">or</div>
             <GoogleLogin
               type="standard"
@@ -127,9 +127,9 @@ export default function Login() {
             />
             {/* <button onClick={() => login()}>Sign in with Google 🚀</button>; */}
             <div className="d-flex justify-content-center align-items-center mt-3">
-              <span className="mr-2">Don't have an account? </span>
+              <span className="mr-2">Bạn chưa có tài khoản? </span>
               <NavLink to="/register" className="text-primary">
-                Register
+                Đăng kí
               </NavLink>
             </div>
           </div>

@@ -20,8 +20,8 @@ export default function Home() {
   const [newsFeatured, setNewsFeatured] = useState([]);
   const [courses, setCourses] = useState([]);
   const [events, setEvents] = useState([]);
-  const [news, setNews] = useState([]);
-
+  const [newses, setNews] = useState([]);
+  console.log("Newses", newsFeatured);
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
@@ -126,8 +126,8 @@ export default function Home() {
                 <span>Tin nổi bật</span>
               </div>
               <div className="Home-content-news-list">
-                {newsFeatured.map((news, idx) => (
-                  <NewsItem key={idx} news={news} />
+                {newsFeatured.map((item, idx) => (
+                  <NewsItem key={idx} news={item} />
                 ))}
                 <div className="Home-content-news-more">
                   <span>

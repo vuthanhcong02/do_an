@@ -196,7 +196,7 @@ export default function Header() {
                       title="Đào tạo"
                       id="offcanvasNavbarDropdown-expand-${expand}"
                     >
-                      <NavLink className="dropdown-item" to="/english-courses">
+                      <NavLink className="dropdown-item" to="/language-courses">
                         Ngoại ngữ
                       </NavLink>
                       <NavLink

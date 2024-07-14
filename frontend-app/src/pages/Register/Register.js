@@ -63,7 +63,7 @@ export default function Register() {
 
   return (
     <div className="App-register">
-      <h4 className="App-register-title">Register</h4>
+      <h4 className="App-register-title">Đăng ký</h4>
       <div className="App-register-form">
         <form className="col-12" onSubmit={handleSubmit(onSubmit)}>
           <Form className="mt-4" as={Row}>
@@ -269,12 +269,12 @@ export default function Register() {
 
             <div className="d-flex justify-content-center align-items-center flex-column">
               <button className="btn_register" type="submit">
-                Register
+                Đăng ký
               </button>
               <div className="d-flex justify-content-center align-items-center mt-3">
-                <span className="mr-2">Already have an account?</span>
+                <span className="mr-2">Bạn đã có tài khoản?</span>
                 <NavLink to="/login" className="text-primary">
-                  Login
+                  Đăng nhập
                 </NavLink>
               </div>
             </div>

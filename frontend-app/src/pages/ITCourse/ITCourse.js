@@ -29,20 +29,22 @@ export default function ITCourse() {
     <div className="EnglishCourse-container">
       <div className="EnglishCourse-content">
         <div className="EnglishCourse-content-title">
-          <span>IT Course</span>
+          <span>Tin học</span>
         </div>
         <div className="EnglishCourse-content-item">
           {courses.map((course) => (
             <CourseItem key={course.id} course={course} />
           ))}
-          <div className="News-content-pagination mt-3">
-            <ul class="pagination justify-content-end">
-              <Paginate
-                pageCount={pageCount}
-                handlePageClick={handlePageClick}
-              />
-            </ul>
-          </div>
+          {pageCount > 1 && (
+            <div className="News-content-pagination mt-3">
+              <ul class="pagination justify-content-end">
+                <Paginate
+                  pageCount={pageCount}
+                  handlePageClick={handlePageClick}
+                />
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>

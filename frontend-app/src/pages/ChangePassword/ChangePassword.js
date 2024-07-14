@@ -41,7 +41,34 @@ export default function ChangePassword() {
               controlId="formHorizontalPassword"
             >
               <Form.Label column sm={3}>
-                Mật khẩu mới
+                Mật khẩu cũ:
+              </Form.Label>
+              <Col sm={8}>
+                <Form.Control
+                  type="password"
+                  placeholder="Mật khẩu ban đầu"
+                  {...register("password_new", {
+                    required: "Mật khẩu mới là bắt buộc",
+                    minLength: {
+                      value: 6,
+                      message: "Mật khẩu phải có ít nhất 6 ký tự",
+                    },
+                  })}
+                />
+                {errors.password_new && (
+                  <span className="text-danger">
+                    {errors.password_new.message}
+                  </span>
+                )}
+              </Col>
+            </Form.Group>
+            <Form.Group
+              as={Row}
+              className="mb-3 d-flex justify-content-center"
+              controlId="formHorizontalPassword"
+            >
+              <Form.Label column sm={3}>
+                Mật khẩu mới:
               </Form.Label>
               <Col sm={8}>
                 <Form.Control
@@ -68,7 +95,7 @@ export default function ChangePassword() {
               controlId="formHorizontalConfirmPassword"
             >
               <Form.Label column sm={3}>
-                Nhập lại mật khẩu mới
+                Nhập lại mật khẩu mới:
               </Form.Label>
               <Col sm={8}>
                 <Form.Control

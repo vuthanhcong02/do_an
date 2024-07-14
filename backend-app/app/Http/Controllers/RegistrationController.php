@@ -66,7 +66,7 @@ class RegistrationController extends Controller
         // Kiểm tra data xem kết quả giao dịch có hợp lệ không
         if ($vnp_ReponseCode != null) {
             if ($vnp_ReponseCode == 00) {
-                list($orderType, $registrationId) = explode('_', $vnp_TxnRef);
+                list($orderType, $registrationId) = explode('_', $vnp_OrderInfo);
                 if ($orderType == "course") {
                     //Cập nhật trạng thái đơn hàng
                     $registration = Registration::find($registrationId);

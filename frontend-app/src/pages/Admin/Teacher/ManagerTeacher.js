@@ -120,10 +120,14 @@ export default function ManagerTeacher() {
                         <td className="text-center text-muted">{index + 1}</td>
                         <td className="text-center">
                           <img
-                            src={`${baseUrlImage}${teacher?.image}`}
+                            src={
+                              teacher?.image
+                                ? `${baseUrlImage}${teacher.image}`
+                                : "/_default-user.png"
+                            }
                             width={70}
                             height={70}
-                            alt=""
+                            alt="avatar"
                           />
                         </td>
                         <td className="text-center">{teacher?.full_name}</td>

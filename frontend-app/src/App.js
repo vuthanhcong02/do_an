@@ -95,7 +95,7 @@ function App() {
               path="/notifications/:slug"
               element={<NotificationDetail />}
             />
-            <Route path="/english-courses" element={<EnglishCourse />} />
+            <Route path="/language-courses" element={<EnglishCourse />} />
             <Route path="/information-courses" element={<ITCourse />} />
             <Route path="/courses/:slug" element={<CourseDetails />} />
             <Route

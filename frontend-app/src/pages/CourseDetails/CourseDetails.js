@@ -9,6 +9,7 @@ import {
 import { getSchedulesByCourseId } from "../../services/ScheduleService";
 import { baseUrl, baseUrlImage } from "../../config";
 import TableSchedule from "../../components/TableSchedule/TableSchedule";
+import { getContent, getSummary } from "../../utils/function";
 export default function CourseDetails() {
   const { slug } = useParams();
   // const [courses, setCourses] = useState([]);
@@ -103,6 +104,12 @@ export default function CourseDetails() {
               <span className="CourseDetails-more-item-title">
                 {course?.name}
               </span>
+              <span
+                className="CourseDetails-more-item-description"
+                dangerouslySetInnerHTML={{
+                  __html: getContent(course.description),
+                }}
+              ></span>
             </div>
           </NavLink>
         ))}

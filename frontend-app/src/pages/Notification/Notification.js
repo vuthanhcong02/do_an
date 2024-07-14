@@ -33,14 +33,16 @@ export default function Notification() {
             return <NotificationItem key={index} notification={item} />;
           })}
 
-          <div className="News-content-pagination mt-3">
-            <ul class="pagination justify-content-end">
-              <Paginate
-                pageCount={pageCount}
-                handlePageClick={handlePageClick}
-              />
-            </ul>
-          </div>
+          {pageCount > 1 && (
+            <div className="News-content-pagination mt-3">
+              <ul class="pagination justify-content-end">
+                <Paginate
+                  pageCount={pageCount}
+                  handlePageClick={handlePageClick}
+                />
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>

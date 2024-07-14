@@ -79,13 +79,13 @@ export default function ManagerRegistration() {
               <i className="pe-7s-ticket icon-gradient bg-mean-fruit" />
             </div>
             <div>
-              Registrations
+              Course Registration
               <div className="page-title-subheading">
                 View, create, update, delete and manage.
               </div>
             </div>
           </div>
-          <div className="page-title-actions">
+          {/* <div className="page-title-actions">
             <NavLink
               to="create"
               className="btn-shadow btn-hover-shine mr-3 btn btn-primary"
@@ -95,7 +95,7 @@ export default function ManagerRegistration() {
               </span>
               Create
             </NavLink>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="row">

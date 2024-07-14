@@ -27,8 +27,8 @@ export default function LoginAdmin() {
   };
   return (
     <div className="App-login-admin">
-      <h4 className="App-login-title">Login</h4>
-      <p>Please login to Dashboard</p>
+      <h4 className="App-login-title">Đăng nhập</h4>
+      <p>Vui lòng đăng nhập để tới trang quản trị</p>
       <div className="App-login-form">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
@@ -52,7 +52,7 @@ export default function LoginAdmin() {
             />
           </div>
           <div className="btn-login-container">
-            <button className="btn-login">Login</button>
+            <button className="btn-login">Đăng nhập</button>
           </div>
         </form>
       </div>

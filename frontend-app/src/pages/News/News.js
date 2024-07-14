@@ -42,7 +42,7 @@ export default function News() {
   };
   return (
     <div className="News-container row">
-      <div className="News-content col-md-8">
+      <div className="News-content col-md-12">
         <div className="News-content-title">
           <span>Tin tức</span>
         </div>
@@ -51,17 +51,19 @@ export default function News() {
             return <NewList key={index} news={item} />;
           })}
 
-          <div className="News-content-pagination mt-3">
-            <ul class="pagination justify-content-end">
-              <Paginate
-                pageCount={pageCount}
-                handlePageClick={handlePageClick}
-              />
-            </ul>
-          </div>
+          {pageCount > 1 && (
+            <div className="News-content-pagination mt-3">
+              <ul class="pagination justify-content-end">
+                <Paginate
+                  pageCount={pageCount}
+                  handlePageClick={handlePageClick}
+                />
+              </ul>
+            </div>
+          )}
         </div>
       </div>
-      <div className="News-content-feature col-md-4">
+      {/* <div className="News-content-feature col-md-4">
         <div className="News-content-feature-title">
           <span>Nổi bật</span>
         </div>
@@ -69,9 +71,8 @@ export default function News() {
           {newsFeatured.map((news, idx) => (
             <NewsItem key={idx} news={news} />
           ))}
-          {/* <NewsItem /> */}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

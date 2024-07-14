@@ -61,12 +61,13 @@ Route::group(['prefix' => '/categories'], function () {
 });
 
 Route::group(['prefix' => '/news'], function () {
+    Route::get('/featured', [\App\Http\Controllers\NewsController::class, 'getNewsByFeatured']);
+
     Route::get(
         '/{slug}',
         [\App\Http\Controllers\NewsController::class, 'show']
     );
     Route::get('/{id}', [\App\Http\Controllers\NewsController::class, 'showEdit']);
-    Route::get('/featured', [\App\Http\Controllers\NewsController::class, 'getNewsByFeatured']);
     Route::get('/order-by-id', [\App\Http\Controllers\NewsController::class, 'getNewsOrderById']);
     Route::get('/', [\App\Http\Controllers\NewsController::class, 'index']);
 

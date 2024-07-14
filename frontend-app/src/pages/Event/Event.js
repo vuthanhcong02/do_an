@@ -42,7 +42,7 @@ export default function Event() {
   };
   return (
     <div className="News-container row">
-      <div className="News-content col-md-8">
+      <div className="News-content col-md-12">
         <div className="News-content-title">
           <span>Sự kiện</span>
         </div>
@@ -52,19 +52,21 @@ export default function Event() {
             return <EventList key={index} event={item} />;
           })}
 
-          <div className="News-content-pagination mt-3">
-            <ul class="pagination justify-content-end">
-              <Paginate
-                pageCount={pageCount}
-                handlePageClick={handlePageClick}
-              />
-            </ul>
-          </div>
+          {pageCount > 1 && (
+            <div className="News-content-pagination mt-3">
+              <ul class="pagination justify-content-end">
+                <Paginate
+                  pageCount={pageCount}
+                  handlePageClick={handlePageClick}
+                />
+              </ul>
+            </div>
+          )}
         </div>
       </div>
-      <div className="News-content-feature col-md-4">
+      {/* <div className="News-content-feature col-md-4">
         <div className="News-content-feature-title">
-          <span>Sự kiện khác</span>
+          <span>Sự kiện nổi bật</span>
         </div>
         <div className="News-content-feature-item">
           {eventsFeatured.map((item, idx) => (
@@ -96,9 +98,9 @@ export default function Event() {
               </div>
             </NavLink>
           ))}
-          {/* <NewsItem /> */}
+          <NewsItem />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

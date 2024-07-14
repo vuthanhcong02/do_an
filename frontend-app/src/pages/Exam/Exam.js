@@ -405,14 +405,16 @@ export default function Exam() {
                 </form>
               </Modal.Body>
             </Modal>
-            <div className="Exam-content-pagination mt-3">
-              <ul class="pagination justify-content-end">
-                <Paginate
-                  pageCount={pageCount}
-                  handlePageClick={handlePageClick}
-                />
-              </ul>
-            </div>
+            {pageCount > 1 && (
+              <div className="Exam-content-pagination mt-3">
+                <ul class="pagination justify-content-end">
+                  <Paginate
+                    pageCount={pageCount}
+                    handlePageClick={handlePageClick}
+                  />
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

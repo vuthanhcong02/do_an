@@ -70,6 +70,7 @@ export default function EditEvent() {
     formData.append("start_date", data.start_date);
     formData.append("start_time", data.start_time);
     formData.append("end_time", data.end_time);
+    formData.append("description", description);
     formData.append("status", data.status ? 1 : 0);
 
     // console.log(data, content);

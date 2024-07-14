@@ -38,8 +38,10 @@ class CourseService extends BaseService
 
     public function getCoursesByEnglishCategory()
     {
-        return  $this->model->where('category_id', 1)->orderBy('id', 'desc')->paginate(10);
+        $categoryIds = [6, 7, 8, 9, 10, 11];
+        return $this->model->whereIn('category_id', $categoryIds)->orderBy('id', 'desc')->paginate(10);
     }
+
 
     public function getCoursesByInformationCategory()
     {

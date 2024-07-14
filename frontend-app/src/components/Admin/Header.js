@@ -18,7 +18,6 @@ export default function Header() {
     <>
       <div className="app-header header-shadow">
         <div className="app-header__logo">
-          <div className="logo-src" />
           <div className="header__pane ml-auto">
             <div>
               <button

@@ -17,7 +17,7 @@ export default function EnglishCourse() {
     if (success) {
       setCourses(data.data);
       setPageCount(data.last_page);
-      navigate(`/english-courses?page=${page || 1}`);
+      navigate(`/language-courses?page=${page || 1}`);
     }
   };
 
@@ -29,21 +29,23 @@ export default function EnglishCourse() {
     <div className="EnglishCourse-container">
       <div className="EnglishCourse-content">
         <div className="EnglishCourse-content-title">
-          <span>English Course</span>
+          <span>Ngoại ngữ</span>
         </div>
         <div className="EnglishCourse-content-item">
           {courses.map((course) => (
             <CourseItem key={course.id} course={course} />
           ))}
 
-          <div className="News-content-pagination mt-3">
-            <ul class="pagination justify-content-end">
-              <Paginate
-                pageCount={pageCount}
-                handlePageClick={handlePageClick}
-              />
-            </ul>
-          </div>
+          {pageCount > 1 && (
+            <div className="News-content-pagination mt-3">
+              <ul class="pagination justify-content-end">
+                <Paginate
+                  pageCount={pageCount}
+                  handlePageClick={handlePageClick}
+                />
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
