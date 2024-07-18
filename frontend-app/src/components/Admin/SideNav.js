@@ -4,6 +4,7 @@ import {
   faCalendarCheck,
   faCalendarDays,
   faChartSimple,
+  faClock,
   faHouseUser,
   faLandmark,
   faMessage,
@@ -189,6 +190,16 @@ export default function SideNav() {
                       style={{ marginRight: "10px" }}
                     />
                     Lịch thi
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="exam-schedules" className="nav-link">
+                    <FontAwesomeIcon
+                      icon={faClock}
+                      style={{ marginRight: "10px" }}
+                    />
+                    Ca thi
                   </NavLink>
                 </li>
 

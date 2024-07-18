@@ -24,18 +24,19 @@ class ExamRegisterService extends BaseService
             return;
         }
 
-        $countRegister = $this->model->where('exam_id', $data['exam_id'])->count();
-        $exam = Exam::find($data['exam_id']);
-        if ($countRegister >= $exam->max_slot) {
-            return;
-        }
+        // $countRegister = $this->model->where('exam_id', $data['exam_id'])->count();
+        // $exam = Exam::find($data['exam_id']);
+        // if ($countRegister >= $exam->max_slot) {
+        //     return;
+        // }
 
-        $registrationNumber = ExamRegister::createRegistrationNumber($data['exam_id']);
+        // $registrationNumber = ExamRegister::createRegistrationNumber($data['exam_id']);
         $registration = $this->model::create([
             'exam_id' => $data['exam_id'],
             'user_id' => $data['user_id'],
+            'exam_schedule_id' => null,
             'payment_type' => $data['payment_type'],
-            'registration_number' => $registrationNumber,
+            'candidate_number' => null,
             'total_fee' => $data['total_fee'],
         ]);
 
@@ -92,5 +93,10 @@ class ExamRegisterService extends BaseService
     public function getTotalFeeExamRegistrationsWithStatusSuccess()
     {
         return $this->model->where('status', 'success')->sum('total_fee');
+    }
+
+    public function getStudentExamRegistrationsWithStatusSuccessByExamSchedule($examScheduleId)
+    {
+        return $this->model::with('user', 'exam', 'exam_schedule')->where('status', 'success')->where('exam_schedule_id', $examScheduleId)->orderBy('candidate_number', 'asc')->get();
     }
 }

@@ -19,3 +19,9 @@ export const getExamRegisterById = (id) => {
 export const deleteExamRegister = (id) => {
   return httpClient.delete("/exam-registers/" + id);
 };
+
+export const getAllRegistrationsByExamSchedule = (examScheduleId) => {
+  return httpClient.get(
+    `/exam-registers/get-student-exam-registrations-with-status-success-by-exam-schedule/${examScheduleId}`
+  );
+};

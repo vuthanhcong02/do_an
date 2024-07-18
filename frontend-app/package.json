@@ -19,6 +19,7 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "ckeditor5-custom-build": "file:ckeditor5",
+    "export-xlsx": "^0.1.4",
     "jwt-decode": "^4.0.0",
     "quill": "^2.0.2",
     "react": "^18.2.0",

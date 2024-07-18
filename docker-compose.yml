@@ -132,3 +132,13 @@ services:
     command: server --console-address ":9001" /data
     networks:
       - network-app
+
+  cron:
+    build:
+      context: .
+      dockerfile: cron.Dockerfile
+    container_name: cron
+    volumes:
+      - ./backend-app:/var/www/html
+    networks:
+      - network-app

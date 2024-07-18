@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exams', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->date('date');
-            $table->bigInteger('fee');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('exam_schedules', function (Blueprint $table) {
+            //
+            $table->foreignId('class_room_id')->constrained('class_rooms')->onDelete('cascade');
         });
     }
 
@@ -26,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exams');
+        Schema::table('exam_schedules', function (Blueprint $table) {
+            //
+            $table->dropForeign(['classroom_id']);
+        });
     }
 };

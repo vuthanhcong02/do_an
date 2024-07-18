@@ -23,16 +23,16 @@ class ExamRegisterObserver
         //
         if ($examRegister->status == "success") {
             $data = [
-                'email' => $examRegister->user->email,
-                'full_name' => $examRegister->user->full_name,
-                'registration_number' => $examRegister->registration_number,
-                'date' => $examRegister->exam->date,
-                'exam_name' => $examRegister->exam->name,
-                'start_at' => $examRegister->exam->start_at,
-                'end_at' => $examRegister->exam->end_at,
-                'price' => $examRegister->total_fee,
-                'room' => $examRegister->exam->classroom->name,
-                'status' => $examRegister->status,
+                'email' => $examRegister->user->email ?? null,
+                'full_name' => $examRegister->user->full_name ?? null,
+                'candidate_number' => $examRegister->candidate_number ?? null,
+                'date' => $examRegister->exam->date ?? null,
+                'exam_name' => $examRegister->exam->name ?? null,
+                'start_at' => $examRegister->exam->start_at ?? null,
+                'end_at' => $examRegister->exam->end_at ?? null,
+                'price' => $examRegister->total_fee ?? null,
+                'room' => $examRegister->exam->classroom->name ?? null,
+                'status' => $examRegister->status ?? null,
             ];
             SendEmailExamRegister::dispatch($data, $examRegister->user->toArray());
         }

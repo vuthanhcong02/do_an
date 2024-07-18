@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import { getExamById, updateExam } from "../../../services/ExamService";
+import { NavLink, useNavigate } from "react-router-dom";
 import { getClassRooms } from "../../../services/ClassRoomService";
-import axios from "axios";
-export default function EditExam() {
+import { getExams } from "../../../services/ExamService";
+import { toast } from "react-toastify";
+import { createExamSchedule } from "../../../services/ExamScheduleService";
+export default function CreateExamSchedule() {
   const navigate = useNavigate();
-  const { id } = useParams();
   const [classrooms, setClassrooms] = useState([]);
-  const { register, handleSubmit, setValue } = useForm();
-
-  useEffect(() => {
-    fetchExam();
-  }, [id]);
+  const [exams, setExams] = useState([]);
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     fetchClassrooms();
+    fetchExams();
   }, []);
+
+  const fetchExams = async () => {
+    const { success, data } = await getExams();
+    if (success) {
+      setExams(data.data);
+    }
+  };
 
   const fetchClassrooms = async () => {
     const { success, data } = await getClassRooms();
@@ -25,36 +29,23 @@ export default function EditExam() {
       setClassrooms(data.data);
     }
   };
-  const fetchExam = async () => {
-    const { success, data } = await getExamById(id);
-    if (success) {
-      setValue("name", data?.name);
-      setValue("date", data?.date);
-      setValue("deadline_date", data?.deadline_date);
-      setValue("fee", data?.fee);
-    }
-  };
   const onSubmit = async (data) => {
-    console.log(data);
-    const dataUpdate = {
-      name: data.name,
-      date: data.date,
-      deadline_date: data.deadline_date,
-      fee: parseInt(data.fee),
+    // console.log(data);
+    const dataCreate = {
+      start_time: data.start_time,
+      end_time: data.end_time,
+      shift: data.shift,
+      exam_id: parseInt(data.exam_id),
       class_room_id: parseInt(data.class_room_id),
+      max_student_per_shift: parseInt(data.max_student_per_shift),
     };
-    try {
-      const response = await axios.put(
-        "http://api.ngoaingutinhoc.tech.com/api/exams/" + id,
-        dataUpdate
-      );
-      if (response.data.success) {
-        navigate("/admin/exams");
-        toast.success("Cập nhật axem này thành công");
-      }
-    } catch (error) {
-      console.error("Error uploading data", error);
-      toast.error("Cập nhật axem này thất bại");
+    console.log(dataCreate);
+    const { success } = await createExamSchedule(dataCreate);
+    if (success) {
+      navigate("/admin/exam-schedules");
+      toast.success("Tạo ca thi thành công");
+    } else {
+      toast.error("Tạo ca thi thất bại");
     }
   };
   return (
@@ -84,15 +75,34 @@ export default function EditExam() {
               >
                 <div className="position-relative row form-group">
                   <label
+                    htmlFor="index"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Lịch thi
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <select {...register("exam_id")} className="form-select">
+                      <option value="">Chọn lịch thi</option>
+                      {exams.map((exam) => (
+                        <option key={exam.id} value={exam.id}>
+                          {exam?.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="position-relative row form-group">
+                  <label
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Tên kì thi
+                    Ca thi
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
-                      placeholder="Tên kì thi"
+                      {...register("shift")}
+                      placeholder="Ca thi"
                       type="text"
                       className="form-control"
                     />
@@ -104,14 +114,14 @@ export default function EditExam() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Ngày thi
+                    Thời gian bắt đầu
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      placeholder="Ngày diễn ra"
-                      type="date"
+                      placeholder="Thời gian bắt đầu"
+                      type="time"
                       className="form-control"
-                      {...register("date")}
+                      {...register("start_time")}
                     />
                   </div>
                 </div>
@@ -121,15 +131,37 @@ export default function EditExam() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Hạn đăng kí
+                    Thời gian kết thúc
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      placeholder="Hạn đăng kí"
-                      type="date"
+                      placeholder="Thời gia kết thúc"
+                      type="time"
                       className="form-control"
-                      {...register("deadline_date")}
+                      {...register("end_time")}
                     />
+                  </div>
+                </div>
+
+                <div className="position-relative row form-group">
+                  <label
+                    htmlFor="index"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Phòng thi
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <select
+                      {...register("class_room_id")}
+                      className="form-select"
+                    >
+                      <option value="">Chọn phòng thi</option>
+                      {classrooms.map((classroom) => (
+                        <option key={classroom.id} value={classroom.id}>
+                          {classroom?.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
@@ -138,17 +170,18 @@ export default function EditExam() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Lệ phí thi
+                    Số lượng thí sinh tối đa từng ca
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      placeholder="Lệ phí thi VND"
+                      placeholder="Số lượng thí sinh tối đa"
                       type="text"
                       className="form-control"
-                      {...register("fee")}
+                      {...register("max_student_per_shift")}
                     />
                   </div>
                 </div>
+
                 <div className="position-relative row form-group mb-1">
                   <div className="col-md-9 col-xl-8 offset-md-2">
                     <NavLink

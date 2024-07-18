@@ -13,19 +13,18 @@ class Exam extends Model
 
     protected $fillable = [
         'name',
-        'start_at',
-        'end_at',
         'date',
         'deadline_date',
-        'status',
         'fee',
-        'class_room_id',
-        'max_slot',
-        'exam_code'
     ];
 
-    public function classroom()
+    public function schedules()
     {
-        return $this->belongsTo(ClassRoom::class, 'class_room_id');
+        return $this->hasMany(ExamSchedule::class);
+    }
+
+    public function registrations()
+    {
+        return $this->hasMany(ExamRegister::class);
     }
 }

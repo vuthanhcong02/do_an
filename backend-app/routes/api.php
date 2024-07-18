@@ -166,6 +166,7 @@ Route::group(['prefix' => '/exam-registers'], function () {
     Route::post('/', [\App\Http\Controllers\ExamRegisterController::class, 'createExamRegister']);
     Route::put('/{id}', [\App\Http\Controllers\ExamRegisterController::class, 'updateRegistration']);
     Route::delete('/{id}', [\App\Http\Controllers\ExamRegisterController::class, 'destroy']);
+    Route::get('/get-student-exam-registrations-with-status-success-by-exam-schedule/{exam_schedule_id}', [\App\Http\Controllers\ExamRegisterController::class, 'getAllRegistrationsByExamScheduleId']);
 });
 
 Route::group(['prefix' => '/notifications'], function () {
@@ -182,6 +183,14 @@ Route::group(['prefix' => '/notification-types'], function () {
     Route::get('/{id}', [\App\Http\Controllers\NotificationTypeController::class, 'show']);
     Route::put('/{id}', [\App\Http\Controllers\NotificationTypeController::class, 'update']);
     Route::delete('/{id}', [\App\Http\Controllers\NotificationTypeController::class, 'destroy']);
+});
+
+Route::group(['prefix' => '/exam-schedules'], function () {
+    Route::get('/', [\App\Http\Controllers\ExamScheduleController::class, 'getAllExamSchedules']);
+    Route::get('/{id}', [\App\Http\Controllers\ExamScheduleController::class, 'show']);
+    Route::put('/{id}', [\App\Http\Controllers\ExamScheduleController::class, 'update']);
+    Route::delete('/{id}', [\App\Http\Controllers\ExamScheduleController::class, 'destroy']);
+    Route::post('/', [\App\Http\Controllers\ExamScheduleController::class, 'store']);
 });
 
 Route::group(['prefix' => '/dashboard'], function () {

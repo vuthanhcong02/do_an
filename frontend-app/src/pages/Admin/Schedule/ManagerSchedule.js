@@ -5,17 +5,23 @@ import {
   deleteSchedule,
   getSchedulesByScheduleId,
 } from "../../../services/ScheduleService";
-import { getSummary } from "../../../utils/function";
-import { toast } from "react-toastify";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
-import { CSVLink } from "react-csv";
-import Paginate from "../../../components/Paginate/Paginate";
+import Table from "react-bootstrap/Table";
+import Modal from "react-bootstrap/Modal";
 
+import { toast } from "react-toastify";
+import Paginate from "../../../components/Paginate/Paginate";
+import moment from "moment";
+import { SETTINGS_FOR_EXPORT_COURSE } from "../../../components/Excels/ExportCourseRegistration";
+import ExcelExport from "export-xlsx";
+import Button from "react-bootstrap/esm/Button";
+import "./ManagerSchedule.scss";
 export default function ManagerSchedule() {
-  const [dataExport, setDataExport] = useState([]);
+  const [getAllStudentBySchedule, setGetAllStudentBySchedule] = useState([]);
   const [schedules, setSchedules] = useState([]);
   const [pageCount, setPageCount] = useState(1);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
 
   const navigate = useNavigate();
 
@@ -28,6 +34,7 @@ export default function ManagerSchedule() {
     if (success) {
       console.log(data);
       setSchedules(data?.data);
+      setPageCount(data?.last_page);
       navigate(`/admin/schedules?page=${page || 1}`);
     }
   };
@@ -47,27 +54,50 @@ export default function ManagerSchedule() {
       }
     }
   };
-  const headers = [
-    { label: "Họ và tên", key: "user_name" },
-    { label: "Số CCCD", key: "user_id_card" },
-    { label: "Giới tính", key: "user_gender" },
-    { label: "Ngày sinh", key: "user_date_of_birthday" },
-    { label: "Email", key: "user_email" },
-    { label: "Số điện thoại", key: "user_phone" },
-    { label: "Địa chỉ", key: "user_address" },
-    { label: "Ngày đăng kí", key: "date_of_registration" },
-  ];
-  // const fetchData = async (id) => {
-  //   // console.log("schedule", id);
-  //   const { success, data } = await getSchedulesByScheduleId(id);
-  //   if (success) {
-  //     setDataExport(data);
-  //   }
-  // };
 
+  const handleShow = async (id) => {
+    setShow(true);
+    console.log("id", id);
+    const { success, data } = await getSchedulesByScheduleId(id);
+    if (success) {
+      // console.log("allRegistrationsbyExamSchedule", data);
+      setGetAllStudentBySchedule(data);
+    }
+  };
+
+  console.log("getAllStudentBySchedule", getAllStudentBySchedule);
+  const transformData = (data) => {
+    return data.map((item, index) => {
+      return {
+        number: index + 1,
+        fullName: item.user_name,
+        identityNumber: item.user_id_card,
+        gender: item.user_gender === 1 ? "Nam" : "Nữ",
+        dateOfBirth: moment(item.user_date_of_birthday).format("DD/MM/YYYY"),
+        email: item.user_email,
+        phone: item.user_phone,
+        address: item.user_address,
+        dateOfRegistration: moment(item.date_of_registration).format(
+          "HH:mm DD/MM/YYYY"
+        ),
+      };
+    });
+  };
   const handlePageClick = async (data) => {
     const currentPage = data.selected + 1;
     fetchSchedules(currentPage);
+  };
+
+  const handleExportExcel = () => {
+    const transformedData = transformData(getAllStudentBySchedule);
+    const data = [
+      {
+        table1: transformedData,
+      },
+    ];
+    const excelExport = new ExcelExport();
+    excelExport.downloadExcel(SETTINGS_FOR_EXPORT_COURSE, data);
+    setShow(false);
   };
   return (
     <div className="app-main__inner">
@@ -151,34 +181,15 @@ export default function ManagerSchedule() {
                       <td className="">{item.teacher?.full_name}</td>
 
                       <td className="text-center">
-                        <CSVLink
-                          data={dataExport}
-                          asyncOnClick={true}
-                          headers={headers}
-                          filename={`Danh sách học viên lớp ${item.class?.name} ca ${item.day_of_week}(${item.start_end_time}).csv`}
-                          onClick={async (event, done) => {
-                            const { success, data } =
-                              await getSchedulesByScheduleId(item.id);
-                            if (success) {
-                              setDataExport(data);
-                            }
-                            done();
-                          }}
+                        <button
+                          className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
+                          onClick={() => handleShow(item.id)}
                         >
-                          <button
-                            // to={`/${item.id}`}
-                            // onClick={() => handleExportStudents(item.id)}
-                            className="btn btn-hover-shine btn-outline-primary border-0 btn-sm"
-                          >
-                            <FontAwesomeIcon
-                              icon={faDownload}
-                              size="sm"
-                              className="mr-2"
-                            />
-                            Xuất danh sách
-                          </button>
-                        </CSVLink>
-
+                          <span className="btn-icon-wrapper opacity-8">
+                            <i className="fa fa-eye fa-w-20 mr-2" />
+                            Xem danh sách
+                          </span>
+                        </button>
                         <NavLink
                           to={`${item.id}/edit`}
                           data-toggle="tooltip"
@@ -214,6 +225,77 @@ export default function ManagerSchedule() {
                 handlePageClick={handlePageClick}
               />
             </div>
+            <Modal
+              show={show}
+              onHide={handleClose}
+              size="lg"
+              scrollable
+              style={{
+                maxHeight: "calc(100vh - 210px)",
+                overflow: "auto",
+              }}
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>
+                  Danh sách học viên lớp:{" "}
+                  {getAllStudentBySchedule[0]?.class_name} (Thứ{" "}
+                  {getAllStudentBySchedule[0]?.day_of_week} [
+                  {getAllStudentBySchedule[0]?.start_end_time}])
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th className="text-center">Họ và tên</th>
+                      <th className="text-center">Giới tính</th>
+                      <th className="text-center">Ngày sinh</th>
+                      <th className="text-center">Số CCCD</th>
+                      <th className="text-center">Email</th>
+                      <th className="text-center">Số điện thoại</th>
+                      <th className="text-center">Địa chỉ</th>
+                      <th className="text-center">Ngày đăng kí</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getAllStudentBySchedule.map((item, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td className="text-center">{item?.user_name}</td>
+                        <td className="text-center">
+                          {item?.user_gender === 1 ? "Nam" : "Nữ"}
+                        </td>
+                        <td className="text-center">
+                          {moment(item?.user_date_of_birthday).format(
+                            "DD-MM-YYYY"
+                          )}
+                        </td>
+                        <td className="text-center">{item?.user_id_card}</td>
+                        <td className="text-center">{item?.user_email}</td>
+                        <td className="text-center">{item?.user_phone}</td>
+                        <td className="text-center">{item?.user_address}</td>
+                        <td className="text-center">
+                          {moment(item?.date_of_registration).format(
+                            "HH:mm - DD-MM-YYYY"
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Đóng
+                </Button>
+                {getAllStudentBySchedule.length > 0 && (
+                  <Button variant="primary" onClick={handleExportExcel}>
+                    Xuất file
+                  </Button>
+                )}
+              </Modal.Footer>
+            </Modal>
           </div>
         </div>
       </div>

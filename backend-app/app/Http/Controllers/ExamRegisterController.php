@@ -69,4 +69,13 @@ class ExamRegisterController extends Controller
         $this->examRegisterService->delete($registration->id);
         return $this->customResponse(200, true, null, null, null);
     }
+
+    public function getAllRegistrationsByExamScheduleId($id)
+    {
+        $registration = $this->examRegisterService->getStudentExamRegistrationsWithStatusSuccessByExamSchedule($id);
+        if (!$registration) {
+            return $this->customResponse(404, false, null, 'Registration not found', null);
+        }
+        return $this->customResponse(200, true, $registration, null, null);
+    }
 }

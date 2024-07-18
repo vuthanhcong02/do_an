@@ -10,29 +10,18 @@ class ExamRegister extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
+    protected $table = 'exam_registrations';
     protected $fillable = [
         'user_id',
         'exam_id',
+        'exam_schedule_id',
         'payment_type',
         'status',
         'total_fee',
-        'registration_number'
+        'candidate_number',
     ];
 
-    public static function createRegistrationNumber($exam_id)
-    {
-        $exam = Exam::find($exam_id);
-        if (!$exam || !$exam->exam_code) {
-            throw new \Exception('Invalid exam ID or exam code not set');
-        }
 
-        $count = self::where('exam_id', $exam_id)->count();
-
-        $registrationNumber = $exam->exam_code . str_pad($count + 1, 4, '0', STR_PAD_LEFT);
-
-        return $registrationNumber;
-    }
 
     public function user()
     {
@@ -42,5 +31,10 @@ class ExamRegister extends Model
     public function exam()
     {
         return $this->belongsTo(Exam::class);
+    }
+
+    public function exam_schedule()
+    {
+        return $this->belongsTo(ExamSchedule::class);
     }
 }

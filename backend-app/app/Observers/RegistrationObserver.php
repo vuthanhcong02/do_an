@@ -24,16 +24,16 @@ class RegistrationObserver
         //
         if ($registration->status == "success") { {
                 $data = [
-                    'email' => $registration->user->email,
-                    'course_id' => $registration->schedule->course_id,
-                    'full_name' => $registration->user->full_name,
-                    'course_name' => $registration->schedule->course->name,
-                    'day_of_week' => $registration->schedule->day_of_week,
-                    'start_end_time' => $registration->schedule->start_end_time,
-                    'price' => $registration->schedule->course->price,
-                    'class' => $registration->schedule->classroom->name,
-                    'room' => $registration->schedule->classroom->name,
-                    'status' => $registration->status,
+                    'email' => $registration->user->email ?? null,
+                    'course_id' => $registration->schedule->course_id ?? null,
+                    'full_name' => $registration->user->full_name ?? null,
+                    'course_name' => $registration->schedule->course->name ?? null,
+                    'day_of_week' => $registration->schedule->day_of_week ?? null,
+                    'start_end_time' =>  $registration->schedule->start_end_time ?? null,
+                    'price' => $registration->schedule->course->price ?? null,
+                    'class' => $registration->schedule->classroom->name ?? null,
+                    'room' => $registration->schedule->classroom->name ?? null,
+                    'status' => $registration->status ?? null,
                 ];
                 SendEmailRegisterCourse::dispatch($data, $registration->user->toArray());
             }

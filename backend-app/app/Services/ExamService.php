@@ -14,7 +14,7 @@ class ExamService extends BaseService
 
     public function getAllExams()
     {
-        return $this->model::with('classroom')->orderBy('id', 'DESC')->paginate(10);
+        return $this->model->orderBy('id', 'DESC')->paginate(10);
     }
 
     public function getAllExamActive()

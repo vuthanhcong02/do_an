@@ -2,24 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ExamScheduleService;
 use Illuminate\Http\Request;
 
 class ExamScheduleController extends Controller
 {
     //
 
-    public function index()
+    protected $examScheduleService;
+
+    public function __construct(ExamScheduleService $examScheduleService)
     {
-        return view('Dashboard.exam-schedule.index');
+        $this->examScheduleService = $examScheduleService;
     }
 
-    public function create()
+    public function getAllExamSchedules()
     {
-        return view('Dashboard.exam-schedule.create');
+        $examSchedules = $this->examScheduleService->getAllExamSchedules();
+        if (!$examSchedules) {
+            return $this->customResponse(400, false, null, 'Exam schedule not found', null);
+        }
+
+        return $this->customResponse(200, true, $examSchedules, null, null);
     }
 
-    public function edit()
+    public function store(Request $request)
     {
-        return view('Dashboard.exam-schedule.edit');
+        $data = $request->all();
+        $examSchedule = $this->examScheduleService->create($data);
+        if (!$examSchedule) {
+            return $this->customResponse(400, false, null, 'Exam schedule not created', null);
+        }
+
+        return $this->customResponse(200, true, $examSchedule, null, null);
+    }
+
+    public function show($id)
+    {
+        $examSchedule = $this->examScheduleService->find($id);
+        if (!$examSchedule) {
+            return $this->customResponse(400, false, null, 'Exam schedule not found', null);
+        }
+
+        return $this->customResponse(200, true, $examSchedule, null, null);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $examSchedule = $this->examScheduleService->update($id, $data);
+        if (!$examSchedule) {
+            return $this->customResponse(400, false, null, 'Exam schedule not updated', null);
+        }
+
+        return $this->customResponse(200, true, $examSchedule, null, null);
+    }
+
+    public function destroy($id)
+    {
+        $examSchedule = $this->examScheduleService->delete($id);
+        if (!$examSchedule) {
+            return $this->customResponse(400, false, null, 'Exam schedule not deleted', null);
+        }
+
+        return $this->customResponse(200, true, $examSchedule, null, null);
     }
 }

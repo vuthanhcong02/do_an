@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exams', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->date('date');
-            $table->bigInteger('fee');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('exams', function (Blueprint $table) {
+            //\
+            $table->date('deadline_date')->nullable();
         });
     }
 
@@ -26,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exams');
+        Schema::table('exams', function (Blueprint $table) {
+            $table->dropColumn('deadline_date');
+            //
+        });
     }
 };

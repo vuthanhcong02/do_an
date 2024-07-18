@@ -71,6 +71,9 @@ import EditExam from "./pages/Admin/Exam/EditExam.js";
 import Exam from "./pages/Exam/Exam.js";
 import MyExam from "./pages/MyExam/MyExam.js";
 import SearchResult from "./pages/SearchResult/SearchResult.js";
+import ManagerExamSchedule from "./pages/Admin/ExamSchedule/ManagerExamSchedule.js";
+import CreateExamSchedule from "./pages/Admin/ExamSchedule/CreateExamSchedule.js";
+import EditExamSchedule from "./pages/Admin/ExamSchedule/EditExamSchedule.js";
 
 function App() {
   return (
@@ -163,6 +166,16 @@ function App() {
           <Route path="exams" element={<ManagerExam />} />
           <Route path="exams/create" element={<CreateExam />} />
           <Route path="exams/:id/edit" element={<EditExam />} />
+
+          <Route path="exam-schedules" element={<ManagerExamSchedule />} />
+          <Route
+            path="exam-schedules/create"
+            element={<CreateExamSchedule />}
+          />
+          <Route
+            path="exam-schedules/:id/edit"
+            element={<EditExamSchedule />}
+          />
 
           <Route path="exams/registrations" element={<ManagerExamRegister />} />
           <Route

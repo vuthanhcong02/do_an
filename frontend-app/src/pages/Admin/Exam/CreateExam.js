@@ -23,15 +23,9 @@ export default function CreateExam() {
     // console.log(data);
     const dataCreate = {
       name: data.name,
-      start_at: data.start_at,
-      end_at: data.end_at,
       date: data.date,
       deadline_date: data.deadline_date,
       fee: parseInt(data.fee),
-      status: 1,
-      class_room_id: parseInt(data.class_room_id),
-      max_slot: data.max_slot,
-      exam_code: data.exam_code,
     };
     console.log(dataCreate);
     const { success } = await createExam(dataCreate);
@@ -84,24 +78,7 @@ export default function CreateExam() {
                   </div>
                 </div>
 
-                <div className="position-relative row form-group">
-                  <label
-                    htmlFor="title"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Mã cuộc thi
-                  </label>
-                  <div className="col-md-9 col-xl-8">
-                    <input
-                      placeholder="Mã cuộc thi"
-                      type="text"
-                      className="form-control"
-                      {...register("exam_code")}
-                    />
-                  </div>
-                </div>
-
-                <div className="position-relative row form-group">
+                {/* <div className="position-relative row form-group">
                   <label
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
@@ -116,9 +93,9 @@ export default function CreateExam() {
                       {...register("start_at")}
                     />
                   </div>
-                </div>
+                </div> */}
 
-                <div className="position-relative row form-group">
+                {/* <div className="position-relative row form-group">
                   <label
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
@@ -133,7 +110,7 @@ export default function CreateExam() {
                       {...register("end_at")}
                     />
                   </div>
-                </div>
+                </div> */}
 
                 <div className="position-relative row form-group">
                   <label
@@ -152,7 +129,7 @@ export default function CreateExam() {
                   </div>
                 </div>
 
-                <div className="position-relative row form-group">
+                {/* <div className="position-relative row form-group">
                   <label
                     htmlFor="index"
                     className="col-md-3 text-md-right col-form-label"
@@ -172,7 +149,7 @@ export default function CreateExam() {
                       ))}
                     </select>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="position-relative row form-group">
                   <label
@@ -204,23 +181,6 @@ export default function CreateExam() {
                       type="text"
                       className="form-control"
                       {...register("fee")}
-                    />
-                  </div>
-                </div>
-
-                <div className="position-relative row form-group">
-                  <label
-                    htmlFor="title"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Số lượng thí sinh tối đa
-                  </label>
-                  <div className="col-md-9 col-xl-8">
-                    <input
-                      placeholder="Số lượng thí sinh tối đa"
-                      type="text"
-                      className="form-control"
-                      {...register("max_slot")}
                     />
                   </div>
                 </div>

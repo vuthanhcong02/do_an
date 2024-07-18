@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Paginate from "../../components/Paginate/Paginate";
 import { NavLink, useNavigate } from "react-router-dom";
-import { getExamActive } from "../../services/ExamService";
+import { getExams } from "../../services/ExamService";
 import { userInfo } from "../../services/AuthService";
 import "./Exam.scss";
 import { toast } from "react-toastify";
@@ -61,7 +61,7 @@ export default function Exam() {
   }, []);
 
   const fetchExams = async (page) => {
-    const { success, data } = await getExamActive(page || 1);
+    const { success, data } = await getExams(page || 1);
     if (success) {
       setExamsActive(data.data);
       setPageCount(data.last_page);
@@ -82,7 +82,7 @@ export default function Exam() {
         exam_id: parseInt(dataSubmit.exam_id),
         user_id: parseInt(dataSubmit.user_id),
         payment_type: dataSubmit.payment_type,
-        total_fee: parseInt(dataSubmit.total_fee_information),
+        total_fee: dataSubmit.fee,
       };
       const { success, data } = await createExamRegister(dataCreate);
       if (success) {
@@ -114,24 +114,22 @@ export default function Exam() {
               <thead className="exam_header">
                 <tr>
                   <th>Tên</th>
-                  <th>Thời gian thi</th>
                   <th>Ngày thi</th>
                   <th>Địa điểm</th>
-                  <th>Hạn đăng kí</th>
                   <th>Lệ phí thi</th>
+                  <th>Hạn đăng kí</th>
                 </tr>
               </thead>
               <tbody>
                 {examsActive.map((item, index) => (
                   <tr key={index}>
                     <td>{item?.name}</td>
-                    <td>
-                      {item?.start_at}-{item?.end_at}
-                    </td>
+
                     <td>{moment(item?.date).format("DD-MM-YYYY")}</td>
-                    <td>{item?.classroom?.name}</td>
-                    <td>{moment(item?.deadline_date).format("DD-MM-YYYY")}</td>
+                    <td>Trường đại học Thủy Lợi</td>
+
                     <td>{item?.fee && formatPrice(item?.fee)}</td>
+                    <td>{moment(item?.deadline_date).format("DD-MM-YYYY")}</td>
                     <td className="text-center">
                       <NavLink
                       // to={token ? `/exams/${item?.id}/register` : "/login"}
@@ -186,23 +184,6 @@ export default function Exam() {
                       controlId="formPlaintextEmail"
                     >
                       <Form.Label column sm="5">
-                        Thời gian thi :
-                      </Form.Label>
-                      <Col sm="7">
-                        <Form.Control
-                          plaintext
-                          readOnly
-                          {...register("time_information")}
-                          defaultValue="email@example.com"
-                        />
-                      </Col>
-                    </Form.Group>
-                    <Form.Group
-                      as={Row}
-                      className="mb-2"
-                      controlId="formPlaintextEmail"
-                    >
-                      <Form.Label column sm="5">
                         Ngày thi :
                       </Form.Label>
                       <Col sm="7">
@@ -216,23 +197,6 @@ export default function Exam() {
                     </Form.Group>
                   </div>
                   <div>
-                    <Form.Group
-                      as={Row}
-                      className="mb-2"
-                      controlId="formPlaintextEmail"
-                    >
-                      <Form.Label column sm="5">
-                        Phòng thi :
-                      </Form.Label>
-                      <Col sm="7">
-                        <Form.Control
-                          plaintext
-                          readOnly
-                          {...register("classroom_information")}
-                          defaultValue="email@example.com"
-                        />
-                      </Col>
-                    </Form.Group>
                     <Form.Group
                       as={Row}
                       className="mb-2"

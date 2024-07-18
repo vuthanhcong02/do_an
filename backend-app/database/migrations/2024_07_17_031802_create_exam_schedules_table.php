@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exam_registers', function (Blueprint $table) {
+        Schema::create('exam_schedules', function (Blueprint $table) {
             $table->id();
-            $table->string('registration_number')->unique();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade');
-            $table->bigInteger('total_fee');
-            $table->string('payment_type');
-            $table->string('status')->default('pending');
+            $table->integer('shift');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exam_registers');
+        Schema::dropIfExists('exam_schedules');
     }
 };
