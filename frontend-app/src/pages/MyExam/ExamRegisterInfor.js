@@ -110,7 +110,7 @@ export const ExamRegister = ({ exam }) => {
             </View>
             <View style={styles.name}>
               <Text style={styles.label}>Số báo danh:</Text>
-              <Text style={styles.text}>{exam?.registration_number}</Text>
+              <Text style={styles.text}>{exam?.candidate_number}</Text>
             </View>
             <View style={styles.name}>
               <Text style={styles.label}>Ngày sinh:</Text>
@@ -120,12 +120,15 @@ export const ExamRegister = ({ exam }) => {
             </View>
             <View style={styles.name}>
               <Text style={styles.label}>Phòng thi:</Text>
-              <Text style={styles.text}>{exam?.exam?.classroom?.name}</Text>
+              <Text style={styles.text}>
+                {exam?.exam_schedule?.classroom?.name}
+              </Text>
             </View>
             <View style={styles.name}>
               <Text style={styles.label}>Thời gian:</Text>
               <Text style={styles.text}>
-                {exam?.exam?.start_at}-{exam?.exam?.end_at}
+                {exam?.exam_schedule?.start_time}-
+                {exam?.exam_schedule?.end_time}
               </Text>
             </View>
             <View style={styles.name}>

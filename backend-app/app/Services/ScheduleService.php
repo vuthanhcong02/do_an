@@ -57,6 +57,6 @@ class ScheduleService extends BaseService
             ->join('users as u', 'r.user_id', '=', 'u.id')
             ->where('s.id', $scheduleId)
             ->whereNull('r.deleted_at')
-            ->get();
+            ->orderBy('u.full_name', 'asc')->get();
     }
 }

@@ -65,7 +65,7 @@ class ExamRegisterService extends BaseService
     {
         $user = auth()->user();
         // dd($user);
-        return $this->model::with('user', 'exam', 'exam.classroom')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(5);
+        return $this->model::with('user', 'exam', 'exam_schedule.classroom')->where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(5);
     }
 
     public function updateExamRegister($data)

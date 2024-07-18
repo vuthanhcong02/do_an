@@ -1,5 +1,5 @@
 export const getSummary = (content) => {
-  const maxLength = 200;
+  const maxLength = 300;
   if (content.length <= maxLength) {
     return content;
   } else {
@@ -7,7 +7,7 @@ export const getSummary = (content) => {
   }
 };
 export const getContent = (content) => {
-  const maxLength = 70;
+  const maxLength = 50;
   if (content.length <= maxLength) {
     return content;
   } else {

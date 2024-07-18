@@ -116,7 +116,7 @@ export default function Home() {
                 ))}
                 <div className="Home-content-courses-more">
                   <span>
-                    <NavLink to="/english-courses">Xem thêm </NavLink>
+                    <NavLink to="/language-courses">Xem thêm </NavLink>
                   </span>
                 </div>
               </div>

@@ -23,7 +23,7 @@ export default function MyExam() {
       setExams(data?.data);
     }
   };
-
+  console.log(exams);
   const handleShowPdfInfo = (data) => {
     handleShow();
     setExamInformation(data);
@@ -46,12 +46,13 @@ export default function MyExam() {
             {exams?.map((item, index) => (
               <tr key={index}>
                 <td>{item?.exam?.name}</td>
-                <td>{item?.registration_number}</td>
+                <td>{item?.candidate_number}</td>
                 <td>
-                  {item?.exam?.start_at} - {item?.exam?.end_at}
+                  {item?.exam_schedule?.start_time} -{" "}
+                  {item?.exam_schedule?.end_time}
                 </td>
                 <td>{item?.exam?.date}</td>
-                <td>{item?.exam?.classroom?.name}</td>
+                <td>{item?.exam_schedule?.classroom?.name}</td>
                 <td className="text-center">
                   <Button
                     style={{

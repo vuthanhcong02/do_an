@@ -93,7 +93,7 @@ export default function CourseDetails() {
         {courseOther.map((course, index) => (
           <NavLink
             to={`/courses/${course?.slug}`}
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none", color: "black", fontSize: "13px" }}
             className="CourseDetails-more-item row"
             key={course?.id}
           >
@@ -104,12 +104,12 @@ export default function CourseDetails() {
               <span className="CourseDetails-more-item-title">
                 {course?.name}
               </span>
-              <span
+              <p
                 className="CourseDetails-more-item-description"
                 dangerouslySetInnerHTML={{
                   __html: getContent(course.description),
                 }}
-              ></span>
+              />
             </div>
           </NavLink>
         ))}
