@@ -28,10 +28,10 @@ class ExamRegisterObserver
                 'candidate_number' => $examRegister->candidate_number ?? null,
                 'date' => $examRegister->exam->date ?? null,
                 'exam_name' => $examRegister->exam->name ?? null,
-                'start_at' => $examRegister->exam->start_at ?? null,
-                'end_at' => $examRegister->exam->end_at ?? null,
+                'start_at' => $examRegister->exam_schedule->start_time ?? null,
+                'end_at' => $examRegister->exam_schedule->end_time ?? null,
                 'price' => $examRegister->total_fee ?? null,
-                'room' => $examRegister->exam->classroom->name ?? null,
+                'room' => $examRegister->exam_schedule->classroom->name ?? null,
                 'status' => $examRegister->status ?? null,
             ];
             SendEmailExamRegister::dispatch($data, $examRegister->user->toArray());

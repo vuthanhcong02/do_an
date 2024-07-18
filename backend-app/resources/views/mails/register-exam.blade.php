@@ -4,8 +4,8 @@
     Bạn đã đăng ký thành công lịch thi. Dưới đây là thông tin chi tiết:
 
     **Tên: {{ $data['exam_name'] }}
-    **SBD: {{ $data['registration_number'] }}
-    **Thời gian: {{ $data['start_at'] }} - ({{ $data['end_at'] }})
+    **SBD: {{ $data['candidate_number'] }}
+    **Thời gian: {{ $data['start_at'] }} - {{ $data['end_at'] }}
     **Ngày thi: {{ $data['date'] }}
     **Phòng thi: {{ $data['room'] }}
     **Giá trị: {{ $data['price'] }} VND
