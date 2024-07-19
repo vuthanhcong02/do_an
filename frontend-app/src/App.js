@@ -74,6 +74,7 @@ import SearchResult from "./pages/SearchResult/SearchResult.js";
 import ManagerExamSchedule from "./pages/Admin/ExamSchedule/ManagerExamSchedule.js";
 import CreateExamSchedule from "./pages/Admin/ExamSchedule/CreateExamSchedule.js";
 import EditExamSchedule from "./pages/Admin/ExamSchedule/EditExamSchedule.js";
+import EmailVerify from "./pages/EmailVerify/EmailVerify.js";
 
 function App() {
   return (
@@ -112,6 +113,9 @@ function App() {
           </Route>
         </Routes>
       </div>
+      <Routes>
+        <Route path="/verify-email/:token" element={<EmailVerify />} />
+      </Routes>
       <Routes>
         <Route path="admin/login" element={<LoginAdmin />} />
 
@@ -198,7 +202,9 @@ function App() {
             element={<EditNotification />}
           />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
+
       <ToastContainer />
     </>
   );

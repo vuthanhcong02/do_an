@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\CreateUserRequest;
+use App\Jobs\SendEmailAccountRegister;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class AuthController extends Controller
     {
         $this->authService = $authService;
         $this->imageUploadService = $imageUploadService;
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'adminLogin', 'loginWithSocial']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'adminLogin', 'loginWithSocial', 'verifyEmail']]);
     }
 
     /**
@@ -76,8 +77,26 @@ class AuthController extends Controller
         if (!$token = auth()->login($user)) {
             return $this->customResponse(401, false, null, 'Register failed', null);
         }
+        $verificationUrl = 'http://localhost:3000/verify-email/' . $user->remember_token;
+        SendEmailAccountRegister::dispatch($user, $verificationUrl);
 
-        return $this->createNewToken($token);
+        return $this->customResponse(200, true, $user, null, null);
+        // return $this->createNewToken($token);
+    }
+
+    public function verifyEmail($token)
+    {
+        $user = $this->authService->verifyEmail($token);
+        if (!$user) {
+            return $this->customResponse(401, false, null, 'Email verification failed', null);
+        }
+
+        if (!$tokenLogin = auth()->login($user)) {
+            return $this->customResponse(401, false, null, 'Email verification failed', null);
+        }
+
+        return $this->createNewToken($tokenLogin);
+        // return $this->customResponse(200, true, null, null, null);
     }
 
     /**

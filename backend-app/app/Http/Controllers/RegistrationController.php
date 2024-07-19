@@ -36,14 +36,7 @@ class RegistrationController extends Controller
         return $this->customResponse(200, true, $registration, null, null);
     }
 
-    // public function vnPayCheck(Request $request)
-    // {
-    //     $registration = $this->registrationService->vnPayCheck($request->all());
-    //     if (!$registration) {
-    //         return $this->customResponse(404, false, null, 'Registration not found', null);
-    //     }
-    //     return $this->customResponse(200, true, $registration, null, null);
-    // }
+
 
     public function getRegistrationByUser()
     {

@@ -6,12 +6,14 @@ import { faCircleLeft, faCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../../services/AuthService";
+import { toast } from "react-toastify";
 export default function Register() {
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
   } = useForm();
   const navigate = useNavigate();
   const password = watch("password");
@@ -37,15 +39,20 @@ export default function Register() {
       const response = await registerUser(UserData);
 
       if (response.success) {
-        const { data, access_token } = response;
-        localStorage.setItem("user", JSON.stringify(data));
-        localStorage.setItem("token", access_token);
-        window.location.href = "/";
-      } else {
-        console.error(
-          "Registration failed:",
-          response.message || "Unknown error"
+        // const { data, access_token } = response;
+        // localStorage.setItem("user", JSON.stringify(data));
+        // localStorage.setItem("token", access_token);
+        // window.location.href = "/";
+        toast.success(
+          "Đăng ký tài khoản thành công. Vui lòng kiểm tra email để xác nhận!"
         );
+        reset();
+      } else {
+        // console.error(
+        //   "Đăng kó:",
+        //   response.message || "Unknown error"
+        // );
+        toast.error("Đăng ký thất bại!");
         // Handle error (show message to user, etc.)
       }
     } catch (error) {

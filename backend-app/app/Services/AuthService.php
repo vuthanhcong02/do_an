@@ -34,7 +34,9 @@ class AuthService extends BaseService
             if (!Auth::attempt($credentials)) {
                 return false;
             }
-
+            if ($this->findEmailUnverified($data['email'])) {
+                return false;
+            }
             return auth()->user();
         }
 
@@ -57,9 +59,30 @@ class AuthService extends BaseService
             'object_type' => $data['object_type'] ?? null,
             'date_of_birthday' => $data['date_of_birthday'] ?? null,
             'id_card' => $data['id_card'] ?? null,
+            'remember_token' => Str::random(10),
         ]);
 
         return $user;
+    }
+
+    public function verifyEmail($token)
+    {
+        $user = User::where('remember_token', $token)->first();
+
+        if (!$user) {
+            return false;
+        }
+
+        $user->email_verified_at = now();
+        $user->remember_token = null;
+        $user->save();
+
+        return $user;
+    }
+
+    public function findEmailUnverified($email)
+    {
+        return $this->model->where('email', $email)->where('email_verified_at', null)->first();
     }
 
     public function adminLogin($data)
@@ -91,6 +114,7 @@ class AuthService extends BaseService
                 'object_type' => $data['object_type'] ?? null,
                 'date_of_birthday' => $data['date_of_birthday'] ?? null,
                 'id_card' => $data['id_card'] ?? null,
+                'email_verified_at' => Carbon::now(),
             ]);
         }
         if ($user) {

@@ -29,6 +29,7 @@ class User extends Authenticatable implements JWTSubject
         'object_type',
         'date_of_birthday',
         'id_card',
+        'remember_token',
     ];
 
     public function registrations()
