@@ -201,8 +201,8 @@ function App() {
             path="notifications/:slug/edit"
             element={<EditNotification />}
           />
+          <Route path="*" element={<PageNotFound />} />
         </Route>
-        <Route path="*" element={<PageNotFound />} />
       </Routes>
 
       <ToastContainer />

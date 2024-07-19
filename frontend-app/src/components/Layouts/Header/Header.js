@@ -80,26 +80,47 @@ export default function Header() {
         </div>
         <div>
           <div className="d-flex justify-content-center align-items-center">
-            <FontAwesomeIcon
-              icon={faFacebook}
-              className="p-2"
-              style={{ cursor: "pointer" }}
-            />
-            <FontAwesomeIcon
-              icon={faInstagram}
-              className="p-2"
-              style={{ cursor: "pointer" }}
-            />
+            <a
+              style={{ cursor: "pointer", color: "white" }}
+              href="https://www.facebook.com/daihocthuyloi1959?locale=vi_VN"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon
+                icon={faFacebook}
+                className="p-2"
+                style={{ cursor: "pointer" }}
+              />
+            </a>
+            <a
+              style={{ cursor: "pointer", color: "white" }}
+              href="https://www.instagram.com/daihocthuyloi/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon
+                icon={faInstagram}
+                className="p-2"
+                style={{ cursor: "pointer" }}
+              />
+            </a>
             <FontAwesomeIcon
               icon={faTwitter}
               className="p-2"
               style={{ cursor: "pointer" }}
             />
-            <FontAwesomeIcon
-              icon={faYoutube}
-              className="p-2 mr-4"
-              style={{ cursor: "pointer" }}
-            />
+            <a
+              href="https://www.youtube.com/@daihocthuyloi"
+              target="_blank"
+              rel="noreferrer"
+              style={{ cursor: "pointer", color: "white" }}
+            >
+              <FontAwesomeIcon
+                icon={faYoutube}
+                className="p-2 mr-4"
+                style={{ cursor: "pointer" }}
+              />
+            </a>
             {isLoggedIn ? (
               <NavDropdown
                 id="nav-dropdown-dark-example"

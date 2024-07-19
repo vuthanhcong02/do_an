@@ -43,35 +43,43 @@ export default function MyExam() {
             </tr>
           </thead>
           <tbody>
-            {exams?.map((item, index) => (
-              <tr key={index}>
-                <td>{item?.exam?.name}</td>
-                <td>{item?.candidate_number}</td>
-                <td>
-                  {item?.exam_schedule?.start_time} -{" "}
-                  {item?.exam_schedule?.end_time}
-                </td>
-                <td>{item?.exam?.date}</td>
-                <td>{item?.exam_schedule?.classroom?.name}</td>
-                <td className="text-center">
-                  <Button
-                    style={{
-                      backgroundColor: "#273272",
-                      color: "white",
-                      border: "none",
-                    }}
-                    onClick={() => handleShowPdfInfo(item)}
-                  >
-                    <FontAwesomeIcon
-                      icon={faDownload}
-                      className="icon-save mr-2"
-                      size="sm"
-                    />
-                    Thẻ dự thi
-                  </Button>
+            {exams.length > 0 ? (
+              exams?.map((item, index) => (
+                <tr key={index}>
+                  <td>{item?.exam?.name}</td>
+                  <td>{item?.candidate_number}</td>
+                  <td>
+                    {item?.exam_schedule?.start_time} -{" "}
+                    {item?.exam_schedule?.end_time}
+                  </td>
+                  <td>{item?.exam?.date}</td>
+                  <td>{item?.exam_schedule?.classroom?.name}</td>
+                  <td className="text-center">
+                    <Button
+                      style={{
+                        backgroundColor: "#273272",
+                        color: "white",
+                        border: "none",
+                      }}
+                      onClick={() => handleShowPdfInfo(item)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faDownload}
+                        className="icon-save mr-2"
+                        size="sm"
+                      />
+                      Thẻ dự thi
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} className="text-center">
+                  Bạn chưa có lịch thi nào
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </Table>
       </div>

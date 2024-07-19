@@ -51,7 +51,7 @@ export default function Footer() {
           <div className="d-flex flex-column">
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">
+              <span className="p-1">
                 <a href="/" className="text-decoration-none text-white">
                   Trang chủ
                 </a>
@@ -59,7 +59,7 @@ export default function Footer() {
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">
+              <span className="p-1">
                 <a href="/news" className="text-decoration-none text-white">
                   Tin tức
                 </a>
@@ -67,7 +67,16 @@ export default function Footer() {
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">
+              <span className="p-1">
+                <a href="/events" className="text-decoration-none text-white">
+                  Sự kiện
+                </a>
+              </span>
+            </div>
+
+            <div className="d-flex align-items-center">
+              <FontAwesomeIcon icon={faArrowRight} />
+              <span className="p-1">
                 <a
                   href="/notifications"
                   className="text-decoration-none text-white"
@@ -78,7 +87,7 @@ export default function Footer() {
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">
+              <span className="p-1">
                 <a href="/contact" className="text-decoration-none text-white">
                   Liên hệ
                 </a>
@@ -91,19 +100,22 @@ export default function Footer() {
           <div className="d-flex flex-column">
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">Đào tạo ngoại ngữ</span>
+
+              <span className="p-2">
+                <a href="/language-courses">Đào tạo ngoại ngữ</a>
+              </span>
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">Đào tạo tin học</span>
+              <span className="p-2">
+                <a href="/information-courses">Đào tạo tin học</a>
+              </span>
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">Luyện thi</span>
-            </div>
-            <div className="d-flex align-items-center">
-              <FontAwesomeIcon icon={faArrowRight} />
-              <span className="p-2">Cấp chứng chỉ CNTT-ngoại ngữ</span>
+              <span className="p-2">
+                <a href="/exams">Luyện thi</a>
+              </span>
             </div>
           </div>
         </div>
@@ -111,20 +123,32 @@ export default function Footer() {
           <h6>Mạng xã hội</h6>
           <div className="d-flex justify-center align-items-center">
             <div className="d-flex align-items-center">
-              <FontAwesomeIcon
-                icon={faFacebook}
-                size="2x"
-                className="p-2"
-                style={{ cursor: "pointer" }}
-              />
+              <a
+                style={{ cursor: "pointer", color: "white" }}
+                href="https://www.facebook.com/daihocthuyloi1959?locale=vi_VN"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FontAwesomeIcon
+                  icon={faFacebook}
+                  size="2x"
+                  className="p-2"
+                  style={{ cursor: "pointer" }}
+                />
+              </a>
             </div>
             <div className="d-flex align-items-center">
-              <FontAwesomeIcon
-                icon={faInstagram}
-                size="2x"
-                className="p-2"
-                style={{ cursor: "pointer" }}
-              />
+              <a
+                style={{ cursor: "pointer", color: "white" }}
+                href="https://www.instagram.com/daihocthuyloi/"
+              >
+                <FontAwesomeIcon
+                  icon={faInstagram}
+                  size="2x"
+                  className="p-2"
+                  style={{ cursor: "pointer" }}
+                />
+              </a>
             </div>
             <div className="d-flex align-items-center">
               <FontAwesomeIcon
@@ -135,20 +159,27 @@ export default function Footer() {
               />
             </div>
             <div className="d-flex align-items-center">
-              <FontAwesomeIcon
-                icon={faYoutube}
-                size="2x"
-                className="p-2"
-                style={{ cursor: "pointer" }}
-              />
+              <a
+                href="https://www.youtube.com/@daihocthuyloi"
+                target="_blank"
+                rel="noreferrer"
+                style={{ cursor: "pointer", color: "white" }}
+              >
+                <FontAwesomeIcon
+                  icon={faYoutube}
+                  size="2x"
+                  className="p-2"
+                  style={{ cursor: "pointer" }}
+                />
+              </a>
             </div>
           </div>
         </div>
       </div>
       <div className="App-footer-copyright">
         <span>
-          © 2024 Bản quyền thuộc về Viện VTC. Website được thiết kế bởi Mr.Cong
-          Designer
+          © 2024 Bản quyền thuộc về tlu.edu.vn. Website được thiết kế bởi Trung
+          tâm tin học - ngoại ngữ
         </span>
       </div>
     </>
