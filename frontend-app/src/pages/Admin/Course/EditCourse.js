@@ -82,6 +82,7 @@ export default function EditCourse() {
       setValue("featured", course.featured);
       setValue("status", course.status);
       setDescription(course.description);
+      setValue("deadline_date", course.deadline_date);
     }
   }, [course]);
   useEffect(() => {
@@ -112,7 +113,7 @@ export default function EditCourse() {
     formData.append("discount", data.discount);
     formData.append("featured", data.featured ? 1 : 0);
     formData.append("status", data.status ? 1 : 0);
-
+    formData.append("deadline_date", data.deadline_date);
     try {
       const response = await axios.post(
         "http://api.ngoaingutinhoc.tech.com/api/courses/" + data.id,
@@ -301,7 +302,7 @@ export default function EditCourse() {
                     htmlFor="index"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Subject
+                    Chuyên môn
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <select
@@ -312,25 +313,6 @@ export default function EditCourse() {
                       {categories.map((category) => (
                         <option key={category.id} value={category.id}>
                           {category.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="position-relative row form-group">
-                  <label
-                    htmlFor="index"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Giáo viên phụ trách
-                  </label>
-                  <div className="col-md-9 col-xl-8">
-                    <select {...register("teacher_id")} className="form-select">
-                      <option value="">Select Teacher</option>
-                      {teachers.map((teacher) => (
-                        <option key={teacher.id} value={teacher.id}>
-                          {teacher.full_name}
                         </option>
                       ))}
                     </select>
@@ -365,6 +347,24 @@ export default function EditCourse() {
                       {...register("price")}
                       type="text"
                       className="form-control"
+                    />
+                  </div>
+                </div>
+
+                <div className="position-relative row form-group">
+                  <label
+                    htmlFor="index"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Ngày hết hạn đóng học phí
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <input
+                      {...register("deadline_date")}
+                      placeholder="Số thứ tự"
+                      type="date"
+                      className="form-control"
+                      width="20px"
                     />
                   </div>
                 </div>

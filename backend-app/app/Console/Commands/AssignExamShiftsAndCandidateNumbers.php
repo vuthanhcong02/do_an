@@ -40,8 +40,9 @@ class AssignExamShiftsAndCandidateNumbers extends Command
 
     public function assignExamShiftsAndCandidateNumbers()
     {
-        $exams = Exam::all();
-
+        // $exams = Exam::all();
+        $today = now()->toDateString();
+        $exams = Exam::where('deadline_date', $today)->get();
         foreach ($exams as $exam) {
             $exam_id = $exam->id;
             FacadesLog::info("Processing exam_id: $exam_id");

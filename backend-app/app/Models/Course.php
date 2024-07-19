@@ -28,6 +28,7 @@ class Course extends Model
         'price',
         'discount',
         'featured',
+        'deadline_date',
     ];
 
     public function category()

@@ -63,6 +63,7 @@ export default function CreateCourse() {
     formData.append("discount", data.discount);
     formData.append("featured", data.featured ? 1 : 0);
     formData.append("status", data.status ? 1 : 0);
+    formData.append("deadline_date", data.deadline_date);
 
     try {
       const response = await axios.post(
@@ -293,6 +294,24 @@ export default function CreateCourse() {
                       {...register("price")}
                       type="text"
                       className="form-control"
+                    />
+                  </div>
+                </div>
+
+                <div className="position-relative row form-group">
+                  <label
+                    htmlFor="index"
+                    className="col-md-3 text-md-right col-form-label"
+                  >
+                    Ngày hết hạn đóng học phí
+                  </label>
+                  <div className="col-md-9 col-xl-8">
+                    <input
+                      {...register("deadline_date")}
+                      placeholder="Số thứ tự"
+                      type="date"
+                      className="form-control"
+                      width="20px"
                     />
                   </div>
                 </div>

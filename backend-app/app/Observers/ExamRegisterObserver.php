@@ -20,8 +20,9 @@ class ExamRegisterObserver
      */
     public function updated(ExamRegister $examRegister): void
     {
-        //
-        if ($examRegister->status == "success") {
+        $originalStatus = $examRegister->getOriginal('status');
+
+        if ($originalStatus == "pending" && $examRegister->status == "success") {
             $data = [
                 'email' => $examRegister->user->email ?? null,
                 'full_name' => $examRegister->user->full_name ?? null,
@@ -34,6 +35,7 @@ class ExamRegisterObserver
                 'room' => $examRegister->exam_schedule->classroom->name ?? null,
                 'status' => $examRegister->status ?? null,
             ];
+
             SendEmailExamRegister::dispatch($data, $examRegister->user->toArray());
         }
     }
