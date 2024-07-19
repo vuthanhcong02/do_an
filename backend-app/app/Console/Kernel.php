@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('assign:exam-shifts')->daily();
         $schedule->command('app:remove-pending-course-registrations')->daily();
+        $schedule->command('app:remove-pending-exam-registrations')->daily();
     }
 
     /**
