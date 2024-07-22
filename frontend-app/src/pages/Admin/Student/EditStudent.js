@@ -166,11 +166,27 @@ export default function EditStudent() {
                   <div className="col-md-9 col-xl-8">
                     <input
                       required
-                      {...register("full_name")}
+                      {...register("full_name", {
+                        required: "Họ và tên bắt buộc phải nhập!",
+                        minLength: {
+                          value: 3,
+                          message: "Họ và tên phải ít nhất 3 kí tự",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: "Họ và tên không quá 255 kí tự",
+                        },
+                      })}
                       placeholder="Họ và tên"
                       type="text"
                       className="form-control"
                     />
+
+                    {errors.full_name && (
+                      <span className="text-danger">
+                        {errors.full_name.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -184,7 +200,9 @@ export default function EditStudent() {
                   <div className="col-md-9 col-xl-8">
                     <select
                       required
-                      {...register("gender")}
+                      {...register("gender", {
+                        required: "Giới tính bắt buộc phải chọn!",
+                      })}
                       className="form-control"
                     >
                       <option value>-- Chọn giới tính --</option>
@@ -192,6 +210,12 @@ export default function EditStudent() {
                       <option value={0}>Nữ</option>
                       <option value={2}>Khác</option>
                     </select>
+
+                    {errors.gender && (
+                      <span className="text-danger">
+                        {errors.gender.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -205,11 +229,27 @@ export default function EditStudent() {
                   <div className="col-md-9 col-xl-8">
                     <input
                       required
-                      {...register("email")}
+                      {...register("email", {
+                        required: "Email bắt buộc phải nhập!",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Email phải định dạng",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: "Email không vượt quá 255 kí tự",
+                        },
+                      })}
                       placeholder="Email"
                       type="email"
                       className="form-control"
                     />
+
+                    {errors.email && (
+                      <span className="text-danger">
+                        {errors.email.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -223,11 +263,19 @@ export default function EditStudent() {
                   <div className="col-md-9 col-xl-8">
                     <input
                       required
-                      {...register("date_of_birthday")}
+                      {...register("date_of_birthday", {
+                        required: "Ngày sinh bắt buộc phải nhập!",
+                      })}
                       placeholder="Ngày sinh"
                       type="date"
                       className="form-control"
                     />
+
+                    {errors.date_of_birthday && (
+                      <span className="text-danger">
+                        {errors.date_of_birthday.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -241,11 +289,27 @@ export default function EditStudent() {
                   <div className="col-md-9 col-xl-8">
                     <input
                       required
-                      {...register("id_card")}
+                      {...register("id_card", {
+                        required: "Số CCCD bắt buộc phải nhập!",
+                        minLength: {
+                          value: 12,
+                          message: "Số CCCD phải là 12 số",
+                        },
+                        number: {
+                          value: true,
+                          message: "Số CCCD phải là số",
+                        },
+                      })}
                       placeholder="Số CCCD"
                       type="text"
                       className="form-control"
                     />
+
+                    {errors.id_card && (
+                      <span className="text-danger">
+                        {errors.id_card.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -259,11 +323,19 @@ export default function EditStudent() {
                   <div className="col-md-9 col-xl-8">
                     <input
                       required
-                      {...register("address")}
+                      {...register("address", {
+                        required: "Địa chỉ bắt buộc phải nhập!",
+                      })}
                       placeholder="Địa chỉ"
                       type="text"
                       className="form-control"
                     />
+
+                    {errors.address && (
+                      <span className="text-danger">
+                        {errors.address.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -276,11 +348,23 @@ export default function EditStudent() {
                   <div className="col-md-9 col-xl-8">
                     <input
                       required
-                      {...register("phone")}
+                      {...register("phone", {
+                        required: "Số điện thoại bắt buộc phải điền!",
+                        pattern: {
+                          value: /(84|0[3|5|7|8|9])+([0-9]{8})\b/,
+                          message: "Số điện thoại phải đúng định dạng",
+                        },
+                      })}
                       placeholder="Số điện thoại"
                       type="tel"
                       className="form-control"
                     />
+
+                    {errors.phone && (
+                      <span className="text-danger">
+                        {errors.phone.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -293,7 +377,9 @@ export default function EditStudent() {
                   <div className="col-md-9 col-xl-8">
                     <select
                       required
-                      {...register("object_type")}
+                      {...register("object_type", {
+                        required: "Đối tượng bắt buộc phải chọn!",
+                      })}
                       className="form-control"
                     >
                       <option value>-- Chọn đối tượng --</option>
@@ -301,6 +387,12 @@ export default function EditStudent() {
                       <option value="worker">Người đi làm</option>
                       <option value="other">Khác</option>
                     </select>
+
+                    {errors.object_type && (
+                      <span className="text-danger">
+                        {errors.object_type.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 

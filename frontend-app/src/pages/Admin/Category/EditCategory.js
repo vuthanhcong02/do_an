@@ -12,7 +12,12 @@ export default function EditCategory() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchCategory();
@@ -79,16 +84,30 @@ export default function EditCategory() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Name
+                    Tên
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên bắt buộc nhập",
+                        maxLength: {
+                          value: 255,
+                          message: "Tên không dài quá 255 kí tự",
+                        },
+                        minLength: {
+                          value: 2,
+                          message: "Tên chứa ít nhất 3 kí tự",
+                        },
+                      })}
                       id="title"
                       placeholder="Name"
                       type="text"
                       className="form-control"
                     />
+
+                    {errors.name && (
+                      <span className="text-danger">{errors.name.message}</span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -100,12 +119,27 @@ export default function EditCategory() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("description")}
+                      {...register("description", {
+                        maxLength: {
+                          value: 255,
+                          message: "Những kí tự dài quá 255",
+                        },
+                        minLength: {
+                          value: 2,
+                          message: "Nhưng kí tự chứa nhất 3",
+                        },
+                      })}
                       placeholder="Description"
                       type="text"
                       className="form-control"
                       width="20px"
                     />
+
+                    {errors.description && (
+                      <span className="text-danger">
+                        {errors.description.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div class="position-relative row form-group mb-1">

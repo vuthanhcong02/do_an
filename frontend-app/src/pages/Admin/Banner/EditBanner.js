@@ -12,7 +12,12 @@ export default function EditBanner() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [banner, setBanner] = useState(null);
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   const handleImageChange = (event) => {
     const image = event.target.files[0];
@@ -150,12 +155,27 @@ export default function EditBanner() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("title")}
+                      {...register("title", {
+                        required: "Tiêu đề không được để trống",
+                        maxLength: {
+                          value: 255,
+                          message: "Tiêu đề không lớn hơn 255 kí tự",
+                        },
+                        minLength: {
+                          value: 3,
+                          message: "Tiêu đề không nhỏ hơn 3 kí tự",
+                        },
+                      })}
                       id="title"
                       placeholder="Title"
                       type="text"
                       className="form-control"
                     />
+                    {errors.title && (
+                      <small className="form-text text-danger">
+                        {errors.title.message}
+                      </small>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -167,12 +187,20 @@ export default function EditBanner() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("position")}
+                      {...register("position", {
+                        required: "Số thứ tự không được bỏ trống",
+                        valueAsNumber: true,
+                      })}
                       placeholder="Số thứ tự"
                       type="text"
                       className="form-control"
                       width="20px"
                     />
+                    {errors.position && (
+                      <small className="form-text text-danger">
+                        {errors.position.message}
+                      </small>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group d-flex align-items-center">
@@ -183,8 +211,16 @@ export default function EditBanner() {
                     Hiển thị
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <input {...register("status")} type="checkbox" />
+                    <input
+                      {...register("status", { valueAsNumber: true })}
+                      type="checkbox"
+                    />
                   </div>
+                  {errors.status && (
+                    <small className="form-text text-danger">
+                      {errors.status.message}
+                    </small>
+                  )}
                 </div>
                 <div class="position-relative row form-group mb-1">
                   <div class="col-md-9 col-xl-8 offset-md-2">

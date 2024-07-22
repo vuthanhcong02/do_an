@@ -20,7 +20,12 @@ export default function EditCourse() {
   const [categories, setCategories] = useState([]);
   const [course, setCourse] = useState(null);
   const [teachers, setTeachers] = useState([]);
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchCategories();
@@ -199,12 +204,25 @@ export default function EditCourse() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên khóa học bắt buộc phải nhập!",
+                        maxLength: {
+                          value: 255,
+                          message: "Tên khóa học không dài quá 255 kí tự",
+                        },
+                        minLength: {
+                          value: 3,
+                          message: "Tên khóa học phải ít nhất 3 kí tự",
+                        },
+                      })}
                       id="title"
                       placeholder="Title"
                       type="text"
                       className="form-control"
                     />
+                    {errors.name && (
+                      <span className="text-danger">{errors.name.message}</span>
+                    )}
                   </div>
                 </div>
 
@@ -213,7 +231,7 @@ export default function EditCourse() {
                     htmlFor="content"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Content
+                    Nội dung
                   </label>
                   <div className="col-md-9 col-xl-8 mb-5">
                     <ReactQuill
@@ -236,11 +254,26 @@ export default function EditCourse() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("min_student")}
+                      {...register("min_student", {
+                        required: "Số học sinh tối thiểu bắt buộc phải điền!",
+                        minValue: {
+                          value: 1,
+                          message: "Số học sinh tối thiểu phải ít nhất là 1",
+                        },
+                        maxValue: {
+                          value: 5,
+                          message: "Số học sinh thiểu không quá 5",
+                        },
+                      })}
                       type="text"
                       className="form-control"
                       width="20px"
                     />
+                    {errors.min_student && (
+                      <span className="text-danger">
+                        {errors.min_student.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -253,11 +286,26 @@ export default function EditCourse() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("max_student")}
+                      {...register("max_student", {
+                        required: "Số học sinh tối đa bắt buộc phải điền!",
+                        minValue: {
+                          value: 10,
+                          message: "Số học sinh tối đa ít nhất là 10",
+                        },
+                        maxValue: {
+                          value: 50,
+                          message: "Số học sinh tối đa không quá 50",
+                        },
+                      })}
                       type="text"
                       className="form-control"
                       width="20px"
                     />
+                    {errors.max_student && (
+                      <span className="text-danger">
+                        {errors.max_student.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -270,12 +318,20 @@ export default function EditCourse() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("start_date")}
+                      {...register("start_date", {
+                        required: "Ngày bắt đầu bắt buộc phải chọn!",
+                        valueAsDate: true,
+                      })}
                       placeholder="Số thứ tự"
                       type="date"
                       className="form-control"
                       width="20px"
                     />
+                    {errors.start_date && (
+                      <span className="text-danger">
+                        {errors.start_date.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -288,12 +344,20 @@ export default function EditCourse() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("end_date")}
+                      {...register("end_date", {
+                        required: "Ngày kết thúc bắt buộc phải chọn!",
+                        valueAsDate: true,
+                      })}
                       placeholder="Số thứ tự"
                       type="date"
                       className="form-control"
                       width="20px"
                     />
+                    {errors.end_date && (
+                      <span className="text-danger">
+                        {errors.end_date.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -306,7 +370,9 @@ export default function EditCourse() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <select
-                      {...register("category_id")}
+                      {...register("category_id", {
+                        required: "Chuyên môn bắt buộc phải chọn!",
+                      })}
                       className="form-select"
                     >
                       <option value="">Select Subject</option>
@@ -316,6 +382,11 @@ export default function EditCourse() {
                         </option>
                       ))}
                     </select>
+                    {errors.category_id && (
+                      <span className="text-danger">
+                        {errors.category_id.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -328,10 +399,17 @@ export default function EditCourse() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("duration")}
+                      {...register("duration", {
+                        required: "Duration bắt buộc phải nhập!",
+                      })}
                       type="text"
                       className="form-control"
                     />
+                    {errors.duration && (
+                      <span className="text-danger">
+                        {errors.duration.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -344,10 +422,18 @@ export default function EditCourse() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("price")}
+                      {...register("price", {
+                        required: "Giá bắt buộc phải điền!",
+                        valueAsNumber: true,
+                      })}
                       type="text"
                       className="form-control"
                     />
+                    {errors.price && (
+                      <span className="text-danger">
+                        {errors.price.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -360,12 +446,20 @@ export default function EditCourse() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("deadline_date")}
+                      {...register("deadline_date", {
+                        required: "Ngày hết học phí bắt buộc phải điền!",
+                        valueAsDate: true,
+                      })}
                       placeholder="Số thứ tự"
                       type="date"
                       className="form-control"
                       width="20px"
                     />
+                    {errors.deadline_date && (
+                      <span className="text-danger">
+                        {errors.deadline_date.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -374,7 +468,7 @@ export default function EditCourse() {
                     htmlFor="status"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Discount
+                    Giảm giá
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -390,23 +484,7 @@ export default function EditCourse() {
                     htmlFor="status"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Slug
-                  </label>
-                  <div className="col-md-9 col-xl-8">
-                    <input
-                      {...register("slug")}
-                      type="text"
-                      className="form-control"
-                    />
-                  </div>
-                </div>
-
-                <div className="position-relative row form-group d-flex align-items-center">
-                  <label
-                    htmlFor="status"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Status
+                    Trạng thái
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -423,7 +501,7 @@ export default function EditCourse() {
                     htmlFor="status"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Featured
+                    Nổi bật
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input

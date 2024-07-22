@@ -11,7 +11,12 @@ export default function EditExamSchedule() {
   const { id } = useParams();
   const [classrooms, setClassrooms] = useState([]);
   const [exams, setExams] = useState([]);
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchExams();
@@ -104,7 +109,12 @@ export default function EditExamSchedule() {
                     Lịch thi
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <select {...register("exam_id")} className="form-select">
+                    <select
+                      {...register("exam_id", {
+                        required: "Lịch thi bắt buộc phải chọn!",
+                      })}
+                      className="form-select"
+                    >
                       <option value="">Chọn lịch thi</option>
                       {exams.map((exam) => (
                         <option key={exam.id} value={exam.id}>
@@ -112,6 +122,9 @@ export default function EditExamSchedule() {
                         </option>
                       ))}
                     </select>
+                    {errors?.exam_id && (
+                      <p className="text-danger">{errors?.exam_id?.message}</p>
+                    )}
                   </div>
                 </div>
 
@@ -124,11 +137,18 @@ export default function EditExamSchedule() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("shift")}
+                      {...register("shift", {
+                        required: "Ca thi bắt buộc phải nhập!",
+                      })}
                       placeholder="Ca thi"
                       type="text"
                       className="form-control"
                     />
+                    {errors?.shift && (
+                      <span className="text-danger">
+                        {errors?.shift?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -144,8 +164,15 @@ export default function EditExamSchedule() {
                       placeholder="Thời gian bắt đầu"
                       type="time"
                       className="form-control"
-                      {...register("start_time")}
+                      {...register("start_time", {
+                        required: "Thời gian bắt đầu bắt buộc phải chọn!",
+                      })}
                     />
+                    {errors?.start_time && (
+                      <span className="text-danger">
+                        {errors?.start_time?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -161,8 +188,15 @@ export default function EditExamSchedule() {
                       placeholder="Thời gia kết thúc"
                       type="time"
                       className="form-control"
-                      {...register("end_time")}
+                      {...register("end_time", {
+                        required: "Thời gian kết thúc bắt buộc phải chọn!",
+                      })}
                     />
+                    {errors?.end_time && (
+                      <span className="text-danger">
+                        {errors?.end_time?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -175,7 +209,9 @@ export default function EditExamSchedule() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <select
-                      {...register("class_room_id")}
+                      {...register("class_room_id", {
+                        required: "Phòng thi bắt buộc phải chọn!",
+                      })}
                       className="form-select"
                     >
                       <option value="">Chọn phòng thi</option>
@@ -185,6 +221,11 @@ export default function EditExamSchedule() {
                         </option>
                       ))}
                     </select>
+                    {errors?.class_room_id && (
+                      <p className="text-danger">
+                        {errors?.class_room_id?.message}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -200,8 +241,16 @@ export default function EditExamSchedule() {
                       placeholder="Số lượng thí sinh tối đa"
                       type="text"
                       className="form-control"
-                      {...register("max_student_per_shift")}
+                      {...register("max_student_per_shift", {
+                        required: "Số lần thi bắt buộc phải điền!",
+                        valueAsNumber: true,
+                      })}
                     />
+                    {errors?.max_student_per_shift && (
+                      <span className="text-danger">
+                        {errors?.max_student_per_shift?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 

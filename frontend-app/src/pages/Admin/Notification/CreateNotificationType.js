@@ -7,7 +7,11 @@ import { toast } from "react-toastify";
 export default function CreateNotificationType() {
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async (dataNotificationType) => {
     const dataCreate = {
@@ -52,16 +56,30 @@ export default function CreateNotificationType() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Name
+                    Tên
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên thông báo bắt buộc phải nhập!",
+                        maxLength: {
+                          value: 255,
+                          message: "Tên thông báo không được quá 255 kí tự",
+                        },
+                        minLength: {
+                          value: 3,
+                          message: "Tên thông báo tối thiểu 3 kí tự",
+                        },
+                      })}
                       id="title"
                       placeholder="Name"
                       type="text"
                       className="form-control"
                     />
+
+                    {errors.name && (
+                      <span className="text-danger">{errors.name.message}</span>
+                    )}
                   </div>
                 </div>
 

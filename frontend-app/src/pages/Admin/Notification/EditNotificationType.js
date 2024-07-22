@@ -14,7 +14,12 @@ export default function EditNotificationType() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [notificationType, setNotificationType] = useState({});
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchNotificationTypeById();
@@ -82,16 +87,29 @@ export default function EditNotificationType() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Name
+                    Tên
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên loại thông báo là bắt buộc phải nhập",
+                        maxLength: {
+                          value: 255,
+                          message: "Tên loại thông báo tối đa 255 kí tự",
+                        },
+                        minLength: {
+                          value: 3,
+                          message: "Tên loại thông báo phải ít nhất 3 kí tự",
+                        },
+                      })}
                       id="title"
                       placeholder="Name"
                       type="text"
                       className="form-control"
                     />
+                    {errors.name && (
+                      <p className="text-danger">{errors.name.message}</p>
+                    )}
                   </div>
                 </div>
 

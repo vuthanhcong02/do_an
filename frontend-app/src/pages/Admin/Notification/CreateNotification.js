@@ -13,7 +13,11 @@ export default function CreateNotification() {
   const navigate = useNavigate();
   const [notificationTypes, setNotificationTypes] = useState([]);
   const [content, setContent] = useState("");
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchNotificationTypes();
@@ -78,11 +82,26 @@ export default function CreateNotification() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("title")}
+                      {...register("title", {
+                        required: "Tiêu đề là bắt buộc nhập!",
+                        maxLength: {
+                          value: 255,
+                          message: "Tiêu đề không được vượt qua 255 ký tự",
+                        },
+                        minLength: {
+                          value: 3,
+                          message: "Tiêu đề tối thiểu phải gồm 3 ký tự",
+                        },
+                      })}
                       placeholder="Title"
                       type="text"
                       className="form-control"
                     />
+                    {errors?.title && (
+                      <span className="text-danger">
+                        {errors?.title?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -112,7 +131,9 @@ export default function CreateNotification() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <select
-                      {...register("notificationTypeId")}
+                      {...register("notificationTypeId", {
+                        required: "Loại thông báo bắt buộc phải chọn!",
+                      })}
                       className="form-select"
                     >
                       <option value="">Chọn loại thông báo</option>
@@ -122,6 +143,11 @@ export default function CreateNotification() {
                         </option>
                       ))}
                     </select>
+                    {errors?.notificationTypeId && (
+                      <span className="text-danger">
+                        {errors?.notificationTypeId?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 

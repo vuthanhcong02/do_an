@@ -115,8 +115,19 @@ export default function ItemUserRegister({
                     <Form.Control
                       type="text"
                       placeholder="Họ và tên"
-                      {...register("full_name", { required: true })}
+                      {...register("full_name", {
+                        required: "Họ và tên là bắt buộc",
+                        minLength: {
+                          value: 3,
+                          message: "Họ và tên phải có nhất 3 ký tự",
+                        },
+                      })}
                     />
+                    {errors.full_name && (
+                      <span className="text-danger">
+                        {errors.full_name.message}
+                      </span>
+                    )}
                   </Col>
                 </Form.Group>
 
@@ -132,8 +143,19 @@ export default function ItemUserRegister({
                     <Form.Control
                       type="text"
                       placeholder="Số điện thoại"
-                      {...register("phone", { required: true })}
+                      {...register("phone", {
+                        required: "Số điện thoại là bắt buộc",
+                        pattern: {
+                          value: /^[0-9]{10,11}$/,
+                          message: "Số điện thoại phải có 10 hoặc 11 ký tự",
+                        },
+                      })}
                     />
+                    {errors.phone && (
+                      <span className="text-danger">
+                        {errors.phone.message}
+                      </span>
+                    )}
                   </Col>
                 </Form.Group>
                 <Form.Group
@@ -148,8 +170,19 @@ export default function ItemUserRegister({
                     <Form.Control
                       type="text"
                       placeholder="Địa chỉ"
-                      {...register("address", { required: true })}
+                      {...register("address", {
+                        required: "Địa chỉ là bắt buộc",
+                        minLength: {
+                          value: 3,
+                          message: "Địa chỉ phải có nhất 3 ký tự",
+                        },
+                      })}
                     />
+                    {errors.address && (
+                      <span className="text-danger">
+                        {errors.address.message}
+                      </span>
+                    )}
                   </Col>
                 </Form.Group>
                 <Form.Group
@@ -173,6 +206,11 @@ export default function ItemUserRegister({
                       <option value="worker">Người đi làm</option>
                       <option value="other">Khác</option>
                     </select>
+                    {errors.object_type && (
+                      <span className="text-danger">
+                        {errors.object_type.message}
+                      </span>
+                    )}
                   </Col>
                 </Form.Group>
 
@@ -202,7 +240,9 @@ export default function ItemUserRegister({
                     <select
                       className="form-select"
                       aria-label="Default select example"
-                      {...register("payment_type", { required: true })}
+                      {...register("payment_type", {
+                        required: "Hình thức thanh toán là bắt buộc phải chọn",
+                      })}
                     >
                       <option value="" disabled selected>
                         Chọn hình thức thanh toán
@@ -212,6 +252,11 @@ export default function ItemUserRegister({
                       </option>
                       <option value="payment_vnpay">Thanh toán VNPAY</option>
                     </select>
+                    {errors.payment_type && (
+                      <span className="text-danger">
+                        {errors.payment_type.message}
+                      </span>
+                    )}
                   </Col>
                 </Form.Group>
               </Col>
@@ -229,8 +274,19 @@ export default function ItemUserRegister({
                     <Form.Control
                       type="email"
                       placeholder="Email"
-                      {...register("email", { required: true })}
+                      {...register("email", {
+                        required: "Email là bắt buộc",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Email không đúng định dạng",
+                        },
+                      })}
                     />
+                    {errors.email && (
+                      <span className="text-danger">
+                        {errors.email.message}
+                      </span>
+                    )}
                   </Col>
                 </Form.Group>
                 <Form.Group
@@ -246,8 +302,15 @@ export default function ItemUserRegister({
                       className="form-control"
                       type="date"
                       placeholder="Ngày sinh"
-                      {...register("date_of_birthday", { required: true })}
+                      {...register("date_of_birthday", {
+                        required: "Ngày sinh là bắt buộc",
+                      })}
                     />
+                    {errors.date_of_birthday && (
+                      <span className="text-danger">
+                        {errors.date_of_birthday.message}
+                      </span>
+                    )}
                   </Col>
                 </Form.Group>
                 <Form.Group
@@ -261,7 +324,9 @@ export default function ItemUserRegister({
                   <Col sm={8}>
                     <select
                       className="form-select "
-                      {...register("gender", { required: true })}
+                      {...register("gender", {
+                        required: "Giờ tính là bắt buộc phải chọn",
+                      })}
                     >
                       <option value="" disabled selected>
                         Chọn giới tính
@@ -269,6 +334,11 @@ export default function ItemUserRegister({
                       <option value={1}>Nam</option>
                       <option value={0}>Nữ</option>
                     </select>
+                    {errors.gender && (
+                      <span className="text-danger">
+                        {errors.gender.message}
+                      </span>
+                    )}
                   </Col>
                 </Form.Group>
                 <Form.Group

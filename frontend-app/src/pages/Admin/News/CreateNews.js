@@ -12,7 +12,11 @@ export default function CreateNews() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [content, setContent] = useState("");
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const handleImageChange = (event) => {
     const image = event.target.files[0];
@@ -97,7 +101,9 @@ export default function CreateNews() {
                     <input
                       type="file"
                       accept="image/x-png,image/gif,image/jpeg"
-                      {...register("image")}
+                      {...register("image", {
+                        required: "Hình ảnh bắt buộc phải chọn!",
+                      })}
                       onChange={handleImageChange}
                       className="image form-control-file"
                       // style={{ display: "none" }}
@@ -106,6 +112,12 @@ export default function CreateNews() {
                     <small className="form-text text-muted">
                       Click on the image to change (required)
                     </small>
+
+                    {errors.image && (
+                      <span className="text-danger">
+                        {errors.image.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -118,11 +130,27 @@ export default function CreateNews() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("title")}
+                      {...register("title", {
+                        required: "Tiêu đề bắt buộc phải nhập!",
+                        minLength: {
+                          value: 3,
+                          message: "Tiêu đề phải ít nhất 3 kí tự",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: "Tiêu đề không tối đa 255 kí tự",
+                        },
+                      })}
                       placeholder="Title"
                       type="text"
                       className="form-control"
                     />
+
+                    {errors.title && (
+                      <span className="text-danger">
+                        {errors.title.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -131,15 +159,23 @@ export default function CreateNews() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Description
+                    Mô tả
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
                       placeholder="Description"
                       type="text"
                       className="form-control"
-                      {...register("description")}
+                      {...register("description", {
+                        required: "Mô tả bắt buộc phải nhập!",
+                      })}
                     />
+
+                    {errors.description && (
+                      <span className="text-danger">
+                        {errors.description.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 

@@ -16,7 +16,12 @@ export default function EditNews() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [content, setContent] = useState("");
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   const handleImageChange = (event) => {
     const image = event.target.files[0];
@@ -138,7 +143,9 @@ export default function EditNews() {
                     <input
                       type="file"
                       accept="image/x-png,image/gif,image/jpeg"
-                      {...register("image")}
+                      {...register("image", {
+                        required: "Hình ảnh bắt buộc phải chọn!",
+                      })}
                       onChange={handleImageChange}
                       className="image form-control-file"
                       // style={{ display: "none" }}
@@ -147,6 +154,12 @@ export default function EditNews() {
                     <small className="form-text text-muted">
                       Click on the image to change (required)
                     </small>
+
+                    {errors.image && (
+                      <span className="text-danger">
+                        {errors.image.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -159,11 +172,27 @@ export default function EditNews() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("title")}
+                      {...register("title", {
+                        required: "Tiêu đề bắt buộc phải nhập!",
+                        minLength: {
+                          value: 3,
+                          message: "Tiêu đề tối thiểu 3 kí tự",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: "Tiêu đề tối đa 255 kí tự",
+                        },
+                      })}
                       placeholder="Title"
                       type="text"
                       className="form-control"
                     />
+
+                    {errors.title && (
+                      <span className="text-danger">
+                        {errors.title.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -172,32 +201,31 @@ export default function EditNews() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Description
+                    Mô tả
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
                       placeholder="Description"
                       type="text"
                       className="form-control"
-                      {...register("description")}
+                      {...register("description", {
+                        required: "Mô tả bắt buộc phải điền!",
+                        minLength: {
+                          value: 3,
+                          message: "Mô tả tối thiểu 3 kí tự",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: "Mô tả tối đa 255 kí tự",
+                        },
+                      })}
                     />
-                  </div>
-                </div>
 
-                <div className="position-relative row form-group">
-                  <label
-                    htmlFor="title"
-                    className="col-md-3 text-md-right col-form-label"
-                  >
-                    Slug
-                  </label>
-                  <div className="col-md-9 col-xl-8">
-                    <input
-                      placeholder="Slug"
-                      type="text"
-                      className="form-control"
-                      {...register("slug")}
-                    />
+                    {errors.description && (
+                      <span className="text-danger">
+                        {errors.description.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -206,7 +234,7 @@ export default function EditNews() {
                     htmlFor="content"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Content
+                    Nội dung
                   </label>
                   <div className="col-md-9 col-xl-8 mb-5">
                     <ReactQuill

@@ -7,7 +7,11 @@ import { toast } from "react-toastify";
 export default function CreateExam() {
   const navigate = useNavigate();
   const [classrooms, setClassrooms] = useState([]);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchClassrooms();
@@ -70,11 +74,26 @@ export default function CreateExam() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên kì thi bắt buộc phải nhập",
+                        maxLength: {
+                          value: 255,
+                          message: "Tên kì thi không dài quá 255 kí tự",
+                        },
+                        minLength: {
+                          value: 3,
+                          message: "Tên kì thi phải ít nhất 3 kí tự",
+                        },
+                      })}
                       placeholder="Tên kì thi"
                       type="text"
                       className="form-control"
                     />
+                    {errors?.name && (
+                      <span className="text-danger">
+                        {errors?.name?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -124,8 +143,14 @@ export default function CreateExam() {
                       placeholder="Ngày diễn ra"
                       type="date"
                       className="form-control"
-                      {...register("date")}
+                      {...register("date", {
+                        required: "Ngày thi bắt buộc phải chọn!",
+                      })}
                     />
+
+                    {errors.date && (
+                      <span className="text-danger">{errors.date.message}</span>
+                    )}
                   </div>
                 </div>
 
@@ -163,8 +188,16 @@ export default function CreateExam() {
                       placeholder="Hạn đăng kí"
                       type="date"
                       className="form-control"
-                      {...register("deadline_date")}
+                      {...register("deadline_date", {
+                        required: "Hạm đăng kí bắt buộc phải chọn!",
+                      })}
                     />
+
+                    {errors.deadline_date && (
+                      <span className="text-danger">
+                        {errors.deadline_date.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -180,8 +213,15 @@ export default function CreateExam() {
                       placeholder="Lệ phí thi VND"
                       type="text"
                       className="form-control"
-                      {...register("fee")}
+                      {...register("fee", {
+                        required: "Lệ phí thi bắt buộc phải nhập!",
+                        valueAsNumber: true,
+                      })}
                     />
+
+                    {errors.fee && (
+                      <span className="text-danger">{errors.fee.message}</span>
+                    )}
                   </div>
                 </div>
 

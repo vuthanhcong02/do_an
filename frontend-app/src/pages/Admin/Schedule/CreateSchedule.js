@@ -15,7 +15,11 @@ export default function CreateClass() {
   const [classes, setClasses] = useState([]);
   const [classrooms, setClassrooms] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchTeachers();
@@ -106,7 +110,9 @@ export default function CreateClass() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <select
-                      {...register("course_id")}
+                      {...register("course_id", {
+                        required: "Khóa học bắt buộc phải chọn!",
+                      })}
                       className="form-select"
                       onChange={(e) => {
                         console.log(e.target.value);
@@ -120,6 +126,11 @@ export default function CreateClass() {
                         </option>
                       ))}
                     </select>
+                    {errors.course_id && (
+                      <span className="text-danger">
+                        {errors.course_id.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -131,7 +142,12 @@ export default function CreateClass() {
                     Lớp học
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <select {...register("class_id")} className="form-select">
+                    <select
+                      {...register("class_id", {
+                        required: "Lớp học bắt buộc phải chọn!",
+                      })}
+                      className="form-select"
+                    >
                       <option value="">Select Class</option>
                       {classes.map((item) => (
                         <option key={item.id} value={item.id}>
@@ -139,6 +155,11 @@ export default function CreateClass() {
                         </option>
                       ))}
                     </select>
+                    {errors.class_id && (
+                      <span className="text-danger">
+                        {errors.class_id.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -151,7 +172,9 @@ export default function CreateClass() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <select
-                      {...register("classroom_id")}
+                      {...register("classroom_id", {
+                        required: "Phòng học bắt buộc phải chọn!",
+                      })}
                       className="form-select"
                     >
                       <option value="">Select ClassRoom</option>
@@ -161,6 +184,11 @@ export default function CreateClass() {
                         </option>
                       ))}
                     </select>
+                    {errors.classroom_id && (
+                      <span className="text-danger">
+                        {errors.classroom_id.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -172,7 +200,12 @@ export default function CreateClass() {
                     Giáo viên phụ trách
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <select {...register("teacher_id")} className="form-select">
+                    <select
+                      {...register("teacher_id", {
+                        required: "Giáo viên phụ trách bắt buộc phải chọn",
+                      })}
+                      className="form-select"
+                    >
                       <option value="">Select Teacher</option>
                       {teachers.map((teacher) => (
                         <option key={teacher.id} value={teacher.id}>
@@ -180,6 +213,11 @@ export default function CreateClass() {
                         </option>
                       ))}
                     </select>
+                    {errors.teacher_id && (
+                      <span className="text-danger">
+                        {errors.teacher_id.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -191,7 +229,9 @@ export default function CreateClass() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <select
-                      {...register("day_of_week")}
+                      {...register("day_of_week", {
+                        required: "Ngày học bắt buộc phải chọn!",
+                      })}
                       className="form-select"
                     >
                       <option value="">Select Date</option>
@@ -199,6 +239,11 @@ export default function CreateClass() {
                       <option value="3-5-7">Thứ 3-5-7</option>
                       <option value="7-Chủ nhật">Thứ 7-Chủ nhật</option>
                     </select>
+                    {errors.day_of_week && (
+                      <span className="text-danger">
+                        {errors.day_of_week.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -211,7 +256,9 @@ export default function CreateClass() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <select
-                      {...register("start_end_time")}
+                      {...register("start_end_time", {
+                        required: "Ca học bắt buộc phải chọn!",
+                      })}
                       className="form-select"
                     >
                       <option value="">Select Time</option>
@@ -222,6 +269,11 @@ export default function CreateClass() {
                       <option value="17h30-19h30">17h30-19h30</option>
                       <option value="19h30-21h30">19h30-21h30</option>
                     </select>
+                    {errors.start_end_time && (
+                      <span className="text-danger">
+                        {errors.start_end_time.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 

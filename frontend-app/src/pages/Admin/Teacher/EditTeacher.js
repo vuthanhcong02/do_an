@@ -14,7 +14,12 @@ export default function EditTeacher() {
   const [imagePreview, setImagePreview] = useState(null);
   const [categories, setCategories] = useState([]);
   const [teacher, setTeacher] = useState(null);
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   const handleImageChange = (event) => {
     const image = event.target.files[0];
@@ -146,7 +151,9 @@ export default function EditTeacher() {
                     <input
                       type="file"
                       accept="image/x-png,image/gif,image/jpeg"
-                      {...register("image")}
+                      {...register("image", {
+                        required: "Hình ảnh bắt buộc phải chọn!",
+                      })}
                       onChange={handleImageChange}
                       className="image form-control-file"
                       // style={{ display: "none" }}
@@ -155,6 +162,11 @@ export default function EditTeacher() {
                     <small className="form-text text-muted">
                       Click on the image to change (required)
                     </small>
+                    {errors.image && (
+                      <span className="text-danger">
+                        {errors.image.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -169,8 +181,23 @@ export default function EditTeacher() {
                       placeholder="Name"
                       type="text"
                       className="form-control"
-                      {...register("full_name")}
+                      {...register("full_name", {
+                        required: "Họ và tên bắt buộc phải nhập!",
+                        minLength: {
+                          value: 3,
+                          message: "Họ và tên phải phải có ít nhất 3 kí tự!",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: "Họ và tên không vượt quá 255 kí tự!",
+                        },
+                      })}
                     />
+                    {errors.full_name && (
+                      <span className="text-danger">
+                        {errors.full_name.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -179,14 +206,24 @@ export default function EditTeacher() {
                     htmlFor="index"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Gender
+                    Giới tính
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <select {...register("gender")} className="form-select">
+                    <select
+                      {...register("gender", {
+                        required: "Giới tính bắt buộc phải chọn",
+                      })}
+                      className="form-select"
+                    >
                       <option value="">Select Gender</option>
                       <option value={1}>Nam</option>
                       <option value={0}>Nữ</option>
                     </select>
+                    {errors.gender && (
+                      <span className="text-danger">
+                        {errors.gender.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -202,8 +239,20 @@ export default function EditTeacher() {
                       placeholder="Email"
                       type="email"
                       className="form-control"
-                      {...register("email")}
+                      {...register("email", {
+                        required: "Email bắt buộc phải chọn!",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Email phải đúng định dạng!",
+                        },
+                      })}
                     />
+
+                    {errors.email && (
+                      <span className="text-danger">
+                        {errors.email.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -217,8 +266,16 @@ export default function EditTeacher() {
                     <input
                       type="text"
                       className="form-control"
-                      {...register("address")}
+                      {...register("address", {
+                        required: "Địa chỉ bắt buộc phải nhập!",
+                      })}
                     />
+
+                    {errors.address && (
+                      <span className="text-danger">
+                        {errors.address.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -233,8 +290,20 @@ export default function EditTeacher() {
                       placeholder="Phone"
                       type="text"
                       className="form-control"
-                      {...register("phone")}
+                      {...register("phone", {
+                        required: "Số điện thoại bắt buộc phải điền!",
+                        pattern: {
+                          value: /(84|0[3|5|7|8|9])+([0-9]{8})\b/,
+                          message: "Số điện thoại phải đúng định dạng",
+                        },
+                      })}
                     />
+
+                    {errors.phone && (
+                      <span className="text-danger">
+                        {errors.phone.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -242,15 +311,23 @@ export default function EditTeacher() {
                     htmlFor="experience"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Experience
+                    Kinh nghiệm làm việc
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
                       placeholder="Experience"
                       type="text"
                       className="form-control"
-                      {...register("experience")}
+                      {...register("experience", {
+                        required: "Kinh nghiệm làm việc bắt buộc phải điền!",
+                      })}
                     />
+
+                    {errors.experience && (
+                      <span className="text-danger">
+                        {errors.experience.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -258,15 +335,23 @@ export default function EditTeacher() {
                     htmlFor="degree"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Degree
+                    Bằng cấp
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
                       placeholder="Degree"
                       type="text"
                       className="form-control"
-                      {...register("degree")}
+                      {...register("degree", {
+                        required: "Bằng cấp bắt buộc phải điền!",
+                      })}
                     />
+
+                    {errors.degree && (
+                      <span className="text-danger">
+                        {errors.degree.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -275,20 +360,28 @@ export default function EditTeacher() {
                     htmlFor="index"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Subject
+                    Chuyên môn
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <select
-                      {...register("category_id")}
+                      {...register("category_id", {
+                        required: "Chuyên môn bắt buộc phải điền!",
+                      })}
                       className="form-select"
                     >
-                      <option value="">Select Subject</option>
+                      <option value="">Chọn chủ đề</option>
                       {categories.map((category) => (
                         <option key={category.id} value={category.id}>
                           {category.name}
                         </option>
                       ))}
                     </select>
+
+                    {errors.category_id && (
+                      <span className="text-danger">
+                        {errors.category_id.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 

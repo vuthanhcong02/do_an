@@ -10,7 +10,11 @@ export default function CreateClass() {
   const navigate = useNavigate();
   const [teachers, setTeachers] = useState([]);
   const [courses, setCourses] = useState([]);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchTeachers();
@@ -79,16 +83,30 @@ export default function CreateClass() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Name
+                    Tên
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên bắt buộc phải nhập",
+                        maxLength: {
+                          value: 255,
+                          message: "Tên tối đa 255 ky tự",
+                        },
+                        minLength: {
+                          value: 2,
+                          message: "Tên tối thiểu 2 ký tự",
+                        },
+                      })}
                       id="title"
                       placeholder="Name"
                       type="text"
                       className="form-control"
                     />
+
+                    {errors.name && (
+                      <span className="text-danger">{errors.name.message}</span>
+                    )}
                   </div>
                 </div>
 
@@ -100,7 +118,13 @@ export default function CreateClass() {
                     Khóa học
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <select {...register("course_id")} className="form-select">
+                    <select
+                      {...register("course_id", {
+                        required: "Vui lý chọn khóa học",
+                        validate: (value) => value !== "",
+                      })}
+                      className="form-select"
+                    >
                       <option value="">Select Course</option>
                       {courses.map((course) => (
                         <option key={course.id} value={course.id}>
@@ -108,6 +132,11 @@ export default function CreateClass() {
                         </option>
                       ))}
                     </select>
+                    {errors.course_id && (
+                      <span className="text-danger">
+                        {errors.course_id.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -118,7 +147,13 @@ export default function CreateClass() {
                     Giáo viên phụ trách
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <select {...register("teacher_id")} className="form-select">
+                    <select
+                      {...register("teacher_id", {
+                        required: "Vui lý chọn giáo viên phụ trách",
+                        validate: (value) => value !== "",
+                      })}
+                      className="form-select"
+                    >
                       <option value="">Select Teacher</option>
                       {teachers.map((teacher) => (
                         <option key={teacher.id} value={teacher.id}>
@@ -126,6 +161,11 @@ export default function CreateClass() {
                         </option>
                       ))}
                     </select>
+                    {errors.teacher_id && (
+                      <span className="text-danger">
+                        {errors.teacher_id.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group d-flex align-items-center">

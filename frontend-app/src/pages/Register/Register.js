@@ -17,7 +17,7 @@ export default function Register() {
   } = useForm();
   const navigate = useNavigate();
   const password = watch("password");
-  const confirmPassword = watch("confirm_password");
+  const email = watch("email");
 
   const onSubmit = async (dataUser) => {
     const UserData = {
@@ -39,34 +39,17 @@ export default function Register() {
       const response = await registerUser(UserData);
 
       if (response.success) {
-        // const { data, access_token } = response;
-        // localStorage.setItem("user", JSON.stringify(data));
-        // localStorage.setItem("token", access_token);
-        // window.location.href = "/";
         toast.success(
           "Đăng ký tài khoản thành công. Vui lòng kiểm tra email để xác nhận!"
         );
         reset();
       } else {
-        // console.error(
-        //   "Đăng kó:",
-        //   response.message || "Unknown error"
-        // );
         toast.error("Đăng ký thất bại!");
-        // Handle error (show message to user, etc.)
       }
     } catch (error) {
       console.error("An error occurred during registration:", error);
-      // Handle error (show message to user, etc.)
     }
   };
-
-  // const { success, data, access_token } = await register(UserData);
-  // if (success) {
-  //   localStorage.setItem("user", JSON.stringify(data));
-  //   localStorage.setItem("token", access_token);
-  //   window.location.href = "/";
-  // }
 
   return (
     <div className="App-register">
@@ -87,8 +70,19 @@ export default function Register() {
                   <Form.Control
                     type="text"
                     placeholder="Họ và tên"
-                    {...register("full_name", { required: true })}
+                    {...register("full_name", {
+                      required: "Họ và tên là bắt buộc",
+                      minLength: {
+                        value: 3,
+                        message: "Họ và tên phải có ít nhất 3 ký tự",
+                      },
+                    })}
                   />
+                  {errors.full_name && (
+                    <span className="text-danger">
+                      {errors.full_name.message}
+                    </span>
+                  )}
                 </Col>
               </Form.Group>
 
@@ -104,8 +98,19 @@ export default function Register() {
                   <Form.Control
                     type="text"
                     placeholder="Số CCCD"
-                    {...register("id_card", { required: true })}
+                    {...register("id_card", {
+                      required: "Số CCCD là bắt buộc",
+                      pattern: {
+                        value: /^[0-9]{9,12}$/,
+                        message: "Số CCCD không hợp lệ",
+                      },
+                    })}
                   />
+                  {errors.id_card && (
+                    <span className="text-danger">
+                      {errors.id_card.message}
+                    </span>
+                  )}
                 </Col>
               </Form.Group>
               <Form.Group
@@ -120,8 +125,15 @@ export default function Register() {
                   <Form.Control
                     type="text"
                     placeholder="Địa chỉ"
-                    {...register("address", { required: true })}
+                    {...register("address", {
+                      required: "Địa chỉ là bắt buộc",
+                    })}
                   />
+                  {errors.address && (
+                    <span className="text-danger">
+                      {errors.address.message}
+                    </span>
+                  )}
                 </Col>
               </Form.Group>
               <Form.Group
@@ -136,7 +148,9 @@ export default function Register() {
                   <select
                     className="form-select"
                     aria-label="Default select example"
-                    {...register("object_type", { required: true })}
+                    {...register("object_type", {
+                      required: "Đối tượng là bắt buộc",
+                    })}
                   >
                     <option value="" disabled selected>
                       Chọn đối tượng
@@ -145,6 +159,11 @@ export default function Register() {
                     <option value="worker">Người đi làm</option>
                     <option value="other">Khác</option>
                   </select>
+                  {errors.object_type && (
+                    <span className="text-danger">
+                      {errors.object_type.message}
+                    </span>
+                  )}
                 </Col>
               </Form.Group>
               <Form.Group
@@ -163,7 +182,7 @@ export default function Register() {
                       required: true,
                       minLength: {
                         value: 6,
-                        message: "Mật khẩu phải có ít nhất 8 ký tự",
+                        message: "Mật khẩu phải có ít nhất 6 ký tự",
                       },
                     })}
                   />
@@ -214,8 +233,21 @@ export default function Register() {
                   <Form.Control
                     type="email"
                     placeholder="Email"
-                    {...register("email", { required: true })}
+                    {...register("email", {
+                      required: "Email là bắt buộc",
+                      pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: "Email không hợp lệ",
+                      },
+                      maxLength: {
+                        value: 30,
+                        message: "Email tối đa 30 ký tự",
+                      },
+                    })}
                   />
+                  {errors.email && (
+                    <span className="text-danger">{errors.email.message}</span>
+                  )}
                 </Col>
               </Form.Group>
               <Form.Group
@@ -231,8 +263,15 @@ export default function Register() {
                     className="form-control"
                     type="date"
                     placeholder="Ngày sinh"
-                    {...register("date_of_birthday", { required: true })}
+                    {...register("date_of_birthday", {
+                      required: "Ngày sinh là bắt buộc",
+                    })}
                   />
+                  {errors.date_of_birthday && (
+                    <span className="text-danger">
+                      {errors.date_of_birthday.message}
+                    </span>
+                  )}
                 </Col>
               </Form.Group>
               <Form.Group
@@ -246,7 +285,9 @@ export default function Register() {
                 <Col sm={8}>
                   <select
                     className="form-select "
-                    {...register("gender", { required: true })}
+                    {...register("gender", {
+                      required: "Giới tính là bắt buộc",
+                    })}
                   >
                     <option value="" disabled selected>
                       Select your gender
@@ -254,6 +295,9 @@ export default function Register() {
                     <option value="1">Nam</option>
                     <option value="0">Nữ</option>
                   </select>
+                  {errors.gender && (
+                    <span className="text-danger">{errors.gender.message}</span>
+                  )}
                 </Col>
               </Form.Group>
               <Form.Group
@@ -268,8 +312,17 @@ export default function Register() {
                   <Form.Control
                     type="text"
                     placeholder="Số điện thoại"
-                    {...register("phone", { required: true })}
+                    {...register("phone", {
+                      required: "Số điện thoại là bắt buộc",
+                      pattern: {
+                        value: /^[0-9]{10,11}$/,
+                        message: "Số điện thoại không hợp lệ",
+                      },
+                    })}
                   />
+                  {errors.phone && (
+                    <span className="text-danger">{errors.phone.message}</span>
+                  )}
                 </Col>
               </Form.Group>
             </Col>

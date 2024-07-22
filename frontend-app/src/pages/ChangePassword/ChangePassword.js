@@ -48,7 +48,7 @@ export default function ChangePassword() {
                   type="password"
                   placeholder="Mật khẩu ban đầu"
                   {...register("password_new", {
-                    required: "Mật khẩu mới là bắt buộc",
+                    required: "Mật khẩu ban đầu là bắt buộc",
                     minLength: {
                       value: 6,
                       message: "Mật khẩu phải có ít nhất 6 ký tự",

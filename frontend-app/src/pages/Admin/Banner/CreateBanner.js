@@ -9,7 +9,11 @@ export default function CreateBanner() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const handleImageChange = (event) => {
     const image = event.target.files[0];
@@ -91,7 +95,9 @@ export default function CreateBanner() {
                     <input
                       type="file"
                       accept="image/x-png,image/gif,image/jpeg"
-                      {...register("image")}
+                      {...register("image", {
+                        required: "Hình ảnh không được để trống",
+                      })}
                       onChange={handleImageChange}
                       className="image form-control-file"
                       // style={{ display: "none" }}
@@ -100,6 +106,11 @@ export default function CreateBanner() {
                     <small className="form-text text-muted">
                       Click on the image to change (required)
                     </small>
+                    {errors.image && (
+                      <small className="form-text text-danger">
+                        {errors.image.message}
+                      </small>
+                    )}
                   </div>
                 </div>
 
@@ -112,12 +123,23 @@ export default function CreateBanner() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("title")}
+                      {...register("title", {
+                        required: "Tiêu đề không được để trống",
+                        minLength: {
+                          value: 3,
+                          message: "Tiêu đề không được ít hơn 3 kí tự",
+                        },
+                      })}
                       id="title"
                       placeholder="Title"
                       type="text"
                       className="form-control"
                     />
+                    {errors.title && (
+                      <small className="form-text text-danger">
+                        {errors.title.message}
+                      </small>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -129,12 +151,21 @@ export default function CreateBanner() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("position")}
+                      {...register("position", {
+                        required: "Thứ tự xuất hiện không được để trống",
+                        valueAsNumber: true,
+                        min: 0,
+                      })}
                       placeholder="Số thứ tự"
                       type="text"
                       className="form-control"
                       width="20px"
                     />
+                    {errors.position && (
+                      <small className="form-text text-danger">
+                        {errors.position.message}
+                      </small>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group d-flex align-items-center">
@@ -146,11 +177,18 @@ export default function CreateBanner() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("status")}
+                      {...register("status", {
+                        valueAsNumber: true,
+                      })}
                       type="checkbox"
                       value={1}
                       defaultValue={0}
                     />
+                    {errors.status && (
+                      <small className="form-text text-danger">
+                        {errors.status.message}
+                      </small>
+                    )}
                   </div>
                 </div>
                 <div class="position-relative row form-group mb-1">

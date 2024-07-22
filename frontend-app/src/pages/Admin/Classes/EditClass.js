@@ -13,7 +13,12 @@ export default function EditClass() {
   const [teachers, setTeachers] = useState([]);
   const [courses, setCourses] = useState([]);
   const [classData, setClassData] = useState(null);
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchTeachers();
@@ -100,16 +105,31 @@ export default function EditClass() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Name
+                    Tên
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên bắt buộc phải chọn!",
+                        minLength: {
+                          value: 3,
+                          message: "Tên phải ít nhất 3 kí tự!",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: "Tên không dài quá 255 kí tự!",
+                        },
+                      })}
                       id="title"
                       placeholder="Name"
                       type="text"
                       className="form-control"
                     />
+                    {errors?.name && (
+                      <small className="text-danger">
+                        {errors?.name.message}
+                      </small>
+                    )}
                   </div>
                 </div>
 
@@ -121,7 +141,12 @@ export default function EditClass() {
                     Khóa học
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <select {...register("course_id")} className="form-select">
+                    <select
+                      {...register("course_id", {
+                        required: "Vui lý chọn khóa học",
+                      })}
+                      className="form-select"
+                    >
                       <option value="">Select Course</option>
                       {courses.map((course) => (
                         <option key={course.id} value={course.id}>
@@ -129,6 +154,11 @@ export default function EditClass() {
                         </option>
                       ))}
                     </select>
+                    {errors.course_id && (
+                      <small className="text-danger">
+                        {errors.course_id.message}
+                      </small>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group">
@@ -139,7 +169,12 @@ export default function EditClass() {
                     Giáo viên phụ trách
                   </label>
                   <div className="col-md-9 col-xl-8">
-                    <select {...register("teacher_id")} className="form-select">
+                    <select
+                      {...register("teacher_id", {
+                        required: "Vui lý chọn giáo viên phụ trách",
+                      })}
+                      className="form-select"
+                    >
                       <option value="">Select Teacher</option>
                       {teachers.map((teacher) => (
                         <option key={teacher.id} value={teacher.id}>
@@ -147,6 +182,11 @@ export default function EditClass() {
                         </option>
                       ))}
                     </select>
+                    {errors.teacher_id && (
+                      <small className="text-danger">
+                        {errors.teacher_id.message}
+                      </small>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group d-flex align-items-center">

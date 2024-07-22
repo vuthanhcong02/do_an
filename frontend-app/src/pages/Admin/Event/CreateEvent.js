@@ -12,7 +12,11 @@ export default function CreateEvent() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [description, setDescription] = useState("");
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const handleImageChange = (event) => {
     const image = event.target.files[0];
@@ -100,7 +104,9 @@ export default function CreateEvent() {
                     <input
                       type="file"
                       accept="image/x-png,image/gif,image/jpeg"
-                      {...register("image")}
+                      {...register("image", {
+                        required: "Hình ảnh bắt buộc phải chọn!",
+                      })}
                       onChange={handleImageChange}
                       className="image form-control-file"
                       // style={{ display: "none" }}
@@ -109,6 +115,12 @@ export default function CreateEvent() {
                     <small className="form-text text-muted">
                       Click on the image to change (required)
                     </small>
+
+                    {errors.image && (
+                      <div className="invalid-feedback">
+                        {errors.image.message}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -121,11 +133,22 @@ export default function CreateEvent() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên bắt buộc phải nhập!",
+                        minLength: {
+                          value: 3,
+                          message: "Tên phải nhất 3 kí tự",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: "Tên phải không quá 255 kí tự",
+                        },
+                      })}
                       placeholder="Title"
                       type="text"
                       className="form-control"
                     />
+                    {errors.name && <span>{errors.name.message}</span>}
                   </div>
                 </div>
 
@@ -159,8 +182,21 @@ export default function CreateEvent() {
                       placeholder="Location"
                       type="text"
                       className="form-control"
-                      {...register("location")}
+                      {...register("location", {
+                        required: "Địa điểm bắt buộc phải điền!",
+                        minLength: {
+                          value: 3,
+                          message: "Tên địa điểm phải ít nhất 3 kí tự",
+                        },
+                        mexLength: {
+                          value: 255,
+                          message: "Tên địa điểm không quá 255 kí tự",
+                        },
+                      })}
                     />
+                    {errors?.location && (
+                      <span>{errors?.location.message}</span>
+                    )}
                   </div>
                 </div>
 
@@ -176,8 +212,13 @@ export default function CreateEvent() {
                       placeholder="Start Date"
                       type="date"
                       className="form-control"
-                      {...register("start_date")}
+                      {...register("start_date", {
+                        required: "Ngày diễn ra bắt buộc phải chọn!",
+                      })}
                     />
+                    {errors?.start_date && (
+                      <span>{errors?.start_date.message}</span>
+                    )}
                   </div>
                 </div>
 
@@ -193,8 +234,13 @@ export default function CreateEvent() {
                       placeholder="Start Date"
                       type="time"
                       className="form-control"
-                      {...register("start_time")}
+                      {...register("start_time", {
+                        required: "Thời gian bắt đầu bắt buộc phải chọn!",
+                      })}
                     />
+                    {errors?.start_time && (
+                      <span>{errors?.start_time.message}</span>
+                    )}
                   </div>
                 </div>
 
@@ -210,8 +256,13 @@ export default function CreateEvent() {
                       placeholder="End Date"
                       type="time"
                       className="form-control"
-                      {...register("end_time")}
+                      {...register("end_time", {
+                        required: "Thời gian kết thúc bắt buộc phải chọn!",
+                      })}
                     />
+                    {errors?.end_time && (
+                      <span>{errors?.end_time.message}</span>
+                    )}
                   </div>
                 </div>
 
@@ -220,7 +271,7 @@ export default function CreateEvent() {
                     htmlFor="status"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Featured
+                    Nổi bật
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input

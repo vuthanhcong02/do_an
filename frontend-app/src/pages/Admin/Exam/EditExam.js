@@ -9,7 +9,12 @@ export default function EditExam() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [classrooms, setClassrooms] = useState([]);
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchExam();
@@ -91,11 +96,26 @@ export default function EditExam() {
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên kì thi bắt buộc phải nhap",
+                        minLength: {
+                          value: 3,
+                          message: "Tên kì thi ít nhất 3 kí tự",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: "Tên kì thi không dài quá 255 kí tự",
+                        },
+                      })}
                       placeholder="Tên kì thi"
                       type="text"
                       className="form-control"
                     />
+                    {errors?.name && (
+                      <span className="text-danger">
+                        {errors?.name?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -111,8 +131,15 @@ export default function EditExam() {
                       placeholder="Ngày diễn ra"
                       type="date"
                       className="form-control"
-                      {...register("date")}
+                      {...register("date", {
+                        required: "Ngày thi bắt buộc phải chọn",
+                      })}
                     />
+                    {errors?.date && (
+                      <span className="text-danger">
+                        {errors?.date?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -128,8 +155,15 @@ export default function EditExam() {
                       placeholder="Hạn đăng kí"
                       type="date"
                       className="form-control"
-                      {...register("deadline_date")}
+                      {...register("deadline_date", {
+                        required: "Hạm đăng kí bắt buộc phải chọn",
+                      })}
                     />
+                    {errors?.deadline_date && (
+                      <span className="text-danger">
+                        {errors?.deadline_date?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -145,8 +179,16 @@ export default function EditExam() {
                       placeholder="Lệ phí thi VND"
                       type="text"
                       className="form-control"
-                      {...register("fee")}
+                      {...register("fee", {
+                        required: "Lệ phí thi bắt buộc phải nhập",
+                      })}
                     />
+
+                    {errors?.fee && (
+                      <span className="text-danger">
+                        {errors?.fee?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="position-relative row form-group mb-1">

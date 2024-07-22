@@ -5,7 +5,12 @@ import { useForm } from "react-hook-form";
 import { createContact } from "../../services/ContactService";
 import { toast } from "react-toastify";
 export default function Contact() {
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async (data) => {
     // console.log(data);
@@ -76,9 +81,17 @@ export default function Contact() {
                   type="text"
                   className="form-control"
                   placeholder="Nhập họ tên"
-                  {...register("name")}
-                  required
+                  {...register("name", {
+                    required: "Họ và tên là bắt buộc",
+                    minLength: {
+                      value: 3,
+                      message: "Họ và tên phải có ít nhất 3 ký tự",
+                    },
+                  })}
                 />
+                {errors.name && (
+                  <span className="text-danger">{errors.name.message}</span>
+                )}
               </div>
               <div className="form-group mb-3 col-6">
                 <label className="col" htmlFor="formGroupExampleInput">
@@ -89,9 +102,17 @@ export default function Contact() {
                   className="form-control"
                   id="formGroupExampleInput"
                   placeholder="Nhập địa chỉ"
-                  {...register("address")}
-                  required
+                  {...register("address", {
+                    required: "Địa chỉ là bắt buộc",
+                    minLength: {
+                      value: 3,
+                      message: "Địa chỉ phải có ít nhất 3 ký tự",
+                    },
+                  })}
                 />
+                {errors.address && (
+                  <span className="text-danger">{errors.address.message}</span>
+                )}
               </div>
               <div className="form-group mb-3 col-6">
                 <label htmlFor="formGroupExampleInput">Email</label>
@@ -99,9 +120,21 @@ export default function Contact() {
                   type="text"
                   className="form-control"
                   placeholder="Email"
-                  {...register("email")}
-                  required
+                  {...register("email", {
+                    required: "Email là bắt buộc",
+                    pattern: {
+                      value: /\S+@\S+\.\S+/,
+                      message: "Email không hợp lệ",
+                    },
+                    maxLength: {
+                      value: 30,
+                      message: "Email tối đa 30 ký tự",
+                    },
+                  })}
                 />
+                {errors.email && (
+                  <span className="text-danger">{errors.email.message}</span>
+                )}
               </div>
               <div className="form-group mb-3 col-6">
                 <label htmlFor="formGroupExampleInput">Số điện thoại</label>
@@ -109,9 +142,17 @@ export default function Contact() {
                   type="text"
                   className="form-control"
                   placeholder="Số điện thoại"
-                  {...register("phone")}
-                  required
+                  {...register("phone", {
+                    required: "Số điện thoại là bắt buộc",
+                    pattern: {
+                      value: /^[0-9]{10,11}$/,
+                      message: "Số điện thoại không hợp lệ",
+                    },
+                  })}
                 />
+                {errors.phone && (
+                  <span className="text-danger">{errors.phone.message}</span>
+                )}
               </div>
               <div className="form-group mb-3 col-12">
                 <label htmlFor="formGroupExampleInput">Tiêu đề</label>
@@ -119,9 +160,17 @@ export default function Contact() {
                   type="text"
                   className="form-control"
                   placeholder="Tiêu đề"
-                  {...register("subject")}
-                  required
+                  {...register("subject", {
+                    required: "Tiêu đề là bắt buộc",
+                    minLength: {
+                      value: 3,
+                      message: "Tiêu đề phải có nhất 3 ký tự",
+                    },
+                  })}
                 />
+                {errors.subject && (
+                  <span className="text-danger">{errors.subject.message}</span>
+                )}
               </div>
               <div className="form-group mb-3 col-12">
                 <label htmlFor="formGroupExampleInput">Nội dung</label>
@@ -129,9 +178,17 @@ export default function Contact() {
                   className="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
-                  {...register("message")}
-                  required
+                  {...register("message", {
+                    required: "Nội dung là bắt buộc",
+                    minLength: {
+                      value: 3,
+                      message: "Nội dung phải có nhất 3 ký tự",
+                    },
+                  })}
                 ></textarea>
+                {errors.message && (
+                  <span className="text-danger">{errors.message.message}</span>
+                )}
               </div>
               <div className="form-group mb-3 col-12 d-flex justify-content-center">
                 <button

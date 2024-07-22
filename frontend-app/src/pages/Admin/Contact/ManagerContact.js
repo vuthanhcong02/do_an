@@ -58,7 +58,7 @@ export default function ManagerContact() {
               </div>
             </div>
           </div>
-          <div className="page-title-actions">
+          {/* <div className="page-title-actions">
             <NavLink
               to="create"
               className="btn-shadow btn-hover-shine mr-3 btn btn-primary"
@@ -68,7 +68,7 @@ export default function ManagerContact() {
               </span>
               Create
             </NavLink>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="row">

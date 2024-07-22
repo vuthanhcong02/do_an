@@ -7,7 +7,11 @@ import { toast } from "react-toastify";
 export default function CreateClassRoom() {
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async (dataClassRoom) => {
     const dataCreate = {
@@ -52,16 +56,29 @@ export default function CreateClassRoom() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Name
+                    Tên
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên bắt buộc phải nhập",
+                        minLength: {
+                          value: 3,
+                          message: "Tên phải chứa ít nhất 3 kí tự",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: " Tên không được dài quá 255 kí tự",
+                        },
+                      })}
                       id="title"
                       placeholder="Name"
                       type="text"
                       className="form-control"
                     />
+                    {errors.name && (
+                      <span className="text-danger">{errors.name.message}</span>
+                    )}
                   </div>
                 </div>
 

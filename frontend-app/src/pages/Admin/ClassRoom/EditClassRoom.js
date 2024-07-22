@@ -12,7 +12,12 @@ export default function EditClassRoom() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [classRoom, setClassRoom] = useState(null);
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     fetchClassRoom();
@@ -78,16 +83,29 @@ export default function EditClassRoom() {
                     htmlFor="title"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Name
+                    Tên
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
-                      {...register("name")}
+                      {...register("name", {
+                        required: "Tên bắt buộc phải nhập!",
+                        minLength: {
+                          value: 3,
+                          message: "Tên phải chứa nhất 3 kí tự",
+                        },
+                        maxLength: {
+                          value: 255,
+                          message: "Tên phải dài quá 255 kí tự",
+                        },
+                      })}
                       id="title"
                       placeholder="Name"
                       type="text"
                       className="form-control"
                     />
+                    {errors.name && (
+                      <span className="text-danger">{errors.name.message}</span>
+                    )}
                   </div>
                 </div>
 
