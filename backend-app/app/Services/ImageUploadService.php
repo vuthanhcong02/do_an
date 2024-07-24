@@ -16,10 +16,8 @@ class ImageUploadService
      */
     public function uploadImage(UploadedFile $image, $folder = 'avatars')
     {
-        // Tạo tên file duy nhất
         $fileName = uniqid() . '_' . $image->getClientOriginalName();
 
-        // Lưu file vào Minio
         $path = $image->storeAs($folder, $fileName, 's3');
 
         return $path;

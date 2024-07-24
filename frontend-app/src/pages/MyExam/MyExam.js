@@ -42,7 +42,7 @@ export default function MyExam() {
               <th>Địa điểm</th>
             </tr>
           </thead>
-          <tbody>
+          {/* <tbody>
             {exams.length > 0 ? (
               exams.filter((item) => item?.candidate_number).length > 0 ? (
                 exams
@@ -90,7 +90,51 @@ export default function MyExam() {
                 </td>
               </tr>
             )}
-          </tbody>
+          </tbody> */}
+          {exams.length > 0 ? (
+            exams.map((item, index) => (
+              <tr key={index}>
+                <td>{item?.exam?.name}</td>
+                <td>{item?.candidate_number || ""}</td>
+                <td>
+                  {item?.exam_schedule?.start_time &&
+                  item?.exam_schedule?.end_time
+                    ? `${item.exam_schedule.start_time} - ${item.exam_schedule.end_time}`
+                    : ""}
+                </td>
+
+                <td>{item?.exam?.date}</td>
+                <td>{item?.exam_schedule?.classroom?.name}</td>
+                <td className="text-center">
+                  {item?.candidate_number ? (
+                    <Button
+                      style={{
+                        backgroundColor: "#273272",
+                        color: "white",
+                        border: "none",
+                      }}
+                      onClick={() => handleShowPdfInfo(item)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faDownload}
+                        className="icon-save mr-2"
+                        size="sm"
+                      />
+                      Thẻ dự thi
+                    </Button>
+                  ) : (
+                    <span>Đang cập nhật thông tin</span>
+                  )}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6} className="text-center">
+                Bạn chưa có lịch thi nào
+              </td>
+            </tr>
+          )}
         </Table>
       </div>
       {/* <Modal show={show} onHide={handleClose} size="lg">

@@ -102,8 +102,9 @@ class RegistrationService extends BaseService
             ]);
 
             if ($data['payment_type'] == 'payment_vnpay') {
+                $txnRef = "course_" . $registration->id;
                 $data_url = VNPay::vnpay_create_payment([
-                    'vnp_TxnRef' => $registration->id,
+                    'vnp_TxnRef' => $txnRef,
                     'vnp_OrderInfo' => "*Thanh toán khóa học*|course",
                     'vnp_Amount' => $data['total_price'],
                 ]);
