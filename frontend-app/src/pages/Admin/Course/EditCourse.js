@@ -119,6 +119,7 @@ export default function EditCourse() {
     formData.append("featured", data.featured ? 1 : 0);
     formData.append("status", data.status ? 1 : 0);
     formData.append("deadline_date", data.deadline_date);
+    console.log("data", data);
     try {
       const response = await axios.post(
         "http://api.ngoaingutinhoc.tech.com/api/courses/" + data.id,
@@ -190,7 +191,7 @@ export default function EditCourse() {
                     />
                     <input type="hidden" name="image" />
                     <small className="form-text text-muted">
-                      Click on the image to change (required)
+                      Click on the image to change
                     </small>
                   </div>
                 </div>
@@ -320,7 +321,6 @@ export default function EditCourse() {
                     <input
                       {...register("start_date", {
                         required: "Ngày bắt đầu bắt buộc phải chọn!",
-                        valueAsDate: true,
                       })}
                       placeholder="Số thứ tự"
                       type="date"
@@ -346,7 +346,6 @@ export default function EditCourse() {
                     <input
                       {...register("end_date", {
                         required: "Ngày kết thúc bắt buộc phải chọn!",
-                        valueAsDate: true,
                       })}
                       placeholder="Số thứ tự"
                       type="date"
@@ -395,7 +394,7 @@ export default function EditCourse() {
                     htmlFor="status"
                     className="col-md-3 text-md-right col-form-label"
                   >
-                    Duration
+                    Thời gian diễn ra khóa học
                   </label>
                   <div className="col-md-9 col-xl-8">
                     <input
@@ -448,7 +447,6 @@ export default function EditCourse() {
                     <input
                       {...register("deadline_date", {
                         required: "Ngày hết học phí bắt buộc phải điền!",
-                        valueAsDate: true,
                       })}
                       placeholder="Số thứ tự"
                       type="date"

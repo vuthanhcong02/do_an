@@ -15,7 +15,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->role == 'admin') {
+        if (auth()->user() && (auth()->user()->role == 'admin' || auth()->user()->role == 'super_user')) {
             return $next($request);
         }
         return response()->json(['error' => 'Forbidden'], 403);

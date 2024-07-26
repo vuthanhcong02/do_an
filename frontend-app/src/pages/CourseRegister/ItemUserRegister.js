@@ -86,7 +86,7 @@ export default function ItemUserRegister({
           window.location.href = data;
         }
       } else {
-        toast.error("Đăng kí khóa học thất bại");
+        toast.error("Bạn đã đăng kí khóa học này!");
       }
       setShow(false);
     }

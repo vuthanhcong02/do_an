@@ -147,14 +147,22 @@ export default function ManagerExamRegister() {
                           className={`form-control-sm badge ${
                             item.status === "success"
                               ? "badge-success"
-                              : "badge-danger"
+                              : item.status === "cancel"
+                              ? "badge-danger"
+                              : item.status === "refunded"
+                              ? "badge-primary"
+                              : "badge-warning"
                           }`}
                           onChange={(e) =>
                             handleUpdate(item.id, e.target.value)
                           }
                         >
-                          <option value="pending">Đang xử lí</option>
-                          <option value="success">Thành công</option>
+                          <option value="pending">Chờ Thanh Toán</option>
+                          <option value="paid">Đã Thanh Toán</option>
+                          <option value="confirmed">Đã Xác Nhận</option>
+                          <option value="success">Thành Công</option>
+                          <option value="cancel">Huỷ</option>
+                          <option value="refunded">Đã Hoàn Tiền</option>
                         </select>
                       </td>
                       <td className="text-center">

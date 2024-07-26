@@ -10,6 +10,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import Paginate from "../../../components/Paginate/Paginate";
 import { formatPrice } from "../../../utils/function";
+import { Op } from "quill/core";
 
 export default function ManagerRegistration() {
   const [pageCount, setPageCount] = useState(1);
@@ -166,35 +167,25 @@ export default function ManagerRegistration() {
                           className={`form-control-sm badge ${
                             item.status === "success"
                               ? "badge-success"
-                              : "badge-danger"
+                              : item.status === "cancel"
+                              ? "badge-danger"
+                              : item.status === "refunded"
+                              ? "badge-primary"
+                              : "badge-warning"
                           }`}
                           onChange={(e) =>
                             handleUpdate(item.id, e.target.value)
                           }
                         >
-                          <option value="pending">Đang xử lí</option>
-                          <option value="success">Thành công</option>
+                          <option value="pending">Chờ Thanh Toán</option>
+                          <option value="paid">Đã Thanh Toán</option>
+                          <option value="confirmed">Đã Xác Nhận</option>
+                          <option value="success">Thành Công</option>
+                          <option value="cancel">Huỷ</option>
+                          <option value="refunded">Đã Hoàn Tiền</option>
                         </select>
-                        {/* <span
-                          className={`badge badge-${
-                            item?.status === "success" ? "success" : "danger"
-                          }`}
-                        >
-                          {item?.status === "pending" ? "Pending" : "Success"}
-                        </span> */}
                       </td>
                       <td className="text-center">
-                        {/* <NavLink
-                          to={`${item.id}/edit`}
-                          data-toggle="tooltip"
-                          title="Edit"
-                          data-placement="bottom"
-                          className="btn btn-outline-warning border-0 btn-sm"
-                        >
-                          <span className="btn-icon-wrapper opacity-8">
-                            <i className="fa fa-edit fa-w-20" />
-                          </span>
-                        </NavLink> */}
                         <button
                           className="btn btn-hover-shine btn-outline-danger border-0 btn-sm"
                           type="submit"

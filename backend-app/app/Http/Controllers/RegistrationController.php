@@ -64,14 +64,14 @@ class RegistrationController extends Controller
                     //Cập nhật trạng thái đơn hàng
                     $registration = Registration::find($registrationId);
                     if ($registration) {
-                        $registration->update(['status' => "success"]);
+                        $registration->update(['status' => "paid"]);
                     }
                     $url = "http://localhost:3000/user/my-courses";
                     return redirect($url);
                 } else if ($orderType == "exam") {
                     $registration = ExamRegister::find($registrationId);
                     if ($registration) {
-                        $registration->update(['status' => "success"]);
+                        $registration->update(['status' => "paid"]);
                     }
                     $url = "http://localhost:3000/user/my-exams";
                     return redirect($url);
